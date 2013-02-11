@@ -8,5 +8,9 @@
     <string name="title_activity_welcome_screen">WelcomeScreen</string>
     <string name="welcome_text">Enter Your Names Below</string>
     <string name="text_field_enter_name">Enter Your Name Here</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_draw">Draw</string>
+    <string name="button_color">Color</string>
+    <string name="begin_game">Begin</string>
 
 </resources>

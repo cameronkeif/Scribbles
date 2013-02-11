@@ -2,7 +2,9 @@ package edu.msu.cse.monopoly.scribbles;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
+import android.view.View;
 
 public class WelcomeScreen extends Activity {
 
@@ -18,5 +20,15 @@ public class WelcomeScreen extends Activity {
 		getMenuInflater().inflate(R.menu.activity_welcome_screen, menu);
 		return true;
 	}
+	
+    /**
+     * Handle a Begin button press
+     * @param view
+     */
+    public void onBegin(View view) {
+    	// Start the color select activity
+		Intent intent = new Intent(this, DrawActivity.class);
+		startActivity(intent);
+    }
 
 }
