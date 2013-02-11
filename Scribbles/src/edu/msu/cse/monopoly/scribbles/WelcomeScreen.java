@@ -26,7 +26,7 @@ public class WelcomeScreen extends Activity {
      * @param view
      */
     public void onBegin(View view) {
-    	// Start the color select activity
+    	// Start the drawing activity
 		Intent intent = new Intent(this, DrawActivity.class);
 		startActivity(intent);
     }
