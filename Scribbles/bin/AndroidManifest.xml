@@ -30,6 +30,10 @@
             android:name="edu.msu.cse.monopoly.scribbles.ColorSelectActivity"
             android:label="@string/title_activity_color_select" >
         </activity>
+        <activity
+            android:name="edu.msu.cse.monopoly.scribbles.GuessActivity"
+            android:label="@string/title_activity_guess" >
+        </activity>
     </application>
 
 </manifest>

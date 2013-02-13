@@ -14,5 +14,13 @@
     <string name="begin_game">Begin</string>
     <string name="button_done">Done</string>
     <string name="title_activity_color_select">ColorSelectActivity</string>
+    <string name="msu">MSU</string>
+    <string name="animal">Animal</string>
+    <string name="object">Object</string>
+    <string name="building">Building</string>
+    <string name="action">Action</string>
+    <string name="topic">Topic: </string>
+    <string name="hint">Hint: </string>
+    <string name="title_activity_guess">GuessActivity</string>
 
 </resources>

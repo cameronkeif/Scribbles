@@ -22,7 +22,7 @@
         android:layout_toRightOf="@+id/button1" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/buttonDone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -52,9 +52,37 @@
         android:id="@+id/drawingView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/topicText" 
+        android:layout_above="@+id/hintBox"/>
+
+    <TextView
+        android:id="@+id/topicText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:textAppearance="?android:attr/textAppearanceMedium" 
+        android:text="@string/topic" />
+
+    <EditText
+        android:id="@+id/hintBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_above="@+id/button1"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/player1ScoreText" />
+        android:layout_toRightOf="@+id/hintText"
+        android:ems="10"
+        android:inputType="text" >
+    </EditText>
+
+    <TextView
+        android:id="@+id/hintText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/hintBox"
+        android:layout_alignBottom="@+id/hintBox"
+        android:layout_alignParentLeft="true"
+        android:text="@string/hint"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>
