@@ -41,13 +41,24 @@ public class DrawActivity extends Activity {
         {
             TextView player1ScoreText = (TextView) findViewById(R.id.player1ScoreText);
             
+            if (bundle.getString(PLAYER1).equals("")){ // User enters nothing
+            	player1ScoreText.setText(getString(R.string.player1) + ": " + Integer.toString(bundle.getInt(PLAYER1SCORE)));
+            }
+            else{
             player1ScoreText.setText(bundle.getString(PLAYER1)+ ": " + Integer.toString(bundle.getInt(PLAYER1SCORE)));
+            }
         }
         
         if(bundle.getString(PLAYER2)!= null){
         	
             TextView player2ScoreText = (TextView) findViewById(R.id.player2ScoreText);
+            
+            if (bundle.getString(PLAYER2).equals("")){ // User enters nothing
+            	player2ScoreText.setText(getString(R.string.player2) + ": " + Integer.toString(bundle.getInt(PLAYER2SCORE)));
+            }
+            else{
             player2ScoreText.setText(bundle.getString(PLAYER2)+ ": " + Integer.toString(bundle.getInt(PLAYER2SCORE)));
+            }
         }
 
         
