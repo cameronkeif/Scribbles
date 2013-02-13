@@ -7,11 +7,16 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 
 
 public class DrawActivity extends Activity {
     private static final String COLOR = "color";
+    private static final String PLAYER1 = "player1";
+    private static final String PLAYER2 = "player2";
+    private static final String PLAYER1SCORE = "player1Score";
+    private static final String PLAYER2SCORE = "player2Score";
     
     /**
      * Request code when selecting a color
@@ -28,6 +33,24 @@ public class DrawActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_draw);
 		
+        Bundle bundle = getIntent().getExtras();
+
+        // Displays player names and their scores
+        // bundle.getInt returns 0 by default, so coming from the welcome screen is not a problem
+        if(bundle.getString(PLAYER1)!= null)
+        {
+            TextView player1ScoreText = (TextView) findViewById(R.id.player1ScoreText);
+            
+            player1ScoreText.setText(bundle.getString(PLAYER1)+ ": " + Integer.toString(bundle.getInt(PLAYER1SCORE)));
+        }
+        
+        if(bundle.getString(PLAYER2)!= null){
+        	
+            TextView player2ScoreText = (TextView) findViewById(R.id.player2ScoreText);
+            player2ScoreText.setText(bundle.getString(PLAYER2)+ ": " + Integer.toString(bundle.getInt(PLAYER2SCORE)));
+        }
+
+        
         spinner = (Spinner) findViewById(R.id.spinnerThickness);
         
         /* NOTE: spinner currently filled with some random default values.
@@ -43,6 +66,7 @@ public class DrawActivity extends Activity {
         
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
+        
 	}
 
 	@Override
@@ -62,6 +86,7 @@ public class DrawActivity extends Activity {
     	
 		/*Intent intent = new Intent(this, DrawActivity.class);
 		startActivity(intent);*/
+    	
     }
     
     /**
