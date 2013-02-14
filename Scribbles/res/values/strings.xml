@@ -22,5 +22,6 @@
     <string name="topic">Topic: </string>
     <string name="hint">Hint: </string>
     <string name="title_activity_guess">GuessActivity</string>
+    <string name="answer">"Answer: "</string>
 
 </resources>

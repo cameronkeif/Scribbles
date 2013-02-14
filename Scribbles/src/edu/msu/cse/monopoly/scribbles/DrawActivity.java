@@ -23,6 +23,13 @@ public class DrawActivity extends Activity {
     private static final String PLAYER2SCORE = "player2Score";
     private static final String HINT = "hint";
     private static final String TOPIC = "topic";
+    private static final String ANSWER = "answer";
+    
+    
+	/**
+     * The drawing view object
+     */
+    private DrawingView drawingView = null;
     
     /**
      * Request code when selecting a color
@@ -42,6 +49,9 @@ public class DrawActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_draw);
+		
+        spinner = (Spinner) findViewById(R.id.spinnerThickness);
+		drawingView = (DrawingView) findViewById(R.id.drawingView);
 		
 		possibleTopics.add(getString(R.string.animal));
 		possibleTopics.add(getString(R.string.building));
@@ -84,8 +94,7 @@ public class DrawActivity extends Activity {
         Random rand = new Random();
         TextView topicText = (TextView) findViewById(R.id.topicText);
         topicText.setText(getString(R.string.topic) + " " + possibleTopics.get(rand.nextInt(possibleTopics.size())));
-        
-        spinner = (Spinner) findViewById(R.id.spinnerThickness);
+
         
         /* NOTE: spinner currently filled with some random default values.
          */
@@ -125,6 +134,11 @@ public class DrawActivity extends Activity {
 		String hint = hintBox.getText().toString();
 		intent.putExtra(HINT, hint);
 		
+		// Put the artist's answer in the bundle
+		EditText answerBox = (EditText) findViewById(R.id.hintBox);
+		String answer = answerBox.getText().toString();
+		intent.putExtra(ANSWER, answer);
+		
 		// Put the player's scores in the bundle
 		intent.putExtra(PLAYER1SCORE, player1Score);
 		intent.putExtra(PLAYER2SCORE, player2Score);
@@ -153,12 +167,10 @@ public class DrawActivity extends Activity {
     @Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == SELECT_COLOR && resultCode == Activity.RESULT_OK) {
-            @SuppressWarnings("unused")// IMPORTANT!! Take this out when the below code is uncommented.
-            
 			int color = data.getIntExtra(COLOR, 0);
             
             // set the member variable in the draw view to whatever color we get from above.
-            //drawView.setColor(color);
+            drawingView.setColor(color);
         }
 	}
 }
