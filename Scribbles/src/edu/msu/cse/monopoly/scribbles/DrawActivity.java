@@ -42,8 +42,12 @@ public class DrawActivity extends Activity {
     private Spinner spinner;
     
     private ArrayList<String> possibleTopics = new ArrayList<String>();
+    
     private int player1Score;
     private int player2Score;
+    
+    private String player1Name;
+    private String player2Name;
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -66,27 +70,31 @@ public class DrawActivity extends Activity {
         
         player1Score = bundle.getInt(PLAYER1SCORE);
         player2Score = bundle.getInt(PLAYER2SCORE);
-        if(bundle.getString(PLAYER1)!= null)
+        
+        player1Name = bundle.getString(PLAYER1);
+        player2Name = bundle.getString(PLAYER2);
+        
+        if(player1Name != null)
         {
             TextView player1ScoreText = (TextView) findViewById(R.id.player1ScoreText);
             
-            if (bundle.getString(PLAYER1).equals("")){ // User enters nothing
+            if (player1Name.equals("")){ // User enters nothing
             	player1ScoreText.setText(getString(R.string.player1) + ": " + Integer.toString(player1Score));
             }
             else{
-            player1ScoreText.setText(bundle.getString(PLAYER1)+ ": " + Integer.toString(player2Score));
+            player1ScoreText.setText(player1Name + ": " + Integer.toString(player2Score));
             }
         }
         
-        if(bundle.getString(PLAYER2)!= null){
+        if(player2Name != null){
         	
             TextView player2ScoreText = (TextView) findViewById(R.id.player2ScoreText);
             
-            if (bundle.getString(PLAYER2).equals("")){ // User enters nothing
+            if (player2Name.equals("")){ // User enters nothing
             	player2ScoreText.setText(getString(R.string.player2) + ": " + Integer.toString(bundle.getInt(PLAYER2SCORE)));
             }
             else{
-            player2ScoreText.setText(bundle.getString(PLAYER2)+ ": " + Integer.toString(bundle.getInt(PLAYER2SCORE)));
+            player2ScoreText.setText(player2Name+ ": " + Integer.toString(bundle.getInt(PLAYER2SCORE)));
             }
         }
 
@@ -147,6 +155,10 @@ public class DrawActivity extends Activity {
 		TextView topic = (TextView) findViewById(R.id.topicText);
 		intent.putExtra(TOPIC, topic.getText().toString());
 		
+		// Put the player's names in the bundle
+		intent.putExtra(PLAYER1, player1Name);
+		intent.putExtra(PLAYER2, player2Name);
+		
 		/* NEED TO PUT THE ARRAY OF LINES IN DRAWINGVIEW INTO THE BUNDLE! */
 		
 		// Start the guessing activity
@@ -173,4 +185,33 @@ public class DrawActivity extends Activity {
             drawingView.setColor(color);
         }
 	}
+    
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        
+		// Put the artist's hint in the bundle
+		EditText hintBox = (EditText) findViewById(R.id.hintBox);
+		String hint = hintBox.getText().toString();
+		outState.putString(HINT, hint);
+		
+		// Put the artist's answer in the bundle
+		EditText answerBox = (EditText) findViewById(R.id.hintBox);
+		String answer = answerBox.getText().toString();
+		outState.putString(ANSWER, answer);
+		
+		// Put the player's scores in the bundle
+		outState.putInt(PLAYER1SCORE, player1Score);
+		outState.putInt(PLAYER2SCORE, player2Score);
+		
+		// Put the topic string into the bundle
+		TextView topic = (TextView) findViewById(R.id.topicText);
+		outState.putString(TOPIC, topic.getText().toString());
+		
+		// Put the player's names in the bundle
+		outState.putString(PLAYER1, player1Name);
+		outState.putString(PLAYER2, player2Name);
+		
+		/* NEED TO PUT THE ARRAY OF LINES IN DRAWINGVIEW INTO THE BUNDLE! */
+    }
 }
