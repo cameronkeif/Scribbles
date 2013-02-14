@@ -98,11 +98,29 @@ public class DrawActivity extends Activity {
             }
         }
 
-        // Pick a random topic
-        Random rand = new Random();
         TextView topicText = (TextView) findViewById(R.id.topicText);
-        topicText.setText(getString(R.string.topic) + " " + possibleTopics.get(rand.nextInt(possibleTopics.size())));
-
+        
+        if (savedInstanceState.getString(TOPIC) != null){ // We're rotating. Don't create new topic.
+        	topicText.setText(getString(R.string.topic) + " " + savedInstanceState.getString(TOPIC));
+        } else{
+	        // Pick a random topic
+	        Random rand = new Random();
+	        topicText.setText(getString(R.string.topic) + " " + possibleTopics.get(rand.nextInt(possibleTopics.size())));
+        }
+        
+        // Load the answer after rotating
+        if (savedInstanceState.getString(ANSWER) != null){
+        	EditText answerBox = (EditText) findViewById(R.id.answerBox);
+        	answerBox.setText(savedInstanceState.getString(ANSWER));
+        }
+        
+        // Load the hint after rotating
+        if (savedInstanceState.getString(HINT) != null){
+        	EditText hintBox = (EditText) findViewById(R.id.hintBox);
+        	hintBox.setText(savedInstanceState.getString(HINT));
+        }
+        
+        /* NEED TO LOAD LINE ARRAY FROM SAVED INSTANCE STATE */
         
         /* NOTE: spinner currently filled with some random default values.
          */
