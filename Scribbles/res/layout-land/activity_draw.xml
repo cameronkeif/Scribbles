@@ -1,0 +1,116 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DrawActivity" 
+    android:id="@+id/layout">
+
+    <edu.msu.cse.monopoly.scribbles.DrawingView
+        android:id="@+id/drawingView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/hintBox"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/answerBox" />
+
+    <TextView
+        android:id="@+id/hintText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/hintBox"
+        android:layout_alignBottom="@+id/hintBox"
+        android:layout_alignParentLeft="true"
+        android:text="@string/hint"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    
+    <EditText
+        android:id="@+id/answerBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/hintBox"
+        android:layout_toLeftOf="@+id/buttonDone"
+        android:layout_toRightOf="@+id/answerText"
+        android:ems="10"
+        android:inputType="textImeMultiLine"
+         />
+
+    <TextView
+        android:id="@+id/answerText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/drawingView"
+        android:layout_alignParentLeft="true"
+        android:text="@string/answer"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/hintBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/answerBox"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/answerBox"
+        android:ems="10"
+        android:inputType="textImeMultiLine"/>
+
+    <TextView
+        android:id="@+id/topicText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/buttonColor"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/topic"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Spinner
+        android:id="@+id/spinnerThickness"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/buttonColor"
+        android:layout_below="@+id/buttonColor" />
+
+    <Button
+        android:id="@+id/buttonDone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:onClick="onDone"
+        android:paddingLeft="75dp"
+        android:paddingRight="75dp"
+        android:text="@string/button_done" />
+
+    <TextView
+        android:id="@+id/player2ScoreText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/player1ScoreText"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/player1ScoreText"
+        android:layout_marginTop="21dp"
+        android:text="@string/player2"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/buttonColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/topicText"
+        android:onClick="onColor"
+        android:paddingLeft="75dp"
+        android:paddingRight="75dp"
+        android:text="@string/button_color" />
+
+    <TextView
+        android:id="@+id/player1ScoreText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/buttonDone"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/spinnerThickness"
+        android:text="@string/player1"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+</RelativeLayout>
