@@ -49,20 +49,19 @@ public class DrawActivity extends Activity {
     private String player1Name;
     private String player2Name;
     
-	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_draw);
-		
+
         spinner = (Spinner) findViewById(R.id.spinnerThickness);
 		drawingView = (DrawingView) findViewById(R.id.drawingView);
-		
+
 		possibleTopics.add(getString(R.string.animal));
 		possibleTopics.add(getString(R.string.building));
 		possibleTopics.add(getString(R.string.object));
 		possibleTopics.add(getString(R.string.action));
 		possibleTopics.add(getString(R.string.msu));
-		
+
         Bundle bundle = getIntent().getExtras();
 
         // Displays player names and their scores
@@ -98,29 +97,11 @@ public class DrawActivity extends Activity {
             }
         }
 
+        // Pick a random topic
+        Random rand = new Random();
         TextView topicText = (TextView) findViewById(R.id.topicText);
-        
-        if (savedInstanceState.getString(TOPIC) != null){ // We're rotating. Don't create new topic.
-        	topicText.setText(getString(R.string.topic) + " " + savedInstanceState.getString(TOPIC));
-        } else{
-	        // Pick a random topic
-	        Random rand = new Random();
-	        topicText.setText(getString(R.string.topic) + " " + possibleTopics.get(rand.nextInt(possibleTopics.size())));
-        }
-        
-        // Load the answer after rotating
-        if (savedInstanceState.getString(ANSWER) != null){
-        	EditText answerBox = (EditText) findViewById(R.id.answerBox);
-        	answerBox.setText(savedInstanceState.getString(ANSWER));
-        }
-        
-        // Load the hint after rotating
-        if (savedInstanceState.getString(HINT) != null){
-        	EditText hintBox = (EditText) findViewById(R.id.hintBox);
-        	hintBox.setText(savedInstanceState.getString(HINT));
-        }
-        
-        /* NEED TO LOAD LINE ARRAY FROM SAVED INSTANCE STATE */
+        topicText.setText(getString(R.string.topic) + " " + possibleTopics.get(rand.nextInt(possibleTopics.size())));
+
         
         /* NOTE: spinner currently filled with some random default values.
          */
