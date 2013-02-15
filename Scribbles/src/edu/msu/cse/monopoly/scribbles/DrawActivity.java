@@ -8,7 +8,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -107,6 +109,11 @@ public class DrawActivity extends Activity {
         	 
         	 EditText hintBox = (EditText) findViewById(R.id.hintBox);
         	 hintBox.setText(savedInstanceState.getString(HINT));
+        	 
+             drawingView.getFromBundle(savedInstanceState);
+     		Button colorButton = (Button) findViewById(R.id.buttonColor);
+     		
+     		colorButton.setTextColor(drawingView.getColor());
         }
         else{
         // Pick a random topic
@@ -128,6 +135,35 @@ public class DrawActivity extends Activity {
         
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
+        
+        spinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View view,
+                    int pos, long id) {
+            	if (pos == 0){
+                    drawingView.setThickness(1);
+            	}
+            	if (pos == 1){
+                    drawingView.setThickness(5);
+            	}
+            	if (pos == 2){
+                    drawingView.setThickness(10);
+            	}
+            	if (pos == 3){
+                    drawingView.setThickness(25);
+            	}
+            	if (pos == 4){
+                    drawingView.setThickness(50);
+            	}
+
+            }
+
+			@Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+            }
+        });
+        
         
 	}
 
@@ -194,6 +230,9 @@ public class DrawActivity extends Activity {
             
             // set the member variable in the draw view to whatever color we get from above.
             drawingView.setColor(color);
+            
+    		Button colorButton = (Button) findViewById(R.id.buttonColor);
+    		colorButton.setTextColor(color);
         }
 	}
     
@@ -223,6 +262,6 @@ public class DrawActivity extends Activity {
 		outState.putString(PLAYER1, player1Name);
 		outState.putString(PLAYER2, player2Name);
 		
-		/* NEED TO PUT THE ARRAY OF LINES IN DRAWINGVIEW INTO THE BUNDLE! */
+		drawingView.putToBundle(outState);
     }
 }

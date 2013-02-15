@@ -34,6 +34,10 @@
             android:name="edu.msu.cse.monopoly.scribbles.GuessActivity"
             android:label="@string/title_activity_guess" >
         </activity>
+        <activity
+            android:name="edu.msu.cse.monopoly.scribbles.FinalScoreActivity"
+            android:label="@string/title_activity_final_score" >
+        </activity>
     </application>
 
 </manifest>

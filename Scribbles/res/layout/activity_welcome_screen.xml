@@ -57,9 +57,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:ems="10"
+            android:inputType="textImeMultiLine"
             android:hint="@string/text_field_enter_name" >
 
-            <requestFocus />
+            
         </EditText>
 
     </LinearLayout>
@@ -93,6 +94,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:ems="10"
+            android:inputType="textImeMultiLine"
             android:hint="@string/text_field_enter_name" />
 
     </LinearLayout>

@@ -23,5 +23,7 @@
     <string name="hint">Hint: </string>
     <string name="title_activity_guess">GuessActivity</string>
     <string name="answer">"Answer: "</string>
+    <string name="title_activity_final_score">FinalScoreActivity</string>
+    <string name="final_score">Final Score</string>
 
 </resources>

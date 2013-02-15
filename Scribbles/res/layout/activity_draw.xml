@@ -6,7 +6,7 @@
     android:id="@+id/layout">
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/buttonColor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -18,8 +18,8 @@
         android:id="@+id/spinnerThickness"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/button1"
-        android:layout_toRightOf="@+id/button1" />
+        android:layout_alignTop="@+id/buttonColor"
+        android:layout_toRightOf="@+id/buttonColor" />
 
     <Button
         android:id="@+id/buttonDone"
@@ -68,13 +68,11 @@
         android:id="@+id/hintBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button1"
+        android:layout_above="@+id/buttonColor"
         android:layout_alignLeft="@+id/answerBox"
         android:layout_alignParentRight="true"
         android:ems="10"
-        android:inputType="text" >
-
-    </EditText>
+        android:inputType="textImeMultiLine"/>
 
     <TextView
         android:id="@+id/hintText"
@@ -94,8 +92,7 @@
         android:layout_alignParentRight="true"
         android:layout_toRightOf="@+id/answerText"
         android:ems="10"
-        android:inputType="text" >
-    </EditText>
+        android:inputType="textImeMultiLine" />
 
     <TextView
         android:id="@+id/answerText"
