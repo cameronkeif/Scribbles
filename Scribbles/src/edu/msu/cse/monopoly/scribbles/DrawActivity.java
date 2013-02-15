@@ -26,6 +26,7 @@ public class DrawActivity extends Activity {
     private static final String HINT = "hint";
     private static final String TOPIC = "topic";
     private static final String ANSWER = "answer";
+    private static final String MOVETOGGLE = "moveToggle";
     
     
 	/**
@@ -114,6 +115,9 @@ public class DrawActivity extends Activity {
      		Button colorButton = (Button) findViewById(R.id.buttonColor);
      		
      		colorButton.setTextColor(drawingView.getColor());
+     		
+     		Button buttonMoveToggle = (Button) findViewById(R.id.buttonMoveToggle);
+     		buttonMoveToggle.setText(savedInstanceState.getString(MOVETOGGLE));
         }
         else{
         // Pick a random topic
@@ -223,6 +227,23 @@ public class DrawActivity extends Activity {
 		startActivityForResult(intent, SELECT_COLOR); 
     }
     
+    /**
+     * Handle a move/draw toggle button press
+     * @param view
+     */
+    public void onMoveToggle(View view) {
+    	Button buttonMoveToggle = (Button) findViewById(R.id.buttonMoveToggle);
+    	
+    	if(!drawingView.getMoveFlag()){ // Set to move mode.
+    		buttonMoveToggle.setText(R.string.draw);
+    		drawingView.setMoveFlag(true);
+    	}
+    	else{ // Set to draw mode
+    		buttonMoveToggle.setText(R.string.move);
+    		drawingView.setMoveFlag(false);
+    	}
+    }
+    
     @Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == SELECT_COLOR && resultCode == Activity.RESULT_OK) {
@@ -261,6 +282,9 @@ public class DrawActivity extends Activity {
 		// Put the player's names in the bundle
 		outState.putString(PLAYER1, player1Name);
 		outState.putString(PLAYER2, player2Name);
+		
+		Button buttonMoveToggle = (Button) findViewById(R.id.buttonMoveToggle);
+		outState.putString(MOVETOGGLE, buttonMoveToggle.getText().toString());
 		
 		drawingView.putToBundle(outState);
     }

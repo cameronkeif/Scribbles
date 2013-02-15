@@ -25,5 +25,7 @@
     <string name="answer">"Answer: "</string>
     <string name="title_activity_final_score">FinalScoreActivity</string>
     <string name="final_score">Final Score</string>
+    <string name="move">Move</string>
+    <string name="draw">Draw</string>
 
 </resources>

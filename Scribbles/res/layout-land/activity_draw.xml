@@ -81,17 +81,6 @@
         android:paddingRight="75dp"
         android:text="@string/button_done" />
 
-    <TextView
-        android:id="@+id/player2ScoreText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/player1ScoreText"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/player1ScoreText"
-        android:layout_marginTop="21dp"
-        android:text="@string/player2"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
     <Button
         android:id="@+id/buttonColor"
         android:layout_width="wrap_content"
@@ -104,13 +93,33 @@
         android:text="@string/button_color" />
 
     <TextView
+        android:id="@+id/player2ScoreText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/player1ScoreText"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/player1ScoreText"
+        android:text="@string/player2"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
         android:id="@+id/player1ScoreText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/buttonDone"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/spinnerThickness"
+        android:layout_centerVertical="true"
         android:text="@string/player1"
         android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/buttonMoveToggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/buttonDone"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/drawingView"
+        android:onClick="onMoveToggle"
+        android:text="@string/move" />
 
 </RelativeLayout>

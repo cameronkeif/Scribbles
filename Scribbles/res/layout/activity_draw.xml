@@ -103,4 +103,13 @@
         android:text="@string/answer"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
+    <Button
+        android:id="@+id/buttonMoveToggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/hintBox"
+        android:layout_toLeftOf="@+id/buttonDone"
+        android:onClick="onMoveToggle"
+        android:text="@string/move" />
+
 </RelativeLayout>

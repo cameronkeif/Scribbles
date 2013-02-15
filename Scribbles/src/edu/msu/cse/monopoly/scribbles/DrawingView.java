@@ -15,12 +15,18 @@ import android.view.View;
 public class DrawingView extends View {
     private static final String COLOR = "color";
     private static final String THICKNESS = "thickness";
+    private static final String MOVEFLAG = "moveFlag";
     
 	/**
 	 * Paint for the line
 	 */
-	
 	private Paint linePaint;
+	
+	/** 
+	 * Flag to indicate if we are moving the picture or drawing it.
+	 */
+	private boolean moveFlag = false;
+	
 	/** 
 	 * Current line thickness to draw in
 	 */
@@ -68,6 +74,14 @@ public class DrawingView extends View {
 	
 	public int getColor(){
 		return currentColor;
+	}
+	
+	public void setMoveFlag(boolean b){
+		moveFlag = b;
+	}
+	
+	public boolean getMoveFlag(){
+		return moveFlag;
 	}
 	
 	/** Sets the current color
@@ -134,6 +148,7 @@ public class DrawingView extends View {
     public void putToBundle(Bundle bundle) {
         bundle.putInt(COLOR, currentColor);
         bundle.putInt(THICKNESS, currentThickness);
+        bundle.putBoolean(MOVEFLAG, moveFlag);
     }
     
     /**
@@ -143,6 +158,8 @@ public class DrawingView extends View {
     public void getFromBundle(Bundle bundle) {         
         // Ensure the options are all set
         setColor(bundle.getInt(COLOR));
-        setThickness(bundle.getInt(THICKNESS));  
+        setThickness(bundle.getInt(THICKNESS));
+        setMoveFlag(bundle.getBoolean(MOVEFLAG));
     }
+    
 }
