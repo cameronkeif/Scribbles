@@ -96,12 +96,24 @@ public class DrawActivity extends Activity {
             player2ScoreText.setText(player2Name+ ": " + Integer.toString(bundle.getInt(PLAYER2SCORE)));
             }
         }
-
+        
+        TextView topicText = (TextView) findViewById(R.id.topicText);
+        
+        if(savedInstanceState != null){ // We're rotating, load the relevent strings
+        	 topicText.setText(savedInstanceState.getString(TOPIC));
+        	 
+        	 EditText answerBox = (EditText) findViewById(R.id.answerBox);
+        	 answerBox.setText(savedInstanceState.getString(ANSWER));
+        	 
+        	 EditText hintBox = (EditText) findViewById(R.id.hintBox);
+        	 hintBox.setText(savedInstanceState.getString(HINT));
+        }
+        else{
         // Pick a random topic
         Random rand = new Random();
-        TextView topicText = (TextView) findViewById(R.id.topicText);
-        topicText.setText(getString(R.string.topic) + " " + possibleTopics.get(rand.nextInt(possibleTopics.size())));
 
+        topicText.setText(getString(R.string.topic) + " " + possibleTopics.get(rand.nextInt(possibleTopics.size())));
+        }
         
         /* NOTE: spinner currently filled with some random default values.
          */
@@ -142,7 +154,7 @@ public class DrawActivity extends Activity {
 		intent.putExtra(HINT, hint);
 		
 		// Put the artist's answer in the bundle
-		EditText answerBox = (EditText) findViewById(R.id.hintBox);
+		EditText answerBox = (EditText) findViewById(R.id.answerBox);
 		String answer = answerBox.getText().toString();
 		intent.putExtra(ANSWER, answer);
 		
@@ -195,7 +207,7 @@ public class DrawActivity extends Activity {
 		outState.putString(HINT, hint);
 		
 		// Put the artist's answer in the bundle
-		EditText answerBox = (EditText) findViewById(R.id.hintBox);
+		EditText answerBox = (EditText) findViewById(R.id.answerBox);
 		String answer = answerBox.getText().toString();
 		outState.putString(ANSWER, answer);
 		
