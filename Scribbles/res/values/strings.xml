@@ -27,5 +27,9 @@
     <string name="final_score">Final Score</string>
     <string name="move">Move</string>
     <string name="draw">Draw</string>
+    <string name="guess">Guess:</string>
+    <string name="enter_guess">Enter Guess Here!</string>
+    <string name="category">Category:</string>
+    <string name="timer">Timer</string>
 
 </resources>
