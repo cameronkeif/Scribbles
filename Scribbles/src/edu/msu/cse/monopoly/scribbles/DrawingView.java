@@ -1,9 +1,6 @@
 package edu.msu.cse.monopoly.scribbles;
 
 import java.util.ArrayList;
-
-
-
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -28,14 +25,24 @@ public class DrawingView extends View {
 	private boolean moveFlag = false;
 	
 	/** 
-	 * Current line thickness to draw in
+	 * Current line color to draw in
 	 */
 	private int currentColor;
 	
 	/** 
-	 * Current color to draw in
+	 * Current line thickness to draw in
 	 */
 	private int currentThickness;
+    
+    /**
+     * First touch status
+     */
+    private Touch touch1 = new Touch();
+    
+    /**
+     * Second touch status
+     */
+    private Touch touch2 = new Touch();
 	
 	/**
 	 * Stores all of the lines that make up the drawing.
@@ -160,6 +167,66 @@ public class DrawingView extends View {
         setColor(bundle.getInt(COLOR));
         setThickness(bundle.getInt(THICKNESS));
         setMoveFlag(bundle.getBoolean(MOVEFLAG));
+    }
+    
+    
+    
+    /**
+     * Local class to handle the touch status for one touch.
+     * We will have one object of this type for each of the 
+     * two possible touches.
+     */
+    private class Touch {
+        /**
+         * Touch id
+         */
+        public int id = -1;
+        
+        /**
+         * Current x location
+         */
+        public float x = 0;
+        
+        /**
+         * Current y location
+         */
+        public float y = 0;
+        
+        /**
+         * Previous x location
+         */
+        public float lastX = 0;
+        
+        /**
+         * Previous y location
+         */
+        public float lastY = 0;
+        
+        /**
+         * Change in x value from previous
+         */
+        public float dX = 0;
+        
+        /**
+         * Change in y value from previous
+         */
+        public float dY = 0;
+        
+        /**
+         * Copy the current values to the previous values
+         */
+        public void copyToLast() {
+            lastX = x;
+            lastY = y;
+        }
+        
+        /**
+         * Compute the values of dX and dY
+         */
+        public void computeDeltas() {
+            dX = x - lastX;
+            dY = y - lastY;
+        }
     }
     
 }
