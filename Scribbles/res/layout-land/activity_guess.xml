@@ -5,35 +5,6 @@
     tools:context=".GuessActivity" >
 
     <TextView
-        android:id="@+id/Hint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/Category"
-        android:layout_below="@+id/Category"
-        android:text="@string/hint"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/theGuess"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toLeftOf="@+id/myGuess"
-        android:layout_alignBottom="@+id/guessingView"
-        android:layout_marginBottom="59dp"
-        android:text="@string/guess"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <EditText
-        android:id="@+id/myGuess"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/theGuess"
-        android:layout_alignBottom="@+id/theGuess"
-        android:layout_alignParentRight="true"
-        android:ems="10"
-        android:inputType="textMultiLine"/>
-
-    <TextView
         android:id="@+id/Category"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -47,9 +18,10 @@
         android:id="@+id/guessingView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/returnDraw"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/theGuess" />
+        android:layout_toLeftOf="@+id/returnDraw" />
 
     <TextView
         android:id="@+id/theTimer"
@@ -61,21 +33,76 @@
         android:text="@string/timer"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
+    <TextView
+        android:id="@+id/player2ScoreText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/player1ScoreText"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/player1ScoreText"
+        android:text="@string/player2"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/player1ScoreText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/whosGuessingText"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/whosGuessingText"
+        android:layout_marginTop="45dp"
+        android:text="@string/player1"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
     <Button
         android:id="@+id/returnDraw"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/myGuess"
-        android:layout_toLeftOf="@+id/myGuess"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
         android:onClick="onDone"
+        android:paddingLeft="75dp"
+        android:paddingRight="75dp"
         android:text="@string/button_done" />
+
+    <TextView
+        android:id="@+id/guessText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:text="@string/guess"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/guessBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/guessingView"
+        android:layout_toRightOf="@+id/guessText"
+        android:ems="10"
+        android:inputType="textMultiLine" >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/Hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/guessText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/guessBox"
+        android:text="@string/hint"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
         android:id="@+id/whosGuessingText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/Hint"
-        android:layout_below="@+id/Hint"
+        android:layout_alignLeft="@+id/Category"
+        android:layout_below="@+id/theTimer"
         android:text="@string/guessing"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 

@@ -65,9 +65,24 @@ public class GuessActivity extends Activity {
 		categoryText.setText(Category);
 		long myBegin = 130000;
 		
+        if(player1Name != null)
+        {
+            TextView player1ScoreText = (TextView) findViewById(R.id.player1ScoreText);
+            
+            	player1ScoreText.setText(player1Name + ": " + Integer.toString(player1Score));
+        }
+        
+        if(player2Name != null){
+        	
+            TextView player2ScoreText = (TextView) findViewById(R.id.player2ScoreText);
+
+            player2ScoreText.setText(player2Name + ": " + Integer.toString(player2Score));
+
+        }
+		
 		if(savedInstanceState != null) { // We're rotating, load the relevent strings
 			myBegin = savedInstanceState.getLong(TIMER);
-			EditText guessBox = (EditText) findViewById(R.id.myGuess);
+			EditText guessBox = (EditText) findViewById(R.id.guessBox);
 			guessBox.setText(savedInstanceState.getString(GUESS));	
 		}
 		
@@ -107,7 +122,7 @@ public class GuessActivity extends Activity {
 	
 	public void onDone(View view) {
 		
-		EditText guessBox = (EditText) findViewById(R.id.myGuess);
+		EditText guessBox = (EditText) findViewById(R.id.guessBox);
 		
 		// Correct guess - score it
 		if (guessBox.getText().toString().equals(Answer)){
@@ -179,7 +194,7 @@ public class GuessActivity extends Activity {
 		// Put the Timer in the bundle
 		outState.putLong(TIMER, currentTime);
 		
-		EditText guessBox = (EditText) findViewById(R.id.myGuess);
+		EditText guessBox = (EditText) findViewById(R.id.guessBox);
 		String Guess = guessBox.getText().toString();
 		outState.putString(GUESS, Guess);
 		

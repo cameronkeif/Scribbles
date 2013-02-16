@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".GuessActivity" >
-
     <Button
         android:id="@+id/returnDraw"
         android:layout_width="wrap_content"
@@ -14,7 +13,7 @@
         android:text="@string/button_done" />
 
     <TextView
-        android:id="@+id/theGuess"
+        android:id="@+id/guessText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/returnDraw"
@@ -24,29 +23,18 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
-        android:id="@+id/myGuess"
+        android:id="@+id/guessBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/theGuess"
-        android:layout_alignBottom="@+id/theGuess"
+        android:layout_alignBaseline="@+id/guessText"
+        android:layout_alignBottom="@+id/guessText"
         android:layout_alignParentRight="true"
-        android:layout_toRightOf="@+id/theGuess"
+        android:layout_toRightOf="@+id/guessText"
         android:ems="10"
         android:inputType="textMultiLine" >
 
         <requestFocus />
     </EditText>
-
-    <TextView
-        android:id="@+id/Category"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="22dp"
-        android:layout_marginTop="22dp"
-        android:text="@string/category"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <edu.msu.cse.monopoly.scribbles.DrawingView
         android:id="@+id/guessingView"
@@ -67,21 +55,49 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
-        android:id="@+id/Hint"
+        android:id="@+id/player1ScoreText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/Category"
-        android:layout_below="@+id/Category"
-        android:text="@string/hint"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/player1"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/player2ScoreText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/player2"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/Category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/player1ScoreText"
+        android:layout_centerHorizontal="true"
+        android:text="@string/topic"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
         android:id="@+id/whosGuessingText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/Hint"
-        android:layout_alignTop="@+id/guessingView"
+        android:layout_alignRight="@+id/Category"
+        android:layout_below="@+id/Category"
         android:text="@string/guessing"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/Hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/returnDraw"
+        android:layout_alignLeft="@+id/guessText"
+        android:layout_alignParentRight="true"
+        android:text="@string/hint"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>
