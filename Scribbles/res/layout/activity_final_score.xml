@@ -31,4 +31,13 @@
         android:text="@string/player2"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/player2ScoreText"
+        android:layout_alignParentBottom="true"
+        android:onClick="onNewGame"
+        android:text="@string/new_game" />
+
 </RelativeLayout>

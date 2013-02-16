@@ -4,9 +4,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.app.Activity;
 import android.content.Intent;
-import android.view.Menu;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -20,6 +18,7 @@ public class GuessActivity extends Activity {
     private static final String ANSWER = "answer";
     private static final String TIMER = "timer";
     private static final String GUESS = "guess";
+    private static final String WHOSDRAWING = "whosDrawing";
     
     /**
      * The drawing view object
@@ -36,6 +35,8 @@ public class GuessActivity extends Activity {
     private String Category;
     private long currentTime;
     
+    private int whosDrawing;
+    
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -48,12 +49,15 @@ public class GuessActivity extends Activity {
         player2Score = bundle.getInt(PLAYER2SCORE);
         player1Name = bundle.getString(PLAYER1);
         player2Name = bundle.getString(PLAYER2);
+        whosDrawing = bundle.getInt(WHOSDRAWING);
         Hint = bundle.getString(HINT);
         Answer = bundle.getString(ANSWER);
         Category = bundle.getString(TOPIC);
+        whosDrawing = bundle.getInt(WHOSDRAWING);
         
-        //guessingView = (DrawingView) findViewById(R.id.drawingView);
-        //guessingView.setMoveFlag(true);
+        guessingView = (DrawingView) findViewById(R.id.guessingView);
+        guessingView.setMoveFlag(true); // Always moving in guessing activity
+        
 		final TextView myTimer = (TextView) findViewById(R.id.theTimer);
 		final TextView hintText = (TextView) findViewById(R.id.Hint);
 		
@@ -67,6 +71,14 @@ public class GuessActivity extends Activity {
 			guessBox.setText(savedInstanceState.getString(GUESS));	
 		}
 		
+		// Set the guesser text view
+    	TextView whosDrawingText = (TextView) findViewById(R.id.whosGuessingText);
+		if (whosDrawing == 1){
+        	whosDrawingText.setText(whosDrawingText.getText().toString() + " " + player2Name);
+		}
+		else{
+        	whosDrawingText.setText(whosDrawingText.getText().toString() + " " + player1Name);
+		}
 		
 		new CountDownTimer(myBegin, 1000) {
 		     public void onTick(long msTillDone) {
@@ -91,39 +103,56 @@ public class GuessActivity extends Activity {
 		         myTimer.setText("Out of Time!");
 		     }
 		  }.start();
-		  
-	
-
 	}
 	
 	public void onDone(View view) {
-    	// Start the guessing activity
-    	// Change DrawActivity.class to the guess activity class when it is created.
+		
+		EditText guessBox = (EditText) findViewById(R.id.myGuess);
+		
+		// Correct guess - score it
+		if (guessBox.getText().toString().equals(Answer)){
+			if (whosDrawing == 1){
+				player2Score += 50;
+			}
+			if (whosDrawing == 2){
+				player1Score += 50;
+			}
+		}
+		
+		Intent intent;
+		if (player1Score >= 500 || player2Score >= 500){ // Someone won!!
+			intent = new Intent(this, FinalScoreActivity.class);
+			
+			// Put the player's scores in the bundle
+			intent.putExtra(PLAYER1SCORE, player1Score);
+			intent.putExtra(PLAYER2SCORE, player2Score);
+			
+			// Put the player's names in the bundle
+			intent.putExtra(PLAYER1, player1Name);
+			intent.putExtra(PLAYER2, player2Name);
+			
+		}else{
+			intent = new Intent(this, DrawActivity.class);
+			
+			// Put the player's scores in the bundle
+			intent.putExtra(PLAYER1SCORE, player1Score);
+			intent.putExtra(PLAYER2SCORE, player2Score);
+			
+			// Put the player's names in the bundle
+			intent.putExtra(PLAYER1, player1Name);
+			intent.putExtra(PLAYER2, player2Name);
+			
+			// Switch the drawer
+			if (whosDrawing == 1){
+				intent.putExtra(WHOSDRAWING, 2);
+			}
+			else{
+				intent.putExtra(WHOSDRAWING, 1);
+			}
+		}
     	
-		Intent intent = new Intent(this, DrawActivity.class);
-		
-		// Put the player's scores in the bundle
-		intent.putExtra(PLAYER1SCORE, player1Score);
-		intent.putExtra(PLAYER2SCORE, player2Score);
-		
-		// Put the player's names in the bundle
-		intent.putExtra(PLAYER1, player1Name);
-		intent.putExtra(PLAYER2, player2Name);
-		
-		/* NEED TO PUT THE ARRAY OF LINES IN DRAWINGVIEW INTO THE BUNDLE! */
-		
-		// Back to the Drawing activity
 		startActivity(intent);
-    	
     }
-	
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_guess, menu);
-		return true;
-	}
 	
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -153,7 +182,6 @@ public class GuessActivity extends Activity {
 		EditText guessBox = (EditText) findViewById(R.id.myGuess);
 		String Guess = guessBox.getText().toString();
 		outState.putString(GUESS, Guess);
-		
 		
 		guessingView.putToBundle(outState);
     }

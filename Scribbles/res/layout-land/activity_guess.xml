@@ -71,4 +71,13 @@
         android:onClick="onDone"
         android:text="@string/button_done" />
 
+    <TextView
+        android:id="@+id/whosGuessingText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/Hint"
+        android:layout_below="@+id/Hint"
+        android:text="@string/guessing"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
 </RelativeLayout>
