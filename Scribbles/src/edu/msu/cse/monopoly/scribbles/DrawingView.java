@@ -13,6 +13,10 @@ public class DrawingView extends View {
     private static final String COLOR = "color";
     private static final String THICKNESS = "thickness";
     private static final String MOVEFLAG = "moveFlag";
+    private static final String XLOCATION = "xLocation";
+    private static final String YLOCATION = "yLocation";
+    private static final String SCALE = "scale";
+    private static final String ROTATION = "rotation";
     
 	/**
 	 * Paint for the line
@@ -21,6 +25,7 @@ public class DrawingView extends View {
 	
 	/** 
 	 * Flag to indicate if we are moving the picture or drawing it.
+	 * Will be set to true when guessing with no way to change it
 	 */
 	private boolean moveFlag = false;
 	
@@ -33,6 +38,26 @@ public class DrawingView extends View {
 	 * Current line thickness to draw in
 	 */
 	private int currentThickness;
+	
+	/** 
+	 * current x location of drawing
+	 */
+	private int drawingX;
+	
+	/** 
+	 * current y location of drawing
+	 */
+	private int drawingY;
+	
+	/** 
+	 * current scale of drawing
+	 */
+	private float drawingScale;
+	
+	/** 
+	 * current angle of rotation of drawing
+	 */
+	private float drawingAngle;
     
     /**
      * First touch status
@@ -48,6 +73,8 @@ public class DrawingView extends View {
 	 * Stores all of the lines that make up the drawing.
 	 */
 	private ArrayList<Line> lines;
+    
+    
 	
 	public DrawingView(Context context) {
 		super(context);
@@ -72,6 +99,51 @@ public class DrawingView extends View {
 		currentColor = Color.BLACK;
 		currentThickness = 1;
 	}
+	
+	/** Sets the drawing's x location
+	 * @return */
+	public void setDrawingX(int x){
+		drawingX = x;
+		invalidate();
+	}
+	
+	public int getDrawingX(){
+		return drawingX;
+	}
+	
+	/** Sets the drawing's y location
+	 * @return */
+	public void setDrawingY(int y){
+		drawingY = y;
+		invalidate();
+	}
+	
+	public int getDrawingY(){
+		return drawingY;
+	}
+	
+	/** Sets the drawing's scale
+	 * @return */
+	public void setDrawingScale(float s){
+		drawingScale = s;
+		invalidate();
+	}
+	
+	public float getDrawingScale(){
+		return drawingScale;
+	}
+	
+	/** Sets the drawing's rotation
+	 * @return */
+	public void setDrawingAngle(float a){
+		drawingAngle = a;
+		invalidate();
+	}
+	
+	public float getDrawingAngle(){
+		return drawingAngle;
+	}
+	
 	/** Sets the current color
 	 * @return */
 	public void setColor(int color){
@@ -133,6 +205,30 @@ public class DrawingView extends View {
         public float endY;
     }
 
+	/** Prototype: Curve class used for drawing 
+	 * So the idea here is the drawing contains an arraylist of curves, and each curve contains
+	 * an array list of lines, as well as the instructinos to draw those lines, i.e. the line
+	 * color and thickness. This is nice because then you don't save several bytes of information
+	 * in every line, since there are easily many thousands of lines. It would also make it easy
+	 * to erase a single curve if an eraser tool were to be implemented.
+	 * NOT IMPLEMENTED*/
+//    private static class Curve {
+//        /**
+//         * line color
+//         */
+//        public int color;
+//        
+//        /**
+//         * line thickness
+//         */
+//        public int thickness;
+//        
+//    	/**
+//    	 * Stores all of the lines that make up the curve.
+//    	 */
+//    	private ArrayList<Line> lines;
+//    }
+    
     /**
      * Handle a draw event
      * @param canvas canvas to draw on.
@@ -155,6 +251,10 @@ public class DrawingView extends View {
     public void putToBundle(Bundle bundle) {
         bundle.putInt(COLOR, currentColor);
         bundle.putInt(THICKNESS, currentThickness);
+        bundle.putInt(XLOCATION, drawingX);
+        bundle.putInt(YLOCATION, drawingY);
+        bundle.putFloat(SCALE, drawingScale);
+        bundle.putFloat(ROTATION, drawingAngle);
         bundle.putBoolean(MOVEFLAG, moveFlag);
     }
     
@@ -166,6 +266,10 @@ public class DrawingView extends View {
         // Ensure the options are all set
         setColor(bundle.getInt(COLOR));
         setThickness(bundle.getInt(THICKNESS));
+        setDrawingX(bundle.getInt(XLOCATION));
+        setDrawingY(bundle.getInt(YLOCATION));
+        setDrawingScale(bundle.getFloat(SCALE));
+        setDrawingAngle(bundle.getFloat(ROTATION));
         setMoveFlag(bundle.getBoolean(MOVEFLAG));
     }
     
