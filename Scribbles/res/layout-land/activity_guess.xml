@@ -31,8 +31,7 @@
         android:layout_alignBottom="@+id/theGuess"
         android:layout_alignParentRight="true"
         android:ems="10"
-        android:inputType="textMultiLine"
-        android:text="@string/enter_guess" />
+        android:inputType="textMultiLine"/>
 
     <TextView
         android:id="@+id/Category"
