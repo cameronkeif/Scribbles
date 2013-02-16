@@ -1,0 +1,34 @@
+
+Project 1 Submission
+
+Group Name:  Monopoly
+
+When you have completed the project, complete the following form and include it with your project. Include this file as a text file in the folder with your project when you turn it in. 
+
+Names of all classes responsible for storing the drawing: DrawView, Line (nested in DrawView)
+
+
+
+Member 1: Cameron Keif
+
+Responsiblity: The editing activity.
+
+
+
+Member 2: Amin Itani
+
+Responsiblity: The editing/display view control.
+
+
+
+Member 3: Daniel Bachelis
+
+Responsiblity: The guessing activity.
+
+
+
+Member 4 (if applicable): N/A
+
+Responsiblity:
+
+

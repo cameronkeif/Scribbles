@@ -5,10 +5,78 @@
     tools:context=".GuessActivity" >
 
     <TextView
+        android:id="@+id/Hint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/hello_world" />
+        android:layout_alignLeft="@+id/Category"
+        android:layout_below="@+id/Category"
+        android:text="@string/hint"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/theGuess"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/myGuess"
+        android:layout_alignBottom="@+id/guessingView"
+        android:layout_marginBottom="59dp"
+        android:text="@string/guess"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/myGuess"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/theGuess"
+        android:layout_alignBottom="@+id/theGuess"
+        android:layout_alignParentRight="true"
+        android:ems="10"
+        android:inputType="textMultiLine"/>
+
+    <TextView
+        android:id="@+id/Category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="25dp"
+        android:layout_toRightOf="@+id/guessingView"
+        android:text="@string/category"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <edu.msu.cse.monopoly.scribbles.DrawingView
+        android:id="@+id/guessingView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/theGuess" />
+
+    <TextView
+        android:id="@+id/theTimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/Category"
+        android:layout_marginRight="16dp"
+        android:text="@string/timer"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Button
+        android:id="@+id/returnDraw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/myGuess"
+        android:layout_toLeftOf="@+id/myGuess"
+        android:onClick="onDone"
+        android:text="@string/button_done" />
+
+    <TextView
+        android:id="@+id/whosGuessingText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/Hint"
+        android:layout_below="@+id/Hint"
+        android:text="@string/guessing"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>

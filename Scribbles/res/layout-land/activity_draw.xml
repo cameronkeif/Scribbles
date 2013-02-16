@@ -10,8 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/hintBox"
-        android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/answerBox" />
+        android:layout_alignRight="@+id/answerBox"
+        android:layout_alignTop="@+id/buttonColor" />
 
     <TextView
         android:id="@+id/hintText"
@@ -121,5 +121,15 @@
         android:layout_toRightOf="@+id/drawingView"
         android:onClick="onMoveToggle"
         android:text="@string/move" />
+
+    <TextView
+        android:id="@+id/whosDrawingText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/player1ScoreText"
+        android:text="@string/artist"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>

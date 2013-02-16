@@ -27,6 +27,7 @@ public class DrawActivity extends Activity {
     private static final String TOPIC = "topic";
     private static final String ANSWER = "answer";
     private static final String MOVETOGGLE = "moveToggle";
+    private static final String WHOSDRAWING = "whosDrawing";
     
     
 	/**
@@ -52,6 +53,8 @@ public class DrawActivity extends Activity {
     private String player1Name;
     private String player2Name;
     
+    private int whosDrawing;
+    
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_draw);
@@ -76,15 +79,22 @@ public class DrawActivity extends Activity {
         player1Name = bundle.getString(PLAYER1);
         player2Name = bundle.getString(PLAYER2);
         
+        whosDrawing = bundle.getInt(WHOSDRAWING);
+        
+        if(whosDrawing == 0){ // If this is the first drawing, initialize it to be player 1
+        	whosDrawing = 1;
+        }
+        
         if(player1Name != null)
         {
             TextView player1ScoreText = (TextView) findViewById(R.id.player1ScoreText);
             
             if (player1Name.equals("")){ // User enters nothing
+            	player1Name = getString(R.string.player1);
             	player1ScoreText.setText(getString(R.string.player1) + ": " + Integer.toString(player1Score));
             }
             else{
-            player1ScoreText.setText(player1Name + ": " + Integer.toString(player2Score));
+            	player1ScoreText.setText(player1Name + ": " + Integer.toString(player1Score));
             }
         }
         
@@ -93,11 +103,21 @@ public class DrawActivity extends Activity {
             TextView player2ScoreText = (TextView) findViewById(R.id.player2ScoreText);
             
             if (player2Name.equals("")){ // User enters nothing
+            	player2Name = getString(R.string.player2);
             	player2ScoreText.setText(getString(R.string.player2) + ": " + Integer.toString(bundle.getInt(PLAYER2SCORE)));
             }
             else{
-            player2ScoreText.setText(player2Name+ ": " + Integer.toString(bundle.getInt(PLAYER2SCORE)));
+            	player2ScoreText.setText(player2Name + ": " + Integer.toString(player2Score));
             }
+        }
+        
+        // Set the artist text view
+    	TextView whosDrawingText = (TextView) findViewById(R.id.whosDrawingText);
+        if(whosDrawing == 1){
+        	whosDrawingText.setText(whosDrawingText.getText().toString() + " " + player1Name);
+        }
+        if(whosDrawing == 2){
+        	whosDrawingText.setText(whosDrawingText.getText().toString() + " " + player2Name);
         }
         
         TextView topicText = (TextView) findViewById(R.id.topicText);
@@ -210,6 +230,9 @@ public class DrawActivity extends Activity {
 		intent.putExtra(PLAYER1, player1Name);
 		intent.putExtra(PLAYER2, player2Name);
 		
+		// Put the current artist number into the bundle
+		intent.putExtra(WHOSDRAWING, whosDrawing);
+		
 		/* NEED TO PUT THE ARRAY OF LINES IN DRAWINGVIEW INTO THE BUNDLE! */
 		
 		// Start the guessing activity
@@ -282,6 +305,9 @@ public class DrawActivity extends Activity {
 		// Put the player's names in the bundle
 		outState.putString(PLAYER1, player1Name);
 		outState.putString(PLAYER2, player2Name);
+		
+		// Put the current artist number in the bundle
+		outState.putInt(WHOSDRAWING, whosDrawing);
 		
 		Button buttonMoveToggle = (Button) findViewById(R.id.buttonMoveToggle);
 		outState.putString(MOVETOGGLE, buttonMoveToggle.getText().toString());
