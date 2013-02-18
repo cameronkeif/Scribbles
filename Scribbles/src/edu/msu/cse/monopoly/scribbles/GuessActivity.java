@@ -3,6 +3,8 @@ package edu.msu.cse.monopoly.scribbles;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.KeyEvent;
 import android.view.View;
@@ -210,11 +212,36 @@ public class GuessActivity extends Activity {
      */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event)  {
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {	
+        	/* Create a warning dialog box. User can't go back to draw, but they can exit
+        	 * to the home screen.
+        	 */
+        	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        	builder.setMessage(R.string.dialog_box_warning);
+        	builder.setTitle(R.string.dialog_box_title);
+
+        	AlertDialog warningDialog = builder.create();
+        	
+            builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                	// User wants to go back to the welcome screen
+            		Intent intent = new Intent(GuessActivity.this, WelcomeScreen.class);
+            		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            		startActivity(intent);
+                }
+            });
+            builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    // User wants to stay here, do nothing.
+                }
+            });
+        			
+            builder.show();
+            warningDialog.dismiss();
             return true;
         }
 
         return super.onKeyDown(keyCode, event);
     }
-
 }

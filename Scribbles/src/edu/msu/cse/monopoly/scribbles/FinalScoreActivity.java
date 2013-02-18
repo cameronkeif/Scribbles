@@ -57,11 +57,8 @@ public class FinalScoreActivity extends Activity {
      * @param view
      */
     public void onNewGame(View view) {
-		/* Set android:clearTaskOnLaunch to true in WelcomeScreen
-		 * which will destroy any lingering activities at the beginning of a new game
-		 */
-    	
 		Intent intent = new Intent(this, WelcomeScreen.class); 
+		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(intent);
     }
 
