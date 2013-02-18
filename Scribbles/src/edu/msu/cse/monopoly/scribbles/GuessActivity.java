@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.app.Activity;
 import android.content.Intent;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -199,6 +200,21 @@ public class GuessActivity extends Activity {
 		outState.putString(GUESS, Guess);
 		
 		guessingView.putToBundle(outState);
+    }
+    
+    /** Handles key presses
+     * @param keycode The code of the key
+     * @param event The key event.
+     * 
+     * Used to disable back button
+     */
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            return true;
+        }
+
+        return super.onKeyDown(keyCode, event);
     }
 
 }

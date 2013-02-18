@@ -6,6 +6,7 @@ import java.util.Random;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -191,13 +192,6 @@ public class DrawActivity extends Activity {
         
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_draw, menu);
-		return true;
-	}
-
     /**
      * Handle a Done button press. Should start the guessing activity.
      * @param view
@@ -314,5 +308,20 @@ public class DrawActivity extends Activity {
 		outState.putString(MOVETOGGLE, buttonMoveToggle.getText().toString());
 		
 		drawingView.putToBundle(outState);
+    }
+    
+    /** Handles key presses
+     * @param keycode The code of the key
+     * @param event The key event.
+     * 
+     * Used to disable back button
+     */
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            return true;
+        }
+
+        return super.onKeyDown(keyCode, event);
     }
 }
