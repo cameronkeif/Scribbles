@@ -236,6 +236,7 @@ public class DrawActivity extends Activity {
 		/* NEED TO PUT THE ARRAY OF LINES IN DRAWINGVIEW INTO THE BUNDLE! */
 		
 		// Start the guessing activity
+		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(intent);
     	
     }

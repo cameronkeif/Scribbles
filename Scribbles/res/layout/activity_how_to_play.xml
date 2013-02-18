@@ -1,0 +1,35 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".HowToPlayActivity" >
+
+	<ScrollView
+	    android:id="@+id/ScrollView1"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:layout_alignParentLeft="true"
+	    android:layout_below="@+id/textViewTitle"
+	    android:layout_marginTop="20dp" >
+
+	    <TextView
+	        android:id="@+id/textViewExplanation"
+	        android:layout_width="wrap_content"
+	        android:layout_height="237dp"
+	        android:layout_marginTop="19dp"
+	        android:paddingTop="20dp"
+	        android:text="@string/explanation1"
+	        android:textAppearance="?android:attr/textAppearanceSmall" />
+	</ScrollView>
+
+	<TextView
+	    android:id="@+id/textViewTitle"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentTop="true"
+	    android:layout_centerHorizontal="true"
+	    android:text="@string/howToPlay"
+	    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+</RelativeLayout>

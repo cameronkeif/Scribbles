@@ -31,4 +31,12 @@ public class WelcomeScreen extends Activity {
 		startActivity(intent);
     }
 
+    /**
+     * Handle a How To Play button press
+     * @param view
+     */
+    public void onHowToPlay(View view) {
+		Intent intent = new Intent(this, HowToPlayActivity.class);
+		startActivity(intent);
+    }
 }

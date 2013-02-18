@@ -165,7 +165,7 @@ public class GuessActivity extends Activity {
 				intent.putExtra(WHOSDRAWING, 1);
 			}
 		}
-    	
+		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(intent);
     }
 	

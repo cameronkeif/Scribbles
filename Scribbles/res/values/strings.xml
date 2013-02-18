@@ -34,5 +34,10 @@
     <string name="artist">Artist:</string>
     <string name="guessing">Guessing:</string>
     <string name="new_game">New Game</string>
+    <string name="howToPlay">How To Play</string>
+    <string name="title_activity_how_to_play">HowToPlayActivity</string>
+    <string name="explanation1">Enter the two players\' names at the welcome screen, and press Begin to start. Player 1 will be the first to draw and Player 2 will be the first to guess. \n \n \n There is a button to select the pen color, and a small menu to select its thickness. The player who is drawing can draw by touching the white area. You can press the "Move" button to switch to move mode, which will allow you to resize and rotate the image. When the player who is done drawing has finished, press the "Done" button and pass the device to the other player. \n \n \n The guessing player will have 2 minutes and 10 seconds to guess player 1\'s drawing. If player 2 guesses correctly within this time, they will receive 50 points. Regardless of whether they get points or not, after the guessing player finishes, a new round begins where the guesser becomes the drawer and vice-versa.</string>
+    <string name="explanation2"></string>
+    <string name="explanation3"></string>
 
 </resources>
