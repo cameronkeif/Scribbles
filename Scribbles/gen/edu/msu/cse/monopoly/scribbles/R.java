@@ -90,11 +90,11 @@ public final class R {
         public static final int button_color=0x7f050009;
         public static final int button_done=0x7f05000b;
         public static final int category=0x7f05001c;
-        public static final int dialog_box_title=0x7f050025;
-        public static final int dialog_box_warning=0x7f050024;
+        public static final int dialog_box_title=0x7f050024;
+        public static final int dialog_box_warning=0x7f050023;
         public static final int draw=0x7f050019;
         public static final int enter_guess=0x7f05001b;
-        public static final int explanation1=0x7f050023;
+        public static final int explanation1=0x7f050027;
         public static final int final_score=0x7f050017;
         public static final int guess=0x7f05001a;
         public static final int guessing=0x7f05001f;
@@ -105,7 +105,7 @@ public final class R {
         public static final int move=0x7f050018;
         public static final int msu=0x7f05000d;
         public static final int new_game=0x7f050020;
-        public static final int no=0x7f050027;
+        public static final int no=0x7f050026;
         public static final int object=0x7f05000f;
         public static final int player1=0x7f050002;
         public static final int player2=0x7f050003;
@@ -119,7 +119,7 @@ public final class R {
         public static final int title_activity_welcome_screen=0x7f050004;
         public static final int topic=0x7f050012;
         public static final int welcome_text=0x7f050005;
-        public static final int yes=0x7f050026;
+        public static final int yes=0x7f050025;
     }
     public static final class style {
         /** 
