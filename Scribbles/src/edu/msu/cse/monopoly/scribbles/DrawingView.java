@@ -317,6 +317,9 @@ public class DrawingView extends View {
     public void getFromBundle(Bundle bundle) {       
     	params = (Parameters) bundle.getSerializable(PARAMETERS);
 
+    	if (params == null){
+    		params = new Parameters();
+    	}
         invalidate();
     }
     
@@ -416,5 +419,10 @@ public class DrawingView extends View {
             return true; 
         } 
         return false; 
+    }
+    
+    public Parameters getParams()
+    {
+    	return params;
     }
 }

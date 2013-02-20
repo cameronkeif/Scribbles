@@ -31,6 +31,7 @@ public class DrawActivity extends Activity {
     private static final String MOVETOGGLE = "moveToggle";
     private static final String WHOSDRAWING = "whosDrawing";
     private static final String LINES = "lines";
+    private static final String PARAMETERS = "parameters";
     
     
 	/**
@@ -247,6 +248,8 @@ public class DrawActivity extends Activity {
 			
 			// Put the current artist number into the bundle
 			intent.putExtra(WHOSDRAWING, whosDrawing);
+			
+			intent.putExtra(PARAMETERS, drawingView.getParams());
 			
 			// Start the guessing activity
 			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

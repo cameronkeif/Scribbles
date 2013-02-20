@@ -39,9 +39,8 @@
         android:id="@+id/guessingView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/returnDraw"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/Hint" />
+        android:layout_above="@+id/Hint"
+        android:layout_below="@+id/whosGuessingText" />
 
     <TextView
         android:id="@+id/theTimer"
