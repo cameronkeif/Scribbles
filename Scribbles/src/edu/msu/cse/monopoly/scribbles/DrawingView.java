@@ -6,7 +6,10 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 public class DrawingView extends View {
@@ -17,11 +20,17 @@ public class DrawingView extends View {
     private static final String YLOCATION = "yLocation";
     private static final String SCALE = "scale";
     private static final String ROTATION = "rotation";
+    private static final String LINES = "lines";
+    
+    
+    private Line currentLine = null;
+    
+    private boolean isTouched = false;
     
 	/**
 	 * Paint for the line
 	 */
-	private Paint linePaint;
+	private static Paint linePaint;
 	
 	/** 
 	 * Flag to indicate if we are moving the picture or drawing it.
@@ -72,7 +81,7 @@ public class DrawingView extends View {
 	/**
 	 * Stores all of the lines that make up the drawing.
 	 */
-	private ArrayList<Line> lines;
+	private ArrayList<Line> lines = new ArrayList<Line>();
     
     
 	
@@ -170,13 +179,31 @@ public class DrawingView extends View {
 		invalidate();
 	}
 	
+    private static class Point{
+    	private float x = 0.0f;
+    	private float y = 0.0f;
+    	
+		public float getX() {
+			return x;
+		}
+		public void setX(float x) {
+			this.x = x;
+		}
+		public float getY() {
+			return y;
+		}
+		public void setY(float y) {
+			this.y = y;
+		}
+    }
+	
 	/** Line class used for drawing 
 	 * The drawing will be composed of a bunch of lines. Start coordinates will be set
 	 * when the user initially presses (touch 1). The end coordinates will be set when they move
 	 * their finger. Also, upon moving a new line will be created, with the beginning coordinates
 	 * matching the end of the last line. Rapid drawing of lines will allow for free form drawing.
 	 * The last line's ending coordinates will be set when the user picks up their finger.*/
-    private static class Line {
+    private static class Line implements Parcelable{
         /**
          * line color
          */
@@ -187,22 +214,44 @@ public class DrawingView extends View {
          */
         public int thickness;
         
-        /**
-         * line start x
-         */
-        public float startX;
-        /**
-         * line start y
-         */
-        public float startY;
-        /**
-         * line end x
-         */
-        public float endX;
-        /**
-         * line end y
-         */
-        public float endY;
+        private ArrayList<Point> points = new ArrayList <Point>();
+        
+        public void addPoint(Point p){
+        	points.add(p);
+        }
+        
+        public void draw(Canvas canvas){
+        	for(int i = 0; i < points.size()-1; i++){
+        		Point p1 = points.get(i);
+        		Point p2 = points.get(i+1);
+        		
+        		linePaint.setColor(color);
+        		linePaint.setStrokeWidth(thickness);
+        		
+        		canvas.drawLine(p1.getX(), p1.getY(), p2.getX(), p2.getY(), linePaint);
+        	}
+        }
+        
+        public void setColor(int c)
+        {
+        	color = c;
+        }
+        
+        public void setThickness(int t)
+        {
+        	thickness = t;
+        }
+
+		@Override
+		public int describeContents() {
+			return 0;
+		}
+
+		@Override
+		public void writeToParcel(Parcel arg0, int arg1) {
+			// TODO Auto-generated method stub
+			
+		}
     }
 
 	/** Prototype: Curve class used for drawing 
@@ -237,6 +286,10 @@ public class DrawingView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         
+    	for(Line line:lines){
+    		line.draw(canvas);
+    	}
+    	
         /* Drawing a single line for testing */
         /*
         linePaint.setColor(currentColor);
@@ -256,6 +309,7 @@ public class DrawingView extends View {
         bundle.putFloat(SCALE, drawingScale);
         bundle.putFloat(ROTATION, drawingAngle);
         bundle.putBoolean(MOVEFLAG, moveFlag);
+        bundle.putParcelableArrayList(LINES, lines);
     }
     
     /**
@@ -271,6 +325,7 @@ public class DrawingView extends View {
         setDrawingScale(bundle.getFloat(SCALE));
         setDrawingAngle(bundle.getFloat(ROTATION));
         setMoveFlag(bundle.getBoolean(MOVEFLAG));
+        lines = bundle.getParcelableArrayList(LINES);
     }
     
     
@@ -333,4 +388,44 @@ public class DrawingView extends View {
         }
     }
     
+    @Override 
+    public boolean onTouchEvent(MotionEvent e) { 
+        if(!moveFlag){ 
+            Point point = new Point();
+            point.setX(e.getX());
+            point.setY(e.getY());
+            
+            switch (e.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+            	isTouched = true;
+	            currentLine = new Line();
+	            currentLine.addPoint(point);
+	            
+	            currentLine.setColor(currentColor);
+	            currentLine.setThickness(currentThickness);
+                break;
+            case MotionEvent.ACTION_MOVE:
+                if(isTouched){
+                	currentLine.addPoint(point);
+                	lines.add(currentLine);
+                	currentLine = new Line();
+                	currentLine.addPoint(point);
+                	currentLine.setColor(currentColor);
+                	currentLine.setThickness(currentThickness);
+                }
+                break;
+            case MotionEvent.ACTION_UP:
+                if(isTouched)
+                	currentLine.addPoint(point);
+                isTouched = false;
+                lines.add(currentLine);
+                currentLine = null;
+                break;
+            }
+            invalidate();
+            return true; 
+        } 
+        return false; 
+    }
+
 }
