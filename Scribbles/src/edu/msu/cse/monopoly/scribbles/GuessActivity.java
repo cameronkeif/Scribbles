@@ -61,7 +61,8 @@ public class GuessActivity extends Activity {
         whosDrawing = bundle.getInt(WHOSDRAWING);
         
         guessingView = (DrawingView) findViewById(R.id.guessingView);
-        guessingView.getFromBundle(bundle);
+
+        //guessingView.getFromBundle(bundle);
         guessingView.setMoveFlag(true); // Always moving in guessing activity
         
 		final TextView myTimer = (TextView) findViewById(R.id.theTimer);

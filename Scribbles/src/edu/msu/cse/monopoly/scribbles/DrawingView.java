@@ -12,66 +12,71 @@ import android.view.MotionEvent;
 import android.view.View;
 
 public class DrawingView extends View {
-    private static final String COLOR = "color";
-    private static final String THICKNESS = "thickness";
-    private static final String MOVEFLAG = "moveFlag";
-    private static final String XLOCATION = "xLocation";
-    private static final String YLOCATION = "yLocation";
-    private static final String SCALE = "scale";
-    private static final String ROTATION = "rotation";
-    private static final String LINES = "lines";
+    private static final String PARAMETERS = "parameters";
+    
+    private Parameters params = new Parameters();
     
     /**
      * The line currently being drawn
      */
     private Line currentLine = null;
     
-    /**
-     * Flag indicated if we have touched
-     */
-    private boolean isTouched = false;
-    
 	/**
 	 * Paint for the line
 	 */
 	private static Paint linePaint;
 	
-	/** 
-	 * Flag to indicate if we are moving the picture or drawing it.
-	 * Will be set to true when guessing with no way to change it
-	 */
-	private boolean moveFlag = false;
-	
-	/** 
-	 * Current line color to draw in
-	 */
-	private int currentColor;
-	
-	/** 
-	 * Current line thickness to draw in
-	 */
-	private int currentThickness;
-	
-	/** 
-	 * current x location of drawing
-	 */
-	private int drawingX;
-	
-	/** 
-	 * current y location of drawing
-	 */
-	private int drawingY;
-	
-	/** 
-	 * current scale of drawing
-	 */
-	private float drawingScale;
-	
-	/** 
-	 * current angle of rotation of drawing
-	 */
-	private float drawingAngle;
+	private static class Parameters implements Serializable
+	{
+		
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		/** 
+		 * Flag to indicate if we are moving the picture or drawing it.
+		 * Will be set to true when guessing with no way to change it
+		 */
+		private boolean moveFlag = false;
+		
+		/** 
+		 * Current line color to draw in
+		 */
+		private int currentColor;
+		
+		/** 
+		 * Current line thickness to draw in
+		 */
+		private int currentThickness;
+		
+		/** 
+		 * current x location of drawing
+		 */
+		private int drawingX;
+		
+		/** 
+		 * current y location of drawing
+		 */
+		private int drawingY;
+		
+		/** 
+		 * current scale of drawing
+		 */
+		private float drawingScale;
+		
+		/** 
+		 * current angle of rotation of drawing
+		 */
+		private float drawingAngle;
     
+		
+		/**
+		 * Stores all of the lines that make up the drawing.
+		 */
+		private ArrayList<Line> lines = new ArrayList<Line>();
+	}
+	
     /**
      * First touch status
      */
@@ -81,11 +86,7 @@ public class DrawingView extends View {
      * Second touch status
      */
     private Touch touch2 = new Touch();
-	
-	/**
-	 * Stores all of the lines that make up the drawing.
-	 */
-	private ArrayList<Line> lines = new ArrayList<Line>();
+
     
 	/**
 	 * Paint used to draw the circle (creates a nice, circular
@@ -116,59 +117,59 @@ public class DrawingView extends View {
 	 */
 	private void init(){
 		linePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-		currentColor = Color.BLACK;
-		currentThickness = 1;
+		params.currentColor = Color.BLACK;
+		params.currentThickness = 1;
 		circlePaint.setStyle(Paint.Style.FILL);
 	}
 	
 	/** Sets the drawing's x location
 	 * @return */
 	public void setDrawingX(int x){
-		drawingX = x;
+		params.drawingX = x;
 		invalidate();
 	}
 	
 	public int getDrawingX(){
-		return drawingX;
+		return params.drawingX;
 	}
 	
 	/** Sets the drawing's y location
 	 * @return */
 	public void setDrawingY(int y){
-		drawingY = y;
+		params.drawingY = y;
 		invalidate();
 	}
 	
 	public int getDrawingY(){
-		return drawingY;
+		return params.drawingY;
 	}
 	
 	/** Sets the drawing's scale
 	 * @return */
 	public void setDrawingScale(float s){
-		drawingScale = s;
+		params.drawingScale = s;
 		invalidate();
 	}
 	
 	public float getDrawingScale(){
-		return drawingScale;
+		return params.drawingScale;
 	}
 	
 	/** Sets the drawing's rotation
 	 * @return */
 	public void setDrawingAngle(float a){
-		drawingAngle = a;
+		params.drawingAngle = a;
 		invalidate();
 	}
 	
 	public float getDrawingAngle(){
-		return drawingAngle;
+		return params.drawingAngle;
 	}
 	
 	/** Sets the current color
 	 * @return */
 	public void setColor(int color){
-		currentColor = color;
+		params.currentColor = color;
 		invalidate();
 	}
 	
@@ -177,7 +178,7 @@ public class DrawingView extends View {
 	 * @return the current color
 	 */
 	public int getColor(){
-		return currentColor;
+		return params.currentColor;
 	}
 	
 	/**
@@ -185,7 +186,7 @@ public class DrawingView extends View {
 	 * @param b The flag
 	 */
 	public void setMoveFlag(boolean b){
-		moveFlag = b;
+		params.moveFlag = b;
 	}
 	
 	/**
@@ -193,13 +194,13 @@ public class DrawingView extends View {
 	 * @return the flag indicating if we are manipulating with multitouch
 	 */
 	public boolean getMoveFlag(){
-		return moveFlag;
+		return params.moveFlag;
 	}
 	
 	/** Sets the current thickness
 	 * @return */
 	public void setThickness(int thickness){
-		currentThickness = thickness;
+		params.currentThickness = thickness;
 		invalidate();
 	}
 	
@@ -296,15 +297,9 @@ public class DrawingView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         
-    	for(Line line:lines){
+    	for(Line line:params.lines){
     		line.draw(canvas);
     	}
-    	
-        /* Drawing a single line for testing */
-        /*
-        linePaint.setColor(currentColor);
-        linePaint.setStrokeWidth(currentThickness);
-        canvas.drawLine(0.0f, 0.0f, 100.0f, 100.0f, linePaint);*/
     }
     
     /**
@@ -312,29 +307,17 @@ public class DrawingView extends View {
      * @param bundle bundle to save to
      */
     public void putToBundle(Bundle bundle) {
-        bundle.putInt(COLOR, currentColor);
-        bundle.putInt(THICKNESS, currentThickness);
-        bundle.putInt(XLOCATION, drawingX);
-        bundle.putInt(YLOCATION, drawingY);
-        bundle.putFloat(SCALE, drawingScale);
-        bundle.putFloat(ROTATION, drawingAngle);
-        bundle.putBoolean(MOVEFLAG, moveFlag);
-        bundle.putSerializable(LINES, lines);
+        bundle.putSerializable(PARAMETERS, params);
     }
     
     /**
      * Get the view state from a bundle
      * @param bundle bundle to load from
      */
-    public void getFromBundle(Bundle bundle) {         
-        // Ensure the options are all set
-        setColor(bundle.getInt(COLOR));
-        setThickness(bundle.getInt(THICKNESS));
-        setDrawingX(bundle.getInt(XLOCATION));
-        setDrawingY(bundle.getInt(YLOCATION));
-        setDrawingScale(bundle.getFloat(SCALE));
-        setDrawingAngle(bundle.getFloat(ROTATION));
-        setMoveFlag(bundle.getBoolean(MOVEFLAG));
+    public void getFromBundle(Bundle bundle) {       
+    	params = (Parameters) bundle.getSerializable(PARAMETERS);
+
+        invalidate();
     }
     
     
@@ -403,34 +386,29 @@ public class DrawingView extends View {
      */
     @Override 
     public boolean onTouchEvent(MotionEvent e) { 
-        if(!moveFlag){ 
+        if(!params.moveFlag){ 
             
             switch (e.getAction()) {
             case MotionEvent.ACTION_DOWN:
-            	isTouched = true;
 	            currentLine = new Line(e.getX(), e.getY());
 	            
-	            currentLine.setColor(currentColor);
-	            currentLine.setThickness(currentThickness);
+	            currentLine.setColor(params.currentColor);
+	            currentLine.setThickness(params.currentThickness);
                 break;
             case MotionEvent.ACTION_MOVE:
-                if(isTouched){
-                	currentLine.endX = e.getX();
-                	currentLine.endY = e.getY();
-                	lines.add(currentLine);
-                	
-    	            currentLine = new Line(e.getX(), e.getY());
-    	            
-                	currentLine.setColor(currentColor);
-                	currentLine.setThickness(currentThickness);
-                }
+            	currentLine.endX = e.getX();
+            	currentLine.endY = e.getY();
+            	params.lines.add(currentLine);
+            	
+	            currentLine = new Line(e.getX(), e.getY());
+	            
+            	currentLine.setColor(params.currentColor);
+            	currentLine.setThickness(params.currentThickness);
                 break;
             case MotionEvent.ACTION_UP:
-                if(isTouched)
-                	currentLine.endX = e.getX();
-                	currentLine.endY = e.getY();
-                isTouched = false;
-                lines.add(currentLine);
+            	currentLine.endX = e.getX();
+            	currentLine.endY = e.getY();
+                params.lines.add(currentLine);
                 currentLine = null;
                 break;
             }
