@@ -168,19 +168,19 @@ public class DrawActivity extends Activity {
             public void onItemSelected(AdapterView<?> arg0, View view,
                     int pos, long id) {
             	if (pos == 0){
-                    drawingView.setThickness(1);
+                    drawingView.setThickness(4);
             	}
             	if (pos == 1){
-                    drawingView.setThickness(5);
-            	}
-            	if (pos == 2){
                     drawingView.setThickness(10);
             	}
+            	if (pos == 2){
+                    drawingView.setThickness(20);
+            	}
             	if (pos == 3){
-                    drawingView.setThickness(25);
+                    drawingView.setThickness(50);
             	}
             	if (pos == 4){
-                    drawingView.setThickness(50);
+                    drawingView.setThickness(100);
             	}
 
             }
