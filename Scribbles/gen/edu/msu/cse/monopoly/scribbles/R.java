@@ -83,6 +83,8 @@ public final class R {
         public static final int action=0x7f050011;
         public static final int animal=0x7f05000e;
         public static final int answer=0x7f050015;
+        public static final int answer_hint_dialog_text=0x7f05002a;
+        public static final int answer_hint_dialog_title=0x7f050029;
         public static final int app_name=0x7f050000;
         public static final int artist=0x7f05001e;
         public static final int begin_game=0x7f05000a;
@@ -94,7 +96,7 @@ public final class R {
         public static final int dialog_box_warning=0x7f050023;
         public static final int draw=0x7f050019;
         public static final int enter_guess=0x7f05001b;
-        public static final int explanation1=0x7f050027;
+        public static final int explanation1=0x7f050028;
         public static final int final_score=0x7f050017;
         public static final int guess=0x7f05001a;
         public static final int guessing=0x7f05001f;
@@ -107,6 +109,7 @@ public final class R {
         public static final int new_game=0x7f050020;
         public static final int no=0x7f050026;
         public static final int object=0x7f05000f;
+        public static final int ok=0x7f050027;
         public static final int player1=0x7f050002;
         public static final int player2=0x7f050003;
         public static final int text_field_enter_name=0x7f050006;

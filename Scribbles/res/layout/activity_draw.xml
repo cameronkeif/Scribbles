@@ -74,7 +74,7 @@
         android:layout_alignLeft="@+id/answerBox"
         android:layout_alignParentRight="true"
         android:ems="10"
-        android:inputType="textImeMultiLine"/>
+        android:inputType="textImeMultiLine" />
 
     <TextView
         android:id="@+id/hintText"

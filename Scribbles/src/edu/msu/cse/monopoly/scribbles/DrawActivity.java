@@ -9,7 +9,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.KeyEvent;
-import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -199,42 +198,61 @@ public class DrawActivity extends Activity {
      * @param view
      */
     public void onDone(View view) {
-    	// Start the guessing activity
-    	// Change DrawActivity.class to the guess activity class when it is created.
     	
-		Intent intent = new Intent(this, GuessActivity.class);
-		
-		// Put the artist's hint in the bundle
-		EditText hintBox = (EditText) findViewById(R.id.hintBox);
-		String hint = hintBox.getText().toString();
-		intent.putExtra(HINT, hint);
-		
-		// Put the artist's answer in the bundle
-		EditText answerBox = (EditText) findViewById(R.id.answerBox);
-		String answer = answerBox.getText().toString();
-		intent.putExtra(ANSWER, answer);
-		
-		// Put the player's scores in the bundle
-		intent.putExtra(PLAYER1SCORE, player1Score);
-		intent.putExtra(PLAYER2SCORE, player2Score);
-		
-		// Put the topic string into the bundle
-		TextView topic = (TextView) findViewById(R.id.topicText);
-		intent.putExtra(TOPIC, topic.getText().toString());
-		
-		// Put the player's names in the bundle
-		intent.putExtra(PLAYER1, player1Name);
-		intent.putExtra(PLAYER2, player2Name);
-		
-		// Put the current artist number into the bundle
-		intent.putExtra(WHOSDRAWING, whosDrawing);
-		
-		/* NEED TO PUT THE ARRAY OF LINES IN DRAWINGVIEW INTO THE BUNDLE! */
-		
-		// Start the guessing activity
-		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		startActivity(intent);
+    	EditText hintBox = (EditText) findViewById(R.id.hintBox);
+    	EditText answerBox = (EditText) findViewById(R.id.answerBox);
     	
+    	if (hintBox.getText().toString().equals("") || answerBox.getText().toString().equals("")){
+    		// User needs to answer the hint/answer
+    		// Display a dialog box letting them know
+    		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        	builder.setMessage(R.string.answer_hint_dialog_text);
+        	builder.setTitle(R.string.answer_hint_dialog_title);
+
+        	AlertDialog answerHintDialog = builder.create();
+        	
+            builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                	// No need to actually *do* anything. Just want to let the user know what's up.
+                }
+            });
+            builder.show();
+            answerHintDialog.dismiss();
+    		
+    	}else{
+	    	// Start the guessing activity
+	    	// Change DrawActivity.class to the guess activity class when it is created.
+	    	
+			Intent intent = new Intent(this, GuessActivity.class);
+			
+			String hint = hintBox.getText().toString();
+			intent.putExtra(HINT, hint);
+			
+			String answer = answerBox.getText().toString();
+			intent.putExtra(ANSWER, answer);
+			
+			// Put the player's scores in the bundle
+			intent.putExtra(PLAYER1SCORE, player1Score);
+			intent.putExtra(PLAYER2SCORE, player2Score);
+			
+			// Put the topic string into the bundle
+			TextView topic = (TextView) findViewById(R.id.topicText);
+			intent.putExtra(TOPIC, topic.getText().toString());
+			
+			// Put the player's names in the bundle
+			intent.putExtra(PLAYER1, player1Name);
+			intent.putExtra(PLAYER2, player2Name);
+			
+			// Put the current artist number into the bundle
+			intent.putExtra(WHOSDRAWING, whosDrawing);
+			
+			/* NEED TO PUT THE ARRAY OF LINES IN DRAWINGVIEW INTO THE BUNDLE! */
+			
+			// Start the guessing activity
+			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(intent);
+    	}
     }
     
     /**
