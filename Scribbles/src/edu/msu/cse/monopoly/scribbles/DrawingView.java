@@ -22,9 +22,14 @@ public class DrawingView extends View {
     private static final String ROTATION = "rotation";
     private static final String LINES = "lines";
     
-    
+    /**
+     * The line currently being drawn
+     */
     private Line currentLine = null;
     
+    /**
+     * Flag indicated if we have touched
+     */
     private boolean isTouched = false;
     
 	/**
@@ -83,6 +88,10 @@ public class DrawingView extends View {
 	 */
 	private ArrayList<Line> lines = new ArrayList<Line>();
     
+	/**
+	 * Paint used to draw the circle (creates a nice, circular
+	 * line instead of a blocky one)
+	 */
 	private static Paint circlePaint = new Paint();
 	
 	public DrawingView(Context context) {
@@ -103,6 +112,9 @@ public class DrawingView extends View {
 		init();
 	}
 	
+	/**
+	 * Initializes the view
+	 */
 	private void init(){
 		linePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 		currentColor = Color.BLACK;
@@ -161,25 +173,41 @@ public class DrawingView extends View {
 		invalidate();
 	}
 	
+	/**
+	 * Returns the current color
+	 * @return the current color
+	 */
 	public int getColor(){
 		return currentColor;
 	}
 	
+	/**
+	 * Sets the flag indicating if we are manipulating with multitouch
+	 * @param b The flag
+	 */
 	public void setMoveFlag(boolean b){
 		moveFlag = b;
 	}
 	
+	/**
+	 * return the flag indicating if we are manipulating with multitouch
+	 * @return the flag indicating if we are manipulating with multitouch
+	 */
 	public boolean getMoveFlag(){
 		return moveFlag;
 	}
 	
-	/** Sets the current color
+	/** Sets the current thickness
 	 * @return */
 	public void setThickness(int thickness){
 		currentThickness = thickness;
 		invalidate();
 	}
 	
+	/**
+	 * Represents a point in the line
+	 *
+	 */
     private static class Point{
     	private float x = 0.0f;
     	private float y = 0.0f;
@@ -215,12 +243,23 @@ public class DrawingView extends View {
          */
         public int thickness;
         
+        /**
+         * points in the line
+         */
         private ArrayList<Point> points = new ArrayList <Point>();
         
+        /**
+         * Adds a point to the line
+         * @param p The point to add
+         */
         public void addPoint(Point p){
         	points.add(p);
         }
         
+        /**
+         * Draws a line. Draws a circle at the end point to make round.
+         * @param canvas The canvas
+         */
         public void draw(Canvas canvas){
         	for(int i = 0; i < points.size()-1; i++){
         		Point p1 = points.get(i);
@@ -235,11 +274,19 @@ public class DrawingView extends View {
         	}
         }
         
+        /**
+         * Set the color of the line
+         * @param c The color
+         */
         public void setColor(int c)
         {
         	color = c;
         }
         
+        /**
+         * Set the thickness of the line
+         * @param t Thickness
+         */
         public void setThickness(int t)
         {
         	thickness = t;
@@ -256,30 +303,6 @@ public class DrawingView extends View {
 			
 		}
     }
-
-	/** Prototype: Curve class used for drawing 
-	 * So the idea here is the drawing contains an arraylist of curves, and each curve contains
-	 * an array list of lines, as well as the instructinos to draw those lines, i.e. the line
-	 * color and thickness. This is nice because then you don't save several bytes of information
-	 * in every line, since there are easily many thousands of lines. It would also make it easy
-	 * to erase a single curve if an eraser tool were to be implemented.
-	 * NOT IMPLEMENTED*/
-//    private static class Curve {
-//        /**
-//         * line color
-//         */
-//        public int color;
-//        
-//        /**
-//         * line thickness
-//         */
-//        public int thickness;
-//        
-//    	/**
-//    	 * Stores all of the lines that make up the curve.
-//    	 */
-//    	private ArrayList<Line> lines;
-//    }
     
     /**
      * Handle a draw event
@@ -391,6 +414,10 @@ public class DrawingView extends View {
         }
     }
     
+    /**
+     * Handles a touch event
+     * @param e Motion event
+     */
     @Override 
     public boolean onTouchEvent(MotionEvent e) { 
         if(!moveFlag){ 
