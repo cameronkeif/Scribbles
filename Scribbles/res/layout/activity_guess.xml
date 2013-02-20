@@ -43,16 +43,6 @@
         android:layout_below="@+id/whosGuessingText" />
 
     <TextView
-        android:id="@+id/theTimer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/Category"
-        android:layout_marginRight="31dp"
-        android:text="@string/timer"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
         android:id="@+id/player1ScoreText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -97,5 +87,14 @@
         android:layout_alignParentRight="true"
         android:text="@string/hint"
         android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/theTimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/Category"
+        android:layout_alignParentRight="true"
+        android:text="@string/timer"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </RelativeLayout>
