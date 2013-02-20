@@ -83,7 +83,7 @@ public class DrawingView extends View {
 	 */
 	private ArrayList<Line> lines = new ArrayList<Line>();
     
-    
+	private static Paint circlePaint = new Paint();
 	
 	public DrawingView(Context context) {
 		super(context);
@@ -107,6 +107,7 @@ public class DrawingView extends View {
 		linePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 		currentColor = Color.BLACK;
 		currentThickness = 1;
+		circlePaint.setStyle(Paint.Style.FILL);
 	}
 	
 	/** Sets the drawing's x location
@@ -227,8 +228,10 @@ public class DrawingView extends View {
         		
         		linePaint.setColor(color);
         		linePaint.setStrokeWidth(thickness);
-        		
+        		circlePaint.setColor(color);
         		canvas.drawLine(p1.getX(), p1.getY(), p2.getX(), p2.getY(), linePaint);
+        		
+        		canvas.drawCircle(p2.getX(), p2.getY(), thickness/2, circlePaint);
         	}
         }
         
