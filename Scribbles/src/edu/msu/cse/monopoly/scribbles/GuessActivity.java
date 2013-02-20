@@ -2,6 +2,8 @@ package edu.msu.cse.monopoly.scribbles;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -22,6 +24,7 @@ public class GuessActivity extends Activity {
     private static final String TIMER = "timer";
     private static final String GUESS = "guess";
     private static final String WHOSDRAWING = "whosDrawing";
+    private static final String LINES = "lines";
     
     /**
      * The drawing view object
@@ -45,7 +48,6 @@ public class GuessActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_guess);
 		
-		
 		Bundle bundle = getIntent().getExtras();
 		
 		player1Score = bundle.getInt(PLAYER1SCORE);
@@ -59,6 +61,7 @@ public class GuessActivity extends Activity {
         whosDrawing = bundle.getInt(WHOSDRAWING);
         
         guessingView = (DrawingView) findViewById(R.id.guessingView);
+        guessingView.getFromBundle(bundle);
         guessingView.setMoveFlag(true); // Always moving in guessing activity
         
 		final TextView myTimer = (TextView) findViewById(R.id.theTimer);
@@ -200,8 +203,6 @@ public class GuessActivity extends Activity {
 		EditText guessBox = (EditText) findViewById(R.id.guessBox);
 		String Guess = guessBox.getText().toString();
 		outState.putString(GUESS, Guess);
-		
-		guessingView.putToBundle(outState);
     }
     
     /** Handles key presses
@@ -244,4 +245,5 @@ public class GuessActivity extends Activity {
 
         return super.onKeyDown(keyCode, event);
     }
+
 }

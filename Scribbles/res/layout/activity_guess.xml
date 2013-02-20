@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
         android:onClick="onDone"
         android:text="@string/button_done" />
 
@@ -18,9 +18,8 @@
         android:id="@+id/guessText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/returnDraw"
-        android:layout_alignBottom="@+id/returnDraw"
-        android:layout_toRightOf="@+id/returnDraw"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
         android:text="@string/guess"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -28,12 +27,12 @@
         android:id="@+id/guessBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/guessText"
-        android:layout_alignBottom="@+id/guessText"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/returnDraw"
         android:layout_toRightOf="@+id/guessText"
         android:ems="10"
         android:inputType="textMultiLine" >
+
     </EditText>
 
     <edu.msu.cse.monopoly.scribbles.DrawingView
