@@ -30,7 +30,6 @@ public class DrawActivity extends Activity {
     private static final String ANSWER = "answer";
     private static final String MOVETOGGLE = "moveToggle";
     private static final String WHOSDRAWING = "whosDrawing";
-    private static final String LINES = "lines";
     private static final String PARAMETERS = "parameters";
     
     

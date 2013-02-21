@@ -2,8 +2,6 @@ package edu.msu.cse.monopoly.scribbles;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -24,7 +22,6 @@ public class GuessActivity extends Activity {
     private static final String TIMER = "timer";
     private static final String GUESS = "guess";
     private static final String WHOSDRAWING = "whosDrawing";
-    private static final String LINES = "lines";
     
     /**
      * The drawing view object

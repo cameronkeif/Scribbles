@@ -26,16 +26,6 @@
         android:layout_toLeftOf="@+id/returnDraw" />
 
     <TextView
-        android:id="@+id/theTimer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/Category"
-        android:layout_marginRight="16dp"
-        android:text="@string/timer"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
         android:id="@+id/player2ScoreText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -43,17 +33,6 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/player1ScoreText"
         android:text="@string/player2"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/player1ScoreText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/whosGuessingText"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/whosGuessingText"
-        android:layout_marginTop="45dp"
-        android:text="@string/player1"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
@@ -98,12 +77,32 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/whosGuessingText"
+        android:id="@+id/theTimer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/Category"
-        android:layout_below="@+id/theTimer"
+        android:layout_below="@+id/Category"
         android:text="@string/guessing"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/player1ScoreText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/theTimer"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/theTimer"
+        android:layout_marginTop="81dp"
+        android:text="@string/player1"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/whosGuessingText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/timer"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>

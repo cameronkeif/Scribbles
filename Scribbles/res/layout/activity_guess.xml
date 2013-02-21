@@ -70,15 +70,6 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/whosGuessingText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/Category"
-        android:layout_below="@+id/Category"
-        android:text="@string/guessing"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
         android:id="@+id/Hint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -89,12 +80,22 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/theTimer"
+        android:id="@+id/whosGuessingText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/Category"
         android:layout_alignBottom="@+id/Category"
         android:layout_alignParentRight="true"
         android:text="@string/timer"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/theTimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/guessingView"
+        android:layout_alignParentLeft="true"
+        android:text="@string/guessing"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>

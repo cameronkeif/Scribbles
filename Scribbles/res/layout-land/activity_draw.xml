@@ -11,7 +11,7 @@
         android:id="@+id/drawingView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/hintBox"
+        android:layout_above="@+id/answerBox"
         android:layout_alignRight="@+id/answerBox"
         android:layout_alignTop="@+id/buttonColor" />
 
@@ -35,15 +35,6 @@
         android:ems="10"
         android:inputType="textImeMultiLine"
          />
-
-    <TextView
-        android:id="@+id/answerText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/drawingView"
-        android:layout_alignParentLeft="true"
-        android:text="@string/answer"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
         android:id="@+id/hintBox"
@@ -132,6 +123,15 @@
         android:layout_alignParentTop="true"
         android:layout_toLeftOf="@+id/player1ScoreText"
         android:text="@string/artist"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/answerText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/answerBox"
+        android:layout_alignParentLeft="true"
+        android:text="@string/answer"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>
