@@ -40,6 +40,16 @@ public class GuessActivity extends Activity {
     
     private int whosDrawing;
     
+    /**
+     * Flag to indicate if the hint has been shown (25 pts)
+     */
+    private boolean hintShown = false;
+    
+    /**
+     * Flag to indicate if the user ran out of time (0 pts)
+     */
+    private boolean timeExpired = false;
+    
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -115,62 +125,108 @@ public class GuessActivity extends Activity {
 		    	 
 		    	 if (msTillDone<=70000) {
 		    		 hintText.setText("Hint: "+ Hint);
+		    		 hintShown = true;
 		    	 } 
 		     }
 
 		     public void onFinish() {
 		         myTimer.setText("Out of Time!");
+		         hintShown = false;
+		         timeExpired = true;
+		         
+		         AlertDialog.Builder builder = new AlertDialog.Builder(GuessActivity.this);
+
+		        	builder.setMessage(R.string.out_of_time_warning);
+		        	builder.setTitle(R.string.out_of_time_title);
+
+		        	AlertDialog warningDialog = builder.create();
+		        	
+		            builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+		                public void onClick(DialogInterface dialog, int id) {
+		                	// No need to do anything, just letting them know they FAILED
+		                }
+		            });
+		            
+		            builder.show();
+		            warningDialog.dismiss();
 		     }
 		  }.start();
 	}
 	
 	public void onDone(View view) {
+		// Calculate points to award
+		
+		int pointsAwarded = 50; // 50 points for correct guess without hint
+		
+		if (hintShown){
+			pointsAwarded = 25; // 25 points for correct guess with hint
+		}
+		else if (timeExpired){
+			pointsAwarded = 0;  // 0 points for expired time
+		}
 		
 		EditText guessBox = (EditText) findViewById(R.id.guessBox);
 		
+		if (!guessBox.getText().toString().equals(Answer) && !timeExpired){ // Incorrect guess, let them know of their failure, but don't start new activity
+	         AlertDialog.Builder builder = new AlertDialog.Builder(GuessActivity.this);
+
+        	builder.setMessage(R.string.incorrect_guess_warning);
+        	builder.setTitle(R.string.incorrect_guess_title);
+
+        	AlertDialog warningDialog = builder.create();
+        	
+            builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                	// No need to do anything, just letting them know they FAILED
+                }
+            });
+            
+            builder.show();
+            warningDialog.dismiss();
+		}
 		// Correct guess - score it
-		if (guessBox.getText().toString().equals(Answer)){
+		else{
 			if (whosDrawing == 1){
-				player2Score += 50;
+				player2Score += pointsAwarded;
 			}
 			if (whosDrawing == 2){
-				player1Score += 50;
+				player1Score += pointsAwarded;
 			}
-		}
 		
-		Intent intent;
-		if (player1Score >= 500 || player2Score >= 500){ // Someone won!!
-			intent = new Intent(this, FinalScoreActivity.class);
-			
-			// Put the player's scores in the bundle
-			intent.putExtra(PLAYER1SCORE, player1Score);
-			intent.putExtra(PLAYER2SCORE, player2Score);
-			
-			// Put the player's names in the bundle
-			intent.putExtra(PLAYER1, player1Name);
-			intent.putExtra(PLAYER2, player2Name);
-			
-		}else{
-			intent = new Intent(this, DrawActivity.class);
-			
-			// Put the player's scores in the bundle
-			intent.putExtra(PLAYER1SCORE, player1Score);
-			intent.putExtra(PLAYER2SCORE, player2Score);
-			
-			// Put the player's names in the bundle
-			intent.putExtra(PLAYER1, player1Name);
-			intent.putExtra(PLAYER2, player2Name);
-			
-			// Switch the drawer
-			if (whosDrawing == 1){
-				intent.putExtra(WHOSDRAWING, 2);
+			Intent intent;
+			if (player1Score >= 500 || player2Score >= 500){ // Someone won!!
+				intent = new Intent(this, FinalScoreActivity.class);
+				
+				// Put the player's scores in the bundle
+				intent.putExtra(PLAYER1SCORE, player1Score);
+				intent.putExtra(PLAYER2SCORE, player2Score);
+				
+				// Put the player's names in the bundle
+				intent.putExtra(PLAYER1, player1Name);
+				intent.putExtra(PLAYER2, player2Name);
+				
+			}else{ // Nobody won, start a new round
+				intent = new Intent(this, DrawActivity.class);
+				
+				// Put the player's scores in the bundle
+				intent.putExtra(PLAYER1SCORE, player1Score);
+				intent.putExtra(PLAYER2SCORE, player2Score);
+				
+				// Put the player's names in the bundle
+				intent.putExtra(PLAYER1, player1Name);
+				intent.putExtra(PLAYER2, player2Name);
+				
+				// Switch the drawer
+				if (whosDrawing == 1){
+					intent.putExtra(WHOSDRAWING, 2);
+				}
+				else{
+					intent.putExtra(WHOSDRAWING, 1);
+				}
 			}
-			else{
-				intent.putExtra(WHOSDRAWING, 1);
-			}
+			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(intent);
 		}
-		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		startActivity(intent);
     }
 	
     @Override

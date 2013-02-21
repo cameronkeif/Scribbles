@@ -22,7 +22,7 @@ public final class R {
         public static final int FrameLayout01=0x7f08001c;
         public static final int Hint=0x7f080015;
         public static final int ScrollView1=0x7f080019;
-        public static final int answerBox=0x7f08000b;
+        public static final int answerBox=0x7f080008;
         public static final int answerText=0x7f08000d;
         public static final int button1=0x7f080010;
         public static final int buttonColor=0x7f080002;
@@ -36,7 +36,7 @@ public final class R {
         public static final int guessBox=0x7f080013;
         public static final int guessText=0x7f080012;
         public static final int guessingView=0x7f080014;
-        public static final int hintBox=0x7f080008;
+        public static final int hintBox=0x7f08000b;
         public static final int hintText=0x7f08000c;
         public static final int layout=0x7f080001;
         public static final int menu_settings=0x7f08002a;
@@ -56,11 +56,11 @@ public final class R {
         public static final int spinnerThickness=0x7f080003;
         public static final int textViewExplanation=0x7f08001b;
         public static final int textViewTitle=0x7f08001a;
-        public static final int theTimer=0x7f080016;
+        public static final int theTimer=0x7f080018;
         public static final int topicText=0x7f08000a;
         public static final int welcomeFrame=0x7f08001d;
         public static final int whosDrawingText=0x7f080009;
-        public static final int whosGuessingText=0x7f080018;
+        public static final int whosGuessingText=0x7f080016;
     }
     public static final class layout {
         public static final int activity_color_select=0x7f030000;
@@ -103,6 +103,8 @@ public final class R {
         public static final int hello_world=0x7f050007;
         public static final int hint=0x7f050013;
         public static final int howToPlay=0x7f050021;
+        public static final int incorrect_guess_title=0x7f05002e;
+        public static final int incorrect_guess_warning=0x7f05002d;
         public static final int menu_settings=0x7f050001;
         public static final int move=0x7f050018;
         public static final int msu=0x7f05000d;
@@ -110,6 +112,8 @@ public final class R {
         public static final int no=0x7f050026;
         public static final int object=0x7f05000f;
         public static final int ok=0x7f050027;
+        public static final int out_of_time_title=0x7f05002c;
+        public static final int out_of_time_warning=0x7f05002b;
         public static final int player1=0x7f050002;
         public static final int player2=0x7f050003;
         public static final int text_field_enter_name=0x7f050006;

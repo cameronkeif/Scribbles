@@ -86,7 +86,7 @@
         android:layout_alignBaseline="@+id/Category"
         android:layout_alignBottom="@+id/Category"
         android:layout_alignParentRight="true"
-        android:text="@string/timer"
+        android:text="@string/guessing"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
