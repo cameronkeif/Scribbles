@@ -218,7 +218,10 @@ public class DrawActivity extends Activity {
                 	// No need to actually *do* anything. Just want to let the user know what's up.
                 }
             });
-            builder.show();
+            if (!((Activity) this).isFinishing()) {
+            	builder.show();
+            }
+            
             answerHintDialog.dismiss();
     		
     	}else{
@@ -253,6 +256,7 @@ public class DrawActivity extends Activity {
 			// Start the guessing activity
 			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
+			finish();
     	}
     }
     

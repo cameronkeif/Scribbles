@@ -136,19 +136,21 @@ public class GuessActivity extends Activity {
 		         
 		         AlertDialog.Builder builder = new AlertDialog.Builder(GuessActivity.this);
 
-		        	builder.setMessage(R.string.out_of_time_warning);
-		        	builder.setTitle(R.string.out_of_time_title);
+	        	builder.setMessage(R.string.out_of_time_warning);
+	        	builder.setTitle(R.string.out_of_time_title);
 
-		        	AlertDialog warningDialog = builder.create();
-		        	
-		            builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-		                public void onClick(DialogInterface dialog, int id) {
-		                	// No need to do anything, just letting them know they FAILED
-		                }
-		            });
-		            
-		            builder.show();
-		            warningDialog.dismiss();
+	        	AlertDialog warningDialog = builder.create();
+	        	
+	            builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+	                public void onClick(DialogInterface dialog, int id) {
+	                	// No need to do anything, just letting them know they FAILED
+	                }
+	            });
+	            
+	            if (!((Activity) GuessActivity.this).isFinishing()) {
+	            	builder.show();
+	            }
+	            warningDialog.dismiss();
 		     }
 		  }.start();
 	}
@@ -167,7 +169,10 @@ public class GuessActivity extends Activity {
 		
 		EditText guessBox = (EditText) findViewById(R.id.guessBox);
 		
-		if (!guessBox.getText().toString().equals(Answer) && !timeExpired){ // Incorrect guess, let them know of their failure, but don't start new activity
+		if (!guessBox.getText().toString().toLowerCase().equals(Answer.toLowerCase()) 
+				&& !timeExpired){ 
+			
+			// Incorrect guess, let them know of their failure, but don't start new activity
 	         AlertDialog.Builder builder = new AlertDialog.Builder(GuessActivity.this);
 
         	builder.setMessage(R.string.incorrect_guess_warning);
@@ -226,6 +231,7 @@ public class GuessActivity extends Activity {
 			}
 			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
+			finish();
 		}
     }
 	
@@ -292,7 +298,9 @@ public class GuessActivity extends Activity {
                 }
             });
         			
-            builder.show();
+            if (!((Activity) this).isFinishing()) {
+            	builder.show();
+            }
             warningDialog.dismiss();
             return true;
         }
