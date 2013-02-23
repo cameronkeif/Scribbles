@@ -5,7 +5,7 @@
     <string name="menu_settings">Settings</string>
     <string name="player1">Player 1</string>
     <string name="player2">Player 2</string>
-    <string name="title_activity_welcome_screen">WelcomeScreen</string>
+    <string name="title_activity_welcome_screen">Scribbles</string>
     <string name="welcome_text">Enter Your Names Below</string>
     <string name="text_field_enter_name">Enter Your Name Here</string>
     <string name="hello_world">Hello world!</string>
@@ -13,7 +13,7 @@
     <string name="button_color">Color</string>
     <string name="begin_game">Begin</string>
     <string name="button_done">Done</string>
-    <string name="title_activity_color_select">ColorSelectActivity</string>
+    <string name="title_activity_color_select">Select A Color</string>
     <string name="msu">MSU</string>
     <string name="animal">Animal</string>
     <string name="object">Object</string>
@@ -21,9 +21,9 @@
     <string name="action">Action</string>
     <string name="topic">Topic: </string>
     <string name="hint">Hint: </string>
-    <string name="title_activity_guess">GuessActivity</string>
+    <string name="title_activity_guess">Guess</string>
     <string name="answer">"Answer: "</string>
-    <string name="title_activity_final_score">FinalScoreActivity</string>
+    <string name="title_activity_final_score">Final Score</string>
     <string name="final_score">Final Score</string>
     <string name="move">Move</string>
     <string name="draw">Draw</string>
@@ -35,13 +35,13 @@
     <string name="guessing">Guessing:</string>
     <string name="new_game">New Game</string>
     <string name="howToPlay">How To Play</string>
-    <string name="title_activity_how_to_play">HowToPlayActivity</string>
+    <string name="title_activity_how_to_play">Instructions</string>
     <string name="dialog_box_warning">This will bring you back to the home screen and end this game. Are you sure you want to quit?</string>
     <string name="dialog_box_title">Really quit?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="ok">OK</string>
-    <string name="explanation1">Enter the two players\' names at the welcome screen, and press Begin to start. Player 1 will be the first to draw and Player 2 will be the first to guess. \n \n \nThere is a button to select the pen color, and a small menu to select its thickness. The player who is drawing can draw by touching the white area. You can press the \"Move\" button to switch to move mode, which will allow you to resize and rotate the image. When the player who is done drawing has finished, press the \"Done\" button and pass the device to the other player. \n \n \nThe guessing player will have 2 minutes and 10 seconds to guess what the drawing is. The hint will appear after 1 minute and 10 seconds. If the guessing player guesses correctly within this time without the hint appearing, they will receive 50 points. If they guess correctly, but the hint has appeared, they will receive 25 points. Regardless of whether they get points or not, after the guessing player finishes, a new round begins where the guesser becomes the drawer and vice-versa. \n \n \nThe first player to 500 points wins!</string>
+    <string name="explanation1">Enter the two players\' names at the welcome screen, and press Begin to start. Player 1 will be the first to draw and Player 2 will be the first to guess. \n \n \nThere is a button to select the pen color, and a small menu to select its thickness. The player who is drawing can draw by touching the area inside the green rectangle. You can press the \&quot;Move\&quot; button to switch to move mode, which will allow you to resize and rotate the image. To return to drawing mode, simply press the &quot;Draw&quot; button that appears while in move mode. When the player who is drawing has finished, press the \&quot;Done\&quot; button and pass the device to the other player. \n \n \nThe guessing player will have 2 minutes and 10 seconds to guess what the drawing is. Enter what you think the drawing is into the &quot;Guess&quot; box, and press &quot;Done&quot;. The hint will appear after 1 minute and 10 seconds. If the guessing player guesses correctly within this time without the hint appearing, they will receive 50 points. If they guess correctly, but the hint has appeared, they will receive 25 points. Regardless of whether they get points or not, after the guessing player finishes, a new round begins where the guesser becomes the drawer and vice-versa. \n \n \nThe first player to 500 points wins!</string>
     <string name="answer_hint_dialog_title">Information Needed</string>
     <string name="answer_hint_dialog_text">Please enter both an answer and a hint before proceeding.</string>
     <string name="out_of_time_warning">You ran out of time!</string>
@@ -51,4 +51,6 @@
     <string name="clear">Clear Drawing</string>
     <string name="clear_warning_title">Really clear?</string>
     <string name="clear_warning_text">Are you sure you want to completely clear your drawing?</string>
+    <string name="drawing_warning_text">You forgot to draw something! Please draw something before proceeding.</string>
+    <string name="drawing_warning_title">Please Draw Something</string>
 </resources>

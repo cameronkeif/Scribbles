@@ -221,6 +221,24 @@ public class DrawActivity extends Activity {
             
             answerHintDialog.dismiss();
     		
+    	}else if(drawingView.isEmpty()){
+    		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        	builder.setMessage(R.string.drawing_warning_text);
+        	builder.setTitle(R.string.drawing_warning_title);
+
+        	AlertDialog answerHintDialog = builder.create();
+        	
+            builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                	// No need to actually *do* anything. Just want to let the user know what's up.
+                }
+            });
+            if (!((Activity) this).isFinishing()) {
+            	builder.show();
+            }
+            
+            answerHintDialog.dismiss();
     	}else{
 	    	// Start the guessing activity
 	    	// Change DrawActivity.class to the guess activity class when it is created.

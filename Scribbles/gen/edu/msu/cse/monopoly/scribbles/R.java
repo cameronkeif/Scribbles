@@ -96,6 +96,8 @@ public final class R {
         public static final int dialog_box_title=0x7f050024;
         public static final int dialog_box_warning=0x7f050023;
         public static final int draw=0x7f050019;
+        public static final int drawing_warning_text=0x7f050032;
+        public static final int drawing_warning_title=0x7f050033;
         public static final int enter_guess=0x7f05001b;
         public static final int explanation1=0x7f050028;
         public static final int final_score=0x7f050017;

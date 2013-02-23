@@ -668,4 +668,8 @@ public class DrawingView extends View {
     	invalidate();
     }
 
+    public boolean isEmpty()
+    {
+    	return params.lines.isEmpty();
+    }
 }
