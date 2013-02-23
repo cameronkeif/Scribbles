@@ -54,12 +54,12 @@ public class DrawingView extends View {
 		/** 
 		 * current x location of drawing
 		 */
-		private int drawingX;
+		private float drawingX;
 		
 		/** 
 		 * current y location of drawing
 		 */
-		private int drawingY;
+		private float drawingY;
 		
 		/** 
 		 * current scale of drawing
@@ -135,7 +135,7 @@ public class DrawingView extends View {
 		invalidate();
 	}
 	
-	public int getDrawingX(){
+	public float getDrawingX(){
 		return params.drawingX;
 	}
 	
@@ -146,7 +146,7 @@ public class DrawingView extends View {
 		invalidate();
 	}
 	
-	public int getDrawingY(){
+	public float getDrawingY(){
 		return params.drawingY;
 	}
 	
@@ -276,14 +276,20 @@ public class DrawingView extends View {
          * Draws a line. Draws a circle at the end point to make round.
          * @param canvas The canvas
          */
-        public void draw(Canvas canvas, int locX, int locY, float scale, float angle){
+        public void draw(Canvas canvas, float locX, float locY, float scale, float angle){
     		linePaint.setColor(color);
     		linePaint.setStrokeWidth(thickness);
     		circlePaint.setColor(color);
-    		canvas.drawLine(startX + locX, startY + locY,
-    				endX + locX, endY + locY, linePaint);
     		
-    		canvas.drawCircle(endX + locX, endY + locY,
+    		float trueStartX = startX /*+ locX*/;
+    		float trueStartY = startY /*+ locY*/;
+    		float trueEndX = endX /*+ locX*/;
+    		float trueEndY = endY /*+ locY*/;
+    		
+    		canvas.drawLine(trueStartX, trueStartY,
+    				trueEndX, trueEndY, linePaint);
+    		
+    		canvas.drawCircle(trueEndX, trueEndY,
     				thickness/2, circlePaint);
     	}
         
@@ -314,12 +320,17 @@ public class DrawingView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         
+        canvas.save();
+        canvas.translate(params.drawingX,  params.drawingY);
+        canvas.scale(params.drawingScale, params.drawingScale);
+        canvas.rotate(params.drawingAngle);
     	for(Line line:params.lines){
     		//this nonsense is because you can't access these variables
     		//directly from the static line class
     		line.draw(canvas, params.drawingX, params.drawingY,
     				params.drawingAngle, params.drawingScale);
     	}
+    	canvas.restore();
     }
     
     /**
@@ -411,8 +422,27 @@ public class DrawingView extends View {
     public boolean onTouchEvent(MotionEvent e) { 
         if(!params.moveFlag){
         	
-        	float x = e.getX() - params.drawingX;
-        	float y = e.getY() - params.drawingY;
+        	
+        	
+        	
+//            float angle1 = angle(touch1.lastX, touch1.lastY, touch2.lastX, touch2.lastY);
+//            float angle2 = angle(touch1.x, touch1.y, touch2.x, touch2.y);
+//            float da = angle2 - angle1;
+
+            
+            // Compute the radians angle, reverse of drawing rotation
+            double rAngle = -1 * Math.toRadians(params.drawingAngle);
+            float ca = (float) Math.cos(rAngle);
+            float sa = (float) Math.sin(rAngle);
+            float xp = (params.drawingX - e.getX()) * ca - (params.drawingY - e.getY()) * sa + e.getX();
+            float yp = (params.drawingX - e.getX()) * sa + (params.drawingY - e.getY()) * ca + e.getY();
+
+            float dxp = params.drawingX - xp;
+            float dyp = params.drawingY - yp;
+            float x = e.getX() - params.drawingX + dxp;
+            float y = e.getY() - params.drawingY + dyp;
+        	
+        	
             
             switch (e.getAction()) {
             case MotionEvent.ACTION_DOWN:
@@ -546,18 +576,18 @@ public class DrawingView extends View {
             params.drawingX += touch1.dX;
             params.drawingY += touch1.dY;
         }
-//        
-//        if(touch2.id >= 0) {
-//            // Two touches
-//            
-//            /*
-//             * Rotation
-//             */
-//            float angle1 = angle(touch1.lastX, touch1.lastY, touch2.lastX, touch2.lastY);
-//            float angle2 = angle(touch1.x, touch1.y, touch2.x, touch2.y);
-//            float da = angle2 - angle1;
-//            rotate(da, touch1.x, touch1.y);
-//            
+        
+        if(touch2.id >= 0) {
+            // Two touches
+            
+            /*
+             * Rotation
+             */
+            float angle1 = angle(touch1.lastX, touch1.lastY, touch2.lastX, touch2.lastY);
+            float angle2 = angle(touch1.x, touch1.y, touch2.x, touch2.y);
+            float da = angle2 - angle1;
+            rotate(da, touch1.x, touch1.y);
+            
 //            /*
 //             * Scaling
 //             */
@@ -565,7 +595,41 @@ public class DrawingView extends View {
 //            float dist2 = FloatMath.sqrt( (touch1.x-touch2.x)*(touch1.x-touch2.x) + (touch1.y-touch2.y)*(touch1.y-touch2.y) );
 //            float sRatio = dist2/dist1;
 //            scale(sRatio);
-//        }
+        }
+    }
+        
+    /**
+     * Rotate the image around the point x1, y1
+     * @param dAngle Angle to rotate in degrees
+     * @param x1 rotation point x
+     * @param y1 rotation point y
+     */
+    public void rotate(float dAngle, float x1, float y1) {
+        params.drawingAngle += dAngle;
+        
+        // Compute the radians angle
+        double rAngle = Math.toRadians(dAngle);
+        float ca = (float) Math.cos(rAngle);
+        float sa = (float) Math.sin(rAngle);
+        float xp = (params.drawingX - x1) * ca - (params.drawingY - y1) * sa + x1;
+        float yp = (params.drawingX - x1) * sa + (params.drawingY - y1) * ca + y1;
+
+        params.drawingX = xp;
+        params.drawingY = yp;
+    }
+    
+    /**
+     * Determine the angle for two touches
+     * @param x1 Touch 1 x
+     * @param y1 Touch 1 y
+     * @param x2 Touch 2 x
+     * @param y2 Touch 2 y
+     * @return computed angle in degrees
+     */
+    private float angle(float x1, float y1, float x2, float y2) {
+        float dx = x2 - x1;
+        float dy = y2 - y1;
+        return (float) Math.toDegrees(Math.atan2(dy, dx));
     }
     
     public Parameters getParams()
