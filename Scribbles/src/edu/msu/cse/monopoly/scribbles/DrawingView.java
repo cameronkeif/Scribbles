@@ -18,6 +18,7 @@ public class DrawingView extends View {
     
     /**
      * The line currently being drawn
+     * changed line draw method
      */
     private Line currentLine = null;
     
@@ -120,6 +121,11 @@ public class DrawingView extends View {
 		params.currentColor = Color.BLACK;
 		params.currentThickness = 1;
 		circlePaint.setStyle(Paint.Style.FILL);
+
+		setDrawingX(0);
+		setDrawingY(0);
+		setDrawingScale(1.0f);
+		setDrawingAngle(0.0f);
 	}
 	
 	/** Sets the drawing's x location
@@ -198,10 +204,19 @@ public class DrawingView extends View {
 	}
 	
 	/** Sets the current thickness
-	 * @return */
+	 * @param thickness the thickness to set 
+	 */
 	public void setThickness(int thickness){
 		params.currentThickness = thickness;
 		invalidate();
+	}
+	
+	/**
+	 * Returns the thickness
+	 * @return the thickness
+	 */
+	public int getThickness(){
+		return params.currentThickness;
 	}
 	
 	
@@ -261,14 +276,16 @@ public class DrawingView extends View {
          * Draws a line. Draws a circle at the end point to make round.
          * @param canvas The canvas
          */
-        public void draw(Canvas canvas){
-        		linePaint.setColor(color);
-        		linePaint.setStrokeWidth(thickness);
-        		circlePaint.setColor(color);
-        		canvas.drawLine(startX, startY, endX, endY, linePaint);
-        		
-        		canvas.drawCircle(endX, endY, thickness/2, circlePaint);
-        	}
+        public void draw(Canvas canvas, int locX, int locY, float scale, float angle){
+    		linePaint.setColor(color);
+    		linePaint.setStrokeWidth(thickness);
+    		circlePaint.setColor(color);
+    		canvas.drawLine(startX + locX, startY + locY,
+    				endX + locX, endY + locY, linePaint);
+    		
+    		canvas.drawCircle(endX + locX, endY + locY,
+    				thickness/2, circlePaint);
+    	}
         
         /**
          * Set the color of the line
@@ -298,7 +315,10 @@ public class DrawingView extends View {
         super.onDraw(canvas);
         
     	for(Line line:params.lines){
-    		line.draw(canvas);
+    		//this nonsense is because you can't access these variables
+    		//directly from the static line class
+    		line.draw(canvas, params.drawingX, params.drawingY,
+    				params.drawingAngle, params.drawingScale);
     	}
     }
     
@@ -389,40 +409,168 @@ public class DrawingView extends View {
      */
     @Override 
     public boolean onTouchEvent(MotionEvent e) { 
-        if(!params.moveFlag){ 
+        if(!params.moveFlag){
+        	
+        	float x = e.getX() - params.drawingX;
+        	float y = e.getY() - params.drawingY;
             
             switch (e.getAction()) {
             case MotionEvent.ACTION_DOWN:
-	            currentLine = new Line(e.getX(), e.getY());
+	            currentLine = new Line(x, y);
 	            
 	            currentLine.setColor(params.currentColor);
 	            currentLine.setThickness(params.currentThickness);
                 break;
             case MotionEvent.ACTION_MOVE:
-            	currentLine.endX = e.getX();
-            	currentLine.endY = e.getY();
+            	currentLine.endX = x;
+            	currentLine.endY = y;
             	params.lines.add(currentLine);
             	
-	            currentLine = new Line(e.getX(), e.getY());
+	            currentLine = new Line(x, y);
 	            
             	currentLine.setColor(params.currentColor);
             	currentLine.setThickness(params.currentThickness);
                 break;
             case MotionEvent.ACTION_UP:
-            	currentLine.endX = e.getX();
-            	currentLine.endY = e.getY();
+            	currentLine.endX = x;
+            	currentLine.endY = y;
                 params.lines.add(currentLine);
                 currentLine = null;
                 break;
             }
             invalidate();
-            return true; 
-        } 
-        return false; 
+            return true;
+        }
+        else
+        {
+            int id = e.getPointerId(e.getActionIndex());
+            
+            switch(e.getActionMasked()) {
+	            case MotionEvent.ACTION_DOWN:
+	                touch1.id = id;
+	                touch2.id = -1;
+	                getPositions(e);
+	                touch1.copyToLast();
+	                invalidate();
+	                return true;
+	                
+	            case MotionEvent.ACTION_POINTER_DOWN:
+	            	//if not moving, don't want second touch
+	                if(touch1.id >= 0 && touch2.id < 0) {
+	                    touch2.id = id;
+	                    getPositions(e);
+	                    touch2.copyToLast();
+	                    return true;
+	                }
+	                break;
+	                
+	            case MotionEvent.ACTION_UP:
+	            case MotionEvent.ACTION_CANCEL:
+	                touch1.id = -1;
+	                touch2.id = -1;
+	                invalidate();
+	                return true;
+	                
+	            case MotionEvent.ACTION_POINTER_UP:
+	                if(id == touch2.id) {
+	                    touch2.id = -1;
+	                } else if(id == touch1.id) {
+	                    // Make what was touch2 now be touch1 by 
+	                    // swapping the objects.
+	                    Touch t = touch1;
+	                    touch1 = touch2;
+	                    touch2 = t;
+	                    touch2.id = -1;
+	                }
+	                invalidate();
+	                return true;
+	                
+	            case MotionEvent.ACTION_MOVE:
+	                getPositions(e);
+	                transform();
+	                invalidate();
+	                return true;
+            }
+            
+            return super.onTouchEvent(e);
+        }
+    }
+    
+    /**
+     * Get the positions for the two touches and put them
+     * into the appropriate touch objects.
+     * @param event the motion event
+     */
+    private void getPositions(MotionEvent event) {
+        for(int i=0;  i<event.getPointerCount();  i++) {
+            
+            // Get the pointer id
+            int id = event.getPointerId(i);
+            
+            // Get coords, convert to image coordinates
+            float x = event.getX(i);
+            float y = event.getY(i);
+//            float x = (event.getX(i) - marginLeft) / imageScale;
+//            float y = (event.getY(i) - marginTop) / imageScale;
+            
+            if(id == touch1.id) {
+            	touch1.copyToLast();
+                touch1.x = x;
+                touch1.y = y;
+            } else if(id == touch2.id) {
+            	touch2.copyToLast();
+                touch2.x = x;
+                touch2.y = y;
+            }
+        }
+        
+        invalidate();
+    }
+    
+    /**
+     * Handle movement of the touches for move mode
+     */
+    private void transform() {
+        // If no touch1, we have nothing to do
+        // This should not happen, but it never hurts
+        // to check.
+        if(touch1.id < 0) { 
+            return;
+        }
+        
+        if(touch1.id >= 0) {
+            // At least one touch
+            // We are moving
+            touch1.computeDeltas();
+            
+            params.drawingX += touch1.dX;
+            params.drawingY += touch1.dY;
+        }
+//        
+//        if(touch2.id >= 0) {
+//            // Two touches
+//            
+//            /*
+//             * Rotation
+//             */
+//            float angle1 = angle(touch1.lastX, touch1.lastY, touch2.lastX, touch2.lastY);
+//            float angle2 = angle(touch1.x, touch1.y, touch2.x, touch2.y);
+//            float da = angle2 - angle1;
+//            rotate(da, touch1.x, touch1.y);
+//            
+//            /*
+//             * Scaling
+//             */
+//            float dist1 = FloatMath.sqrt( (touch1.lastX-touch2.lastX)*(touch1.lastX-touch2.lastX) + (touch1.lastY-touch2.lastY)*(touch1.lastY-touch2.lastY) );
+//            float dist2 = FloatMath.sqrt( (touch1.x-touch2.x)*(touch1.x-touch2.x) + (touch1.y-touch2.y)*(touch1.y-touch2.y) );
+//            float sRatio = dist2/dist1;
+//            scale(sRatio);
+//        }
     }
     
     public Parameters getParams()
     {
     	return params;
     }
+
 }
