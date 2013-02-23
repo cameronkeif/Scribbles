@@ -54,6 +54,8 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:text="@string/topic"
+        android:ellipsize="end"
+        android:singleLine="true"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Spinner
@@ -93,6 +95,8 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/player1ScoreText"
         android:text="@string/player2"
+        android:ellipsize="end"
+        android:singleLine="true"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -103,6 +107,8 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:text="@string/player1"
+        android:ellipsize="end"
+        android:singleLine="true"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
@@ -123,6 +129,8 @@
         android:layout_alignParentTop="true"
         android:layout_toLeftOf="@+id/player1ScoreText"
         android:text="@string/artist"
+        android:ellipsize="end"
+        android:singleLine="true"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView

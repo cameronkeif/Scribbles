@@ -104,19 +104,16 @@ public class DrawingView extends View {
 	
 	public DrawingView(Context context) {
 		super(context);
-		// TODO Auto-generated constructor stub
 		init();
 	}
 
 	public DrawingView(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		// TODO Auto-generated constructor stub
 		init();
 	}
 
 	public DrawingView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
-		// TODO Auto-generated constructor stub
 		init();
 	}
 	
@@ -125,8 +122,8 @@ public class DrawingView extends View {
 	 */
 	private void init(){
 		borderPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-		borderPaint.setColor(Color.MAGENTA);
-		borderPaint.setStrokeWidth(2);
+		borderPaint.setColor(0xff51a351); // Nice, dark green color. GO GREEN!
+		borderPaint.setStrokeWidth(5);
 		borderPaint.setStyle(Style.STROKE);
 		linePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 		params.currentColor = Color.BLACK;
@@ -660,6 +657,15 @@ public class DrawingView extends View {
     public Parameters getParams()
     {
     	return params;
+    }
+    
+    /**
+     * Clears all of the lines in the puzzle.
+     */
+    public void clearDrawing()
+    {
+    	params.lines.clear();
+    	invalidate();
     }
 
 }

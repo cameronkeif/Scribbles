@@ -38,16 +38,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/topicText"
         android:text="@string/player1"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/player2ScoreText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:text="@string/player2"
+        android:gravity="right"
+        android:ellipsize="end"
+        android:singleLine="true"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <edu.msu.cse.monopoly.scribbles.DrawingView
@@ -64,6 +59,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
         android:textAppearance="?android:attr/textAppearanceMedium" 
+        android:ellipsize="end"
+        android:singleLine="true"
         android:text="@string/topic" />
 
     <EditText
@@ -109,8 +106,11 @@
         android:id="@+id/whosDrawingText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
         android:layout_below="@id/topicText"
-        android:layout_centerHorizontal="true"
+        android:ellipsize="end"
+        android:singleLine="true"
         android:text="@string/artist"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -121,6 +121,18 @@
         android:layout_alignBottom="@+id/answerBox"
         android:layout_alignParentLeft="true"
         android:text="@string/answer"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/player2ScoreText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/buttonMoveToggle"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="@string/player2"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>

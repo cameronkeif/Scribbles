@@ -31,7 +31,7 @@
         android:layout_toLeftOf="@+id/returnDraw"
         android:layout_toRightOf="@+id/guessText"
         android:ems="10"
-        android:inputType="textMultiLine" >
+        android:inputType="textImeMultiLine" >
 
     </EditText>
 
@@ -48,7 +48,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/Category"
         android:text="@string/player1"
+        android:gravity="right"
+        android:ellipsize="end"
+        android:singleLine="true"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -57,16 +61,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/theTimer"
         android:text="@string/player2"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/Category"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/player1ScoreText"
-        android:layout_centerHorizontal="true"
-        android:text="@string/topic"
+        android:ellipsize="end"
+        android:singleLine="true"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -80,12 +78,27 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
+        android:id="@+id/Category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/player1ScoreText"
+        android:layout_toLeftOf="@+id/theTimer"
+        android:text="@string/topic"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
         android:id="@+id/whosGuessingText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/Category"
-        android:layout_alignBottom="@+id/Category"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
+        android:layout_below="@+id/Category"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:gravity="left"
         android:text="@string/guessing"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -93,9 +106,11 @@
         android:id="@+id/theTimer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/guessingView"
-        android:layout_alignParentLeft="true"
-        android:text="@string/guessing"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="@string/timer"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>

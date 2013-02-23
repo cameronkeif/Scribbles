@@ -33,6 +33,8 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/player1ScoreText"
         android:text="@string/player2"
+		android:ellipsize="end"
+        android:singleLine="true"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
@@ -63,7 +65,7 @@
         android:layout_alignRight="@+id/guessingView"
         android:layout_toRightOf="@+id/guessText"
         android:ems="10"
-        android:inputType="textMultiLine" >
+        android:inputType="textImeMultiLine" >
     </EditText>
 
     <TextView
@@ -82,7 +84,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/Category"
         android:layout_below="@+id/Category"
-        android:text="@string/guessing"
+        android:text="@string/timer"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -94,15 +96,20 @@
         android:layout_below="@+id/theTimer"
         android:layout_marginTop="81dp"
         android:text="@string/player1"
+		android:ellipsize="end"
+        android:singleLine="true"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
         android:id="@+id/whosGuessingText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/Category"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:text="@string/timer"
+        android:text="@string/guessing"
+        android:singleLine="true"
+        android:ellipsize="end"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>

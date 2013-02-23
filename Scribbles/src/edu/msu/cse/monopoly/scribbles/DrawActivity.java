@@ -9,6 +9,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -96,9 +98,7 @@ public class DrawActivity extends Activity {
             	player1Name = getString(R.string.player1);
             	player1ScoreText.setText(getString(R.string.player1) + ": " + Integer.toString(player1Score));
             }
-            else{
-            	player1ScoreText.setText(player1Name + ": " + Integer.toString(player1Score));
-            }
+            player1ScoreText.setText(Integer.toString(player1Score) + ": " + player1Name);
         }
         
         if(player2Name != null){
@@ -107,11 +107,8 @@ public class DrawActivity extends Activity {
             
             if (player2Name.equals("")){ // User enters nothing
             	player2Name = getString(R.string.player2);
-            	player2ScoreText.setText(getString(R.string.player2) + ": " + Integer.toString(bundle.getInt(PLAYER2SCORE)));
             }
-            else{
-            	player2ScoreText.setText(player2Name + ": " + Integer.toString(player2Score));
-            }
+            player2ScoreText.setText(Integer.toString(player2Score) + ": " + player2Name);
         }
         
         // Set the artist text view
@@ -371,5 +368,43 @@ public class DrawActivity extends Activity {
         }
 
         return super.onKeyDown(keyCode, event);
+    }
+    
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.activity_draw, menu);
+		return true;
+	}
+	
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case R.id.clear:
+        	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        	builder.setMessage(R.string.clear_warning_text);
+        	builder.setTitle(R.string.clear_warning_title);
+
+        	AlertDialog warningDialog = builder.create();
+        	
+            builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                	// User wants to clear
+                	drawingView.clearDrawing();
+                }
+            });
+            builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    // User changed their mind
+                }
+            });
+        			
+            builder.show();
+            warningDialog.dismiss();
+            return true;
+            
+        default:
+            return super.onOptionsItemSelected(item);
+        }
     }
 }

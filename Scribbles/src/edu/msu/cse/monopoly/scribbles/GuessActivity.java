@@ -83,14 +83,14 @@ public class GuessActivity extends Activity {
         {
             TextView player1ScoreText = (TextView) findViewById(R.id.player1ScoreText);
             
-            	player1ScoreText.setText(player1Name + ": " + Integer.toString(player1Score));
+            	player1ScoreText.setText(Integer.toString(player1Score) + ": " + player1Name);
         }
         
         if(player2Name != null){
         	
             TextView player2ScoreText = (TextView) findViewById(R.id.player2ScoreText);
 
-            player2ScoreText.setText(player2Name + ": " + Integer.toString(player2Score));
+            player2ScoreText.setText(Integer.toString(player2Score) + ": " + player2Name);
 
         }
 		
@@ -133,40 +133,11 @@ public class GuessActivity extends Activity {
 		         myTimer.setText("Out of Time!");
 		         hintShown = false;
 		         timeExpired = true;
-		         
-		         AlertDialog.Builder builder = new AlertDialog.Builder(GuessActivity.this);
-
-	        	builder.setMessage(R.string.out_of_time_warning);
-	        	builder.setTitle(R.string.out_of_time_title);
-
-	        	AlertDialog warningDialog = builder.create();
-	        	
-	            builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-	                public void onClick(DialogInterface dialog, int id) {
-	                	// No need to do anything, just letting them know they FAILED
-	                }
-	            });
-	            
-	            if (!((Activity) GuessActivity.this).isFinishing()) {
-	            	builder.show();
-	            }
-	            warningDialog.dismiss();
 		     }
 		  }.start();
 	}
 	
 	public void onDone(View view) {
-		// Calculate points to award
-		
-		int pointsAwarded = 50; // 50 points for correct guess without hint
-		
-		if (hintShown){
-			pointsAwarded = 25; // 25 points for correct guess with hint
-		}
-		else if (timeExpired){
-			pointsAwarded = 0;  // 0 points for expired time
-		}
-		
 		EditText guessBox = (EditText) findViewById(R.id.guessBox);
 		
 		if (!guessBox.getText().toString().toLowerCase().equals(Answer.toLowerCase()) 
@@ -191,6 +162,16 @@ public class GuessActivity extends Activity {
 		}
 		// Correct guess - score it
 		else{
+			// Calculate points to award
+			int pointsAwarded = 50; // 50 points for correct guess without hint
+			
+			if (hintShown){
+				pointsAwarded = 25; // 25 points for correct guess with hint
+			}
+			else if (timeExpired){
+				pointsAwarded = 0;  // 0 points for expired time
+			}
+			
 			if (whosDrawing == 1){
 				player2Score += pointsAwarded;
 			}
