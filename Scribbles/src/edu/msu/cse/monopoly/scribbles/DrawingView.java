@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.AttributeSet;
+import android.util.FloatMath;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -422,14 +423,9 @@ public class DrawingView extends View {
     public boolean onTouchEvent(MotionEvent e) { 
         if(!params.moveFlag){
         	
+        	//this first section adjusts the input according
+        	//to transformation
         	
-        	
-        	
-//            float angle1 = angle(touch1.lastX, touch1.lastY, touch2.lastX, touch2.lastY);
-//            float angle2 = angle(touch1.x, touch1.y, touch2.x, touch2.y);
-//            float da = angle2 - angle1;
-
-            
             // Compute the radians angle, reverse of drawing rotation
             double rAngle = -1 * Math.toRadians(params.drawingAngle);
             float ca = (float) Math.cos(rAngle);
@@ -439,8 +435,8 @@ public class DrawingView extends View {
 
             float dxp = params.drawingX - xp;
             float dyp = params.drawingY - yp;
-            float x = e.getX() - params.drawingX + dxp;
-            float y = e.getY() - params.drawingY + dyp;
+            float x = (e.getX() - params.drawingX + dxp) / params.drawingScale;
+            float y = (e.getY() - params.drawingY + dyp) / params.drawingScale;
         	
         	
             
@@ -588,13 +584,13 @@ public class DrawingView extends View {
             float da = angle2 - angle1;
             rotate(da, touch1.x, touch1.y);
             
-//            /*
-//             * Scaling
-//             */
-//            float dist1 = FloatMath.sqrt( (touch1.lastX-touch2.lastX)*(touch1.lastX-touch2.lastX) + (touch1.lastY-touch2.lastY)*(touch1.lastY-touch2.lastY) );
-//            float dist2 = FloatMath.sqrt( (touch1.x-touch2.x)*(touch1.x-touch2.x) + (touch1.y-touch2.y)*(touch1.y-touch2.y) );
-//            float sRatio = dist2/dist1;
-//            scale(sRatio);
+            /*
+             * Scaling
+             */
+            float dist1 = FloatMath.sqrt( (touch1.lastX-touch2.lastX)*(touch1.lastX-touch2.lastX) + (touch1.lastY-touch2.lastY)*(touch1.lastY-touch2.lastY) );
+            float dist2 = FloatMath.sqrt( (touch1.x-touch2.x)*(touch1.x-touch2.x) + (touch1.y-touch2.y)*(touch1.y-touch2.y) );
+            float sRatio = dist2/dist1;
+            scale(sRatio, touch1.x, touch1.y);
         }
     }
         
@@ -616,6 +612,22 @@ public class DrawingView extends View {
 
         params.drawingX = xp;
         params.drawingY = yp;
+    }
+    
+    /**
+     * scale the hat
+     * @param scaleRatio multiple by which to scale the drawing
+     */
+    public void scale(float scaleRatio, float x1, float y1) {
+        params.drawingScale *= scaleRatio;
+        
+        // distance from drawing 'origin' to scale pivot
+        float dx = params.drawingX - x1;
+        float dy = params.drawingY - y1;
+        
+        // Compute scaled hatX, hatY
+        params.drawingX = x1 + dx * scaleRatio;
+        params.drawingY = y1 + dy * scaleRatio;
     }
     
     /**
