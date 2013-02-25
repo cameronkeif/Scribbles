@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.text.Html;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
@@ -130,7 +131,7 @@ public class GuessActivity extends Activity {
 		     }
 
 		     public void onFinish() {
-		         myTimer.setText("Out of Time!");
+		         myTimer.setText("0:00");
 		         hintShown = false;
 		         timeExpired = true;
 		     }
@@ -145,10 +146,10 @@ public class GuessActivity extends Activity {
 			
 			// Incorrect guess, let them know of their failure, but don't start new activity
 	         AlertDialog.Builder builder = new AlertDialog.Builder(GuessActivity.this);
-
-        	builder.setMessage(R.string.incorrect_guess_warning);
-        	builder.setTitle(R.string.incorrect_guess_title);
-
+        	
+        	builder.setMessage(Html.fromHtml("<font color='#000000'>"+getString(R.string.incorrect_guess_warning)+"</font>"));
+        	builder.setTitle(Html.fromHtml("<font color='#000000'>"+getString(R.string.incorrect_guess_title)+"</font>"));
+        	
         	AlertDialog warningDialog = builder.create();
         	
             builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
@@ -259,9 +260,9 @@ public class GuessActivity extends Activity {
         	 * to the home screen.
         	 */
         	AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-        	builder.setMessage(R.string.dialog_box_warning);
-        	builder.setTitle(R.string.dialog_box_title);
+        	
+        	builder.setMessage(Html.fromHtml("<font color='#000000'>"+getString(R.string.dialog_box_warning)+"</font>"));
+        	builder.setTitle(Html.fromHtml("<font color='#000000'>"+getString(R.string.dialog_box_title)+"</font>"));
 
         	AlertDialog warningDialog = builder.create();
         	

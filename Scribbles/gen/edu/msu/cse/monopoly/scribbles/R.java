@@ -22,7 +22,7 @@ public final class R {
         public static final int ic_launcher=0x7f020001;
     }
     public static final class id {
-        public static final int Category=0x7f090017;
+        public static final int Category=0x7f090018;
         public static final int Hint=0x7f090015;
         public static final int ScrollView1=0x7f090019;
         public static final int answerBox=0x7f090008;
@@ -58,7 +58,7 @@ public final class R {
         public static final int spinnerThickness=0x7f090003;
         public static final int textViewExplanation=0x7f09001b;
         public static final int textViewTitle=0x7f09001a;
-        public static final int theTimer=0x7f090018;
+        public static final int theTimer=0x7f090017;
         public static final int topicText=0x7f090006;
         public static final int welcomeFrame=0x7f09001c;
         public static final int whosDrawingText=0x7f090009;

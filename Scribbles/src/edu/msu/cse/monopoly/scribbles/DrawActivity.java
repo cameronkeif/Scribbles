@@ -206,8 +206,8 @@ public class DrawActivity extends Activity {
     		// Display a dialog box letting them know
     		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        	builder.setMessage(R.string.answer_hint_dialog_text);
-        	builder.setTitle(R.string.answer_hint_dialog_title);
+        	builder.setMessage(Html.fromHtml("<font color='#000000'>"+getString(R.string.answer_hint_dialog_text)+"</font>"));
+        	builder.setTitle(Html.fromHtml("<font color='#000000'>"+getString(R.string.answer_hint_dialog_title)+"</font>"));
 
         	AlertDialog answerHintDialog = builder.create();
         	
@@ -362,8 +362,8 @@ public class DrawActivity extends Activity {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {	
         	AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        	builder.setMessage(R.string.dialog_box_warning);
-        	builder.setTitle(R.string.dialog_box_title);
+        	builder.setMessage(Html.fromHtml("<font color='#000000'>"+getString(R.string.dialog_box_warning)+"</font>"));
+        	builder.setTitle(Html.fromHtml("<font color='#000000'>"+getString(R.string.dialog_box_title)+"</font>"));
 
         	AlertDialog warningDialog = builder.create();
         	
@@ -401,8 +401,9 @@ public class DrawActivity extends Activity {
         case R.id.clear:
         	AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        	builder.setMessage(R.string.clear_warning_text);
-        	builder.setTitle(R.string.clear_warning_title);
+        	builder.setMessage(Html.fromHtml("<font color='#000000'>"+getString(R.string.clear_warning_text)+"</font>"));
+        	
+        	builder.setTitle(Html.fromHtml("<font color='#000000'>"+getString(R.string.clear_warning_title)+"</font>"));
 
         	AlertDialog warningDialog = builder.create();
         	

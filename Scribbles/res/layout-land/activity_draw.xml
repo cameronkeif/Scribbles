@@ -60,6 +60,7 @@
         android:text="@string/topic"
         android:ellipsize="end"
         android:singleLine="true"
+        android:paddingLeft="10dp"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Spinner
@@ -67,7 +68,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/buttonColor"
-        android:layout_below="@+id/buttonColor" />
+        android:layout_below="@+id/buttonColor" 
+        android:paddingLeft="10dp"
+        android:popupBackground="@color/green"/>
 
     <Button
         android:id="@+id/buttonDone"
@@ -103,6 +106,7 @@
         android:text="@string/player2"
         android:ellipsize="end"
         android:singleLine="true"
+        android:paddingLeft="10dp"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -115,6 +119,7 @@
         android:text="@string/player1"
         android:ellipsize="end"
         android:singleLine="true"
+        android:paddingLeft="10dp"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button

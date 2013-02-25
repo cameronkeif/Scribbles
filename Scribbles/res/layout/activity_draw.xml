@@ -117,6 +117,7 @@
         android:layout_below="@id/topicText"
         android:ellipsize="end"
         android:singleLine="true"
+        android:gravity="center"
         android:text="@string/artist"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
