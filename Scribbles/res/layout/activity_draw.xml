@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/green"
     tools:context=".DrawActivity" 
     android:id="@+id/layout">
 
@@ -21,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/buttonColor"
-        android:layout_toRightOf="@+id/buttonColor" />
+        android:layout_toRightOf="@+id/buttonColor"/>
 
     <Button
         android:id="@+id/buttonDone"
@@ -30,6 +31,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:onClick="onDone"
+        android:textColor="@color/white"
         android:text="@string/button_done" />
 
     <TextView
@@ -50,7 +52,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/answerBox"
-        android:layout_below="@+id/whosDrawingText" />
+        android:layout_below="@+id/whosDrawingText" 
+        android:background="@color/white"/>
 
     <TextView
         android:id="@+id/topicText"
@@ -71,6 +74,7 @@
         android:layout_alignLeft="@+id/answerBox"
         android:layout_alignParentRight="true"
         android:ems="10"
+        android:textColor="@color/white"
         android:inputType="textImeMultiLine" />
 
     <TextView
@@ -91,6 +95,7 @@
         android:layout_alignParentRight="true"
         android:layout_toRightOf="@+id/answerText"
         android:ems="10"
+        android:textColor="@color/white"
         android:inputType="textImeMultiLine" />
 
     <Button
@@ -100,6 +105,7 @@
         android:layout_below="@+id/hintBox"
         android:layout_toLeftOf="@+id/buttonDone"
         android:onClick="onMoveToggle"
+        android:textColor="@color/white"
         android:text="@string/move" />
 
     <TextView

@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.text.Html;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -224,8 +225,8 @@ public class DrawActivity extends Activity {
     	}else if(drawingView.isEmpty()){
     		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        	builder.setMessage(R.string.drawing_warning_text);
-        	builder.setTitle(R.string.drawing_warning_title);
+        	builder.setMessage(Html.fromHtml("<font color='#000000'>"+getString(R.string.drawing_warning_text)+"</font>"));
+        	builder.setTitle(Html.fromHtml("<font color='#000000'>"+getString(R.string.drawing_warning_title)+"</font>"));
 
         	AlertDialog answerHintDialog = builder.create();
         	

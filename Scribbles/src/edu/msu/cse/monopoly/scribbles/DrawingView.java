@@ -6,7 +6,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Paint.Style;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.FloatMath;
@@ -28,11 +27,6 @@ public class DrawingView extends View {
 	 * Paint for the line
 	 */
 	private static Paint linePaint;
-    
-	/**
-	 * Paint for the border
-	 */
-	private static Paint borderPaint;
 	
 	private static class Parameters implements Serializable
 	{
@@ -121,10 +115,6 @@ public class DrawingView extends View {
 	 * Initializes the view
 	 */
 	private void init(){
-		borderPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-		borderPaint.setColor(0xff51a351); // Nice, dark green color. GO GREEN!
-		borderPaint.setStrokeWidth(5);
-		borderPaint.setStyle(Style.STROKE);
 		linePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 		params.currentColor = Color.BLACK;
 		params.currentThickness = 1;
@@ -339,9 +329,6 @@ public class DrawingView extends View {
     				params.drawingAngle, params.drawingScale);
     	}
     	canvas.restore();
-    	
-    	//border
-    	canvas.drawRect(0, 0, canvas.getWidth(), canvas.getHeight(), borderPaint);
     }
     
     /**

@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DrawActivity" 
-    android:id="@+id/layout">
+    android:id="@+id/layout"
+    android:background="@color/green">
 
     <edu.msu.cse.monopoly.scribbles.DrawingView
         android:id="@+id/drawingView"
@@ -13,7 +14,8 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/answerBox"
         android:layout_alignRight="@+id/answerBox"
-        android:layout_alignTop="@+id/buttonColor" />
+        android:layout_alignTop="@+id/buttonColor" 
+        android:background="@color/white"/>
 
     <TextView
         android:id="@+id/hintText"
@@ -34,6 +36,7 @@
         android:layout_toRightOf="@+id/answerText"
         android:ems="10"
         android:inputType="textImeMultiLine"
+        android:textColor="@color/white"
          />
 
     <EditText
@@ -44,6 +47,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/answerBox"
         android:ems="10"
+        android:textColor="@color/white"
         android:inputType="textImeMultiLine"/>
 
     <TextView
@@ -74,6 +78,7 @@
         android:onClick="onDone"
         android:paddingLeft="75dp"
         android:paddingRight="75dp"
+        android:textColor="@color/white"
         android:text="@string/button_done" />
 
     <Button
@@ -85,6 +90,7 @@
         android:onClick="onColor"
         android:paddingLeft="75dp"
         android:paddingRight="75dp"
+        android:textColor="@color/white"
         android:text="@string/button_color" />
 
     <TextView
@@ -119,6 +125,7 @@
         android:layout_alignParentRight="true"
         android:layout_toRightOf="@+id/drawingView"
         android:onClick="onMoveToggle"
+        android:textColor="@color/white"
         android:text="@string/move" />
 
     <TextView

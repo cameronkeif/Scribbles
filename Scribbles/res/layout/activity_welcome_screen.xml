@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".WelcomeScreen" >
+    tools:context=".WelcomeScreen" 
+    android:background="@color/green">
 
     <FrameLayout
         android:id="@+id/welcomeFrame"
@@ -45,7 +46,8 @@
             android:layout_gravity="center_horizontal"
             android:ems="10"
             android:inputType="textImeMultiLine"
-            android:hint="@string/text_field_enter_name" >
+            android:hint="@string/text_field_enter_name" 
+            android:textColor="@color/white">
 
             
         </EditText>
@@ -74,6 +76,7 @@
             android:layout_gravity="center_horizontal"
             android:ems="10"
             android:inputType="textImeMultiLine"
+            android:textColor="@color/white"
             android:hint="@string/text_field_enter_name" />
 
     </LinearLayout>
@@ -98,7 +101,8 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:onClick="onHowToPlay"
-            android:text="@string/howToPlay" />
+            android:text="@string/howToPlay"
+            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/button_begin"
@@ -107,7 +111,8 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:onClick="onBegin"
-            android:text="@string/begin_game" />
+            android:text="@string/begin_game" 
+            android:textColor="@color/white"/>
 
     </RelativeLayout>
 

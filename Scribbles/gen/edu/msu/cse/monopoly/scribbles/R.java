@@ -13,52 +13,56 @@ public final class R {
     }
     public static final class attr {
     }
+    public static final class color {
+        public static final int green=0x7f060001;
+        public static final int white=0x7f060000;
+    }
     public static final class drawable {
         public static final int colors=0x7f020000;
         public static final int ic_launcher=0x7f020001;
     }
     public static final class id {
-        public static final int Category=0x7f080017;
-        public static final int Hint=0x7f080015;
-        public static final int ScrollView1=0x7f080019;
-        public static final int answerBox=0x7f080008;
-        public static final int answerText=0x7f08000c;
-        public static final int button1=0x7f080010;
-        public static final int buttonColor=0x7f080002;
-        public static final int buttonDone=0x7f080004;
-        public static final int buttonMoveToggle=0x7f08000d;
-        public static final int button_begin=0x7f080026;
-        public static final int button_how_to_play=0x7f080025;
-        public static final int clear=0x7f080028;
-        public static final int colorSelectView1=0x7f080000;
-        public static final int drawingView=0x7f080007;
-        public static final int finalScoreHeader=0x7f08000f;
-        public static final int guessBox=0x7f080013;
-        public static final int guessText=0x7f080012;
-        public static final int guessingView=0x7f080014;
-        public static final int hintBox=0x7f08000a;
-        public static final int hintText=0x7f08000b;
-        public static final int layout=0x7f080001;
-        public static final int menu_settings=0x7f080027;
-        public static final int nameEnter=0x7f08001d;
-        public static final int player1Frame=0x7f08001e;
-        public static final int player1ScoreText=0x7f080005;
-        public static final int player1Text=0x7f08001f;
-        public static final int player1TextField=0x7f080020;
-        public static final int player2Frame=0x7f080021;
-        public static final int player2ScoreText=0x7f08000e;
-        public static final int player2Text=0x7f080022;
-        public static final int player2TextField=0x7f080023;
-        public static final int returnDraw=0x7f080011;
-        public static final int spacer3=0x7f080024;
-        public static final int spinnerThickness=0x7f080003;
-        public static final int textViewExplanation=0x7f08001b;
-        public static final int textViewTitle=0x7f08001a;
-        public static final int theTimer=0x7f080018;
-        public static final int topicText=0x7f080006;
-        public static final int welcomeFrame=0x7f08001c;
-        public static final int whosDrawingText=0x7f080009;
-        public static final int whosGuessingText=0x7f080016;
+        public static final int Category=0x7f090017;
+        public static final int Hint=0x7f090015;
+        public static final int ScrollView1=0x7f090019;
+        public static final int answerBox=0x7f090008;
+        public static final int answerText=0x7f09000c;
+        public static final int button1=0x7f090010;
+        public static final int buttonColor=0x7f090002;
+        public static final int buttonDone=0x7f090004;
+        public static final int buttonMoveToggle=0x7f09000d;
+        public static final int button_begin=0x7f090026;
+        public static final int button_how_to_play=0x7f090025;
+        public static final int clear=0x7f090028;
+        public static final int colorSelectView1=0x7f090000;
+        public static final int drawingView=0x7f090007;
+        public static final int finalScoreHeader=0x7f09000f;
+        public static final int guessBox=0x7f090013;
+        public static final int guessText=0x7f090012;
+        public static final int guessingView=0x7f090014;
+        public static final int hintBox=0x7f09000a;
+        public static final int hintText=0x7f09000b;
+        public static final int layout=0x7f090001;
+        public static final int menu_settings=0x7f090027;
+        public static final int nameEnter=0x7f09001d;
+        public static final int player1Frame=0x7f09001e;
+        public static final int player1ScoreText=0x7f090005;
+        public static final int player1Text=0x7f09001f;
+        public static final int player1TextField=0x7f090020;
+        public static final int player2Frame=0x7f090021;
+        public static final int player2ScoreText=0x7f09000e;
+        public static final int player2Text=0x7f090022;
+        public static final int player2TextField=0x7f090023;
+        public static final int returnDraw=0x7f090011;
+        public static final int spacer3=0x7f090024;
+        public static final int spinnerThickness=0x7f090003;
+        public static final int textViewExplanation=0x7f09001b;
+        public static final int textViewTitle=0x7f09001a;
+        public static final int theTimer=0x7f090018;
+        public static final int topicText=0x7f090006;
+        public static final int welcomeFrame=0x7f09001c;
+        public static final int whosDrawingText=0x7f090009;
+        public static final int whosGuessingText=0x7f090016;
     }
     public static final class layout {
         public static final int activity_color_select=0x7f030000;
@@ -69,13 +73,13 @@ public final class R {
         public static final int activity_welcome_screen=0x7f030005;
     }
     public static final class menu {
-        public static final int activity_color_select=0x7f070000;
-        public static final int activity_draw=0x7f070001;
-        public static final int activity_final_score=0x7f070002;
-        public static final int activity_guess=0x7f070003;
-        public static final int activity_how_to_play=0x7f070004;
-        public static final int activity_main=0x7f070005;
-        public static final int activity_welcome_screen=0x7f070006;
+        public static final int activity_color_select=0x7f080000;
+        public static final int activity_draw=0x7f080001;
+        public static final int activity_final_score=0x7f080002;
+        public static final int activity_guess=0x7f080003;
+        public static final int activity_how_to_play=0x7f080004;
+        public static final int activity_main=0x7f080005;
+        public static final int activity_welcome_screen=0x7f080006;
     }
     public static final class string {
         public static final int action=0x7f050011;
@@ -153,10 +157,11 @@ public final class R {
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f060000;
+        public static final int AppBaseTheme=0x7f070000;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f060001;
+        public static final int AppTheme=0x7f070001;
+        public static final int WhiteTextTheme=0x7f070002;
     }
 }

@@ -53,4 +53,6 @@
     <string name="clear_warning_text">Are you sure you want to completely clear your drawing?</string>
     <string name="drawing_warning_text">You forgot to draw something! Please draw something before proceeding.</string>
     <string name="drawing_warning_title">Please Draw Something</string>
+    <color name="white">#FFFFFF</color>
+    <color name="green">#18453b</color>
 </resources>
