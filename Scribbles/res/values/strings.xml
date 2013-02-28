@@ -55,4 +55,5 @@
     <string name="drawing_warning_title">Please Draw Something</string>
     <color name="white">#FFFFFF</color>
     <color name="green">#18453b</color>
+    <string name="score">Score</string>
 </resources>

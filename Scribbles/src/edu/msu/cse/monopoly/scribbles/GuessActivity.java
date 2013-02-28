@@ -4,13 +4,18 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.Html;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnFocusChangeListener;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 
 public class GuessActivity extends Activity {
     private static final String PLAYER1 = "player1";
@@ -23,11 +28,14 @@ public class GuessActivity extends Activity {
     private static final String TIMER = "timer";
     private static final String GUESS = "guess";
     private static final String WHOSDRAWING = "whosDrawing";
+    private static final String SCORE = "Score: ";
     
     /**
      * The drawing view object
      */
     private DrawingView guessingView = null;
+    
+    private EditText theGuessBox = null;
     
     private int player1Score;
     private int player2Score;
@@ -46,6 +54,12 @@ public class GuessActivity extends Activity {
      */
     private boolean hintShown = false;
     
+    //Must hide keyboard before losing focus to editText, or it's a bug!
+    private void hideKeyboard() {
+    	InputMethodManager imm = (InputMethodManager)getSystemService(
+  		      Context.INPUT_METHOD_SERVICE);
+    	imm.hideSoftInputFromWindow(theGuessBox.getWindowToken(), 0);
+    }
     /**
      * Flag to indicate if the user ran out of time (0 pts)
      */
@@ -69,36 +83,41 @@ public class GuessActivity extends Activity {
         whosDrawing = bundle.getInt(WHOSDRAWING);
         
         guessingView = (DrawingView) findViewById(R.id.guessingView);
+        theGuessBox = (EditText) findViewById(R.id.guessBox);
+        
 
         guessingView.getFromBundle(bundle);
         guessingView.setMoveFlag(true); // Always moving in guessing activity
         
 		final TextView myTimer = (TextView) findViewById(R.id.theTimer);
 		final TextView hintText = (TextView) findViewById(R.id.Hint);
+		long myBegin = 130000;
 		
 		TextView categoryText = (TextView) findViewById(R.id.Category);
 		categoryText.setText(Category);
-		long myBegin = 130000;
 		
         if(player1Name != null)
         {
             TextView player1ScoreText = (TextView) findViewById(R.id.player1ScoreText);
+            TextView player1NameText = (TextView) findViewById(R.id.player1NameText);
             
-            	player1ScoreText.setText(Integer.toString(player1Score) + ": " + player1Name);
+            	player1ScoreText.setText(SCORE + Integer.toString(player1Score));
+            	player1NameText.setText(player1Name);
         }
         
         if(player2Name != null){
         	
             TextView player2ScoreText = (TextView) findViewById(R.id.player2ScoreText);
+            TextView player2NameText = (TextView) findViewById(R.id.player2NameText);
 
-            player2ScoreText.setText(Integer.toString(player2Score) + ": " + player2Name);
-
+            player2ScoreText.setText(SCORE + Integer.toString(player2Score));
+        	player2NameText.setText(player2Name);
         }
 		
-		if(savedInstanceState != null) { // We're rotating, load the relevent strings
+		if(savedInstanceState != null) { // We're rotating, load the relevant strings
 			myBegin = savedInstanceState.getLong(TIMER);
-			EditText guessBox = (EditText) findViewById(R.id.guessBox);
-			guessBox.setText(savedInstanceState.getString(GUESS));	
+			if (myBegin == 0) {timeExpired = true;}
+			theGuessBox.setText(savedInstanceState.getString(GUESS));	
 		}
 		
 		// Set the guesser text view
@@ -131,21 +150,80 @@ public class GuessActivity extends Activity {
 		     }
 
 		     public void onFinish() {
+		    	 currentTime = 0;
 		         myTimer.setText("0:00");
 		         hintShown = false;
+		         hideKeyboard();
+		         theGuessBox.clearFocus();
+		         if (!timeExpired) {
+			         AlertDialog.Builder builder = new AlertDialog.Builder(GuessActivity.this);
+			        	
+			         builder.setMessage(Html.fromHtml("<font color='#000000'>"+"You have run out of time!<br /><br />Answer: "+Answer+"</font>"));
+			         builder.setTitle(Html.fromHtml("<font color='#000000'>"+"Time!"+"</font>"));
+			         theGuessBox.setText(Answer);
+			         
+			         AlertDialog warningDialog = builder.create();
+		        	
+			         builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+			        	 public void onClick(DialogInterface dialog, int id) {
+			        		 // No need to do anything, just letting them know they FAILED
+			        	 }
+			         });
+		            
+			         builder.show();
+			         warningDialog.dismiss();
+		         
+		         }
 		         timeExpired = true;
 		     }
 		  }.start();
+		  
+		  theGuessBox.setOnEditorActionListener(new OnEditorActionListener() {        
+			    @Override
+			    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+			        if(actionId==EditorInfo.IME_ACTION_DONE){
+			            //Clear focus here from the guess box
+			        	hideKeyboard();
+			            theGuessBox.clearFocus();
+			            
+			        }
+			    return false;
+			    }
+			});
+		  
+		  // If Time has already expired, then can't change the Guess Text Box!
+		  theGuessBox.setOnFocusChangeListener(new OnFocusChangeListener() {
+			@Override
+			public void onFocusChange(View arg0, boolean arg1) {
+				if(timeExpired & arg1) {
+					AlertDialog.Builder builder = new AlertDialog.Builder(GuessActivity.this);
+		        	
+		        	builder.setMessage(Html.fromHtml("<font color='#000000'>"+"Sorry, but time has already expired! Please click done to continue."+"</font>"));
+		        	builder.setTitle(Html.fromHtml("<font color='#000000'>"+"Done!"+"</font>"));
+		        	
+		        	AlertDialog warningDialog = builder.create();
+		        	
+		            builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+		                public void onClick(DialogInterface dialog, int id) {
+		                	// No need to do anything, just letting them know they FAILED
+		                }
+		            });
+		            
+		            builder.show();
+		            warningDialog.dismiss();
+		            theGuessBox.clearFocus();
+				}
+			}		
+		  });
+
 	}
 	
-	public void onDone(View view) {
-		EditText guessBox = (EditText) findViewById(R.id.guessBox);
-		
-		if (!guessBox.getText().toString().toLowerCase().equals(Answer.toLowerCase()) 
+	public void onDone(View view) {	
+		if (!theGuessBox.getText().toString().toLowerCase().equals(Answer.toLowerCase()) 
 				&& !timeExpired){ 
 			
 			// Incorrect guess, let them know of their failure, but don't start new activity
-	         AlertDialog.Builder builder = new AlertDialog.Builder(GuessActivity.this);
+	        AlertDialog.Builder builder = new AlertDialog.Builder(GuessActivity.this);
         	
         	builder.setMessage(Html.fromHtml("<font color='#000000'>"+getString(R.string.incorrect_guess_warning)+"</font>"));
         	builder.setTitle(Html.fromHtml("<font color='#000000'>"+getString(R.string.incorrect_guess_title)+"</font>"));
@@ -242,8 +320,7 @@ public class GuessActivity extends Activity {
 		// Put the Timer in the bundle
 		outState.putLong(TIMER, currentTime);
 		
-		EditText guessBox = (EditText) findViewById(R.id.guessBox);
-		String Guess = guessBox.getText().toString();
+		String Guess = theGuessBox.getText().toString();
 		outState.putString(GUESS, Guess);
     }
     

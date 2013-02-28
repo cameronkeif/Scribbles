@@ -11,22 +11,50 @@
         android:id="@+id/guessingView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/returnDraw"
+        android:layout_above="@+id/Hint"
         android:layout_alignParentLeft="true"
         android:layout_alignTop="@+id/theTimer"
         android:layout_toLeftOf="@+id/returnDraw"
         android:background="@color/white" />
 
     <TextView
-        android:id="@+id/player2ScoreText"
+        android:id="@+id/player2NameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/player1ScoreText"
+        android:layout_alignLeft="@+id/player1NameText"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/player1ScoreText"
         android:text="@string/player2"
 		android:ellipsize="end"
         android:singleLine="true"
+        android:textColor="@color/white"
+        android:paddingLeft="10dp"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    
+    <TextView
+        android:id="@+id/player1ScoreText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/player1NameText"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/player1NameText"
+        android:text="@string/score"
+		android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="@color/white"
+        android:paddingLeft="10dp"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    
+    <TextView
+        android:id="@+id/player2ScoreText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/player1NameText"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/player2NameText"
+        android:text="@string/score"
+		android:ellipsize="end"
+		android:singleLine="true"
         android:textColor="@color/white"
         android:paddingLeft="10dp"
         android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -59,10 +87,12 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/guessingView"
-        android:layout_below="@+id/Hint"
         android:layout_toRightOf="@+id/guessText"
+        android:imeOptions="actionDone"
         android:ems="10"
-        android:inputType="textImeMultiLine" >
+        android:inputType="textImeMultiLine"
+        android:textAppearance="?android:attr/textAppearanceMediumInverse"
+        android:textColor="@color/white" >
 
     </EditText>
 
@@ -70,9 +100,9 @@
         android:id="@+id/Hint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/guessText"
-        android:layout_alignParentLeft="true"
-        android:layout_alignRight="@+id/guessBox"
+        android:layout_above="@+id/returnDraw"
+        android:layout_alignLeft="@+id/guessText"
+        android:layout_alignParentRight="true"
         android:text="@string/hint"
         android:textColor="@color/white"
         android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -89,13 +119,13 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/player1ScoreText"
+        android:id="@+id/player1NameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/theTimer"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/theTimer"
-        android:layout_marginTop="81dp"
+        android:layout_marginTop="70dp"
         android:text="@string/player1"
 		android:ellipsize="end"
         android:singleLine="true"
