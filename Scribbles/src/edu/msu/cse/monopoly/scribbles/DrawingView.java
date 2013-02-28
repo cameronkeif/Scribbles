@@ -271,7 +271,7 @@ public class DrawingView extends View {
 		}
 
 		/**
-         * Draws a line. Draws a circle at the end point to make round.
+         * Draws a line. Draws a circle at the end points to make round.
          * @param canvas The canvas
          */
         public void draw(Canvas canvas, float locX, float locY, float scale, float angle){
@@ -284,11 +284,14 @@ public class DrawingView extends View {
     		float trueEndX = endX /*+ locX*/;
     		float trueEndY = endY /*+ locY*/;
     		
+    		canvas.drawCircle(trueStartX, trueStartY,
+    				thickness/2, circlePaint);
+    		
     		canvas.drawLine(trueStartX, trueStartY,
     				trueEndX, trueEndY, linePaint);
     		
     		canvas.drawCircle(trueEndX, trueEndY,
-    				thickness/2, circlePaint);
+    				thickness/2, circlePaint);	
     	}
         
         /**
