@@ -32,6 +32,7 @@ public class GuessActivity extends Activity {
     private static final String ISDONE = "isDone";
     private static final String TIMERSTRING = "timerstring";
     private static final String POINTS = "points";
+    private static final String HINTCHK = "hintBool";
     private static final String TIMEEXPRIED = "expiredtime";
     
     /**
@@ -53,6 +54,7 @@ public class GuessActivity extends Activity {
     
     private int whosDrawing;
     private int pointsAwarded = -1;
+    private CountDownTimer Clock;
     
     /**
      * Flag to indicate if the hint has been shown (25 pts)
@@ -142,10 +144,16 @@ public class GuessActivity extends Activity {
 		
 		if(savedInstanceState != null) { // We're rotating, load the relevent strings
 			isDone = savedInstanceState.getBoolean(ISDONE);
+			timeExpired = savedInstanceState.getBoolean(TIMEEXPRIED);
 			if (isDone) {
 				pointsAwarded = savedInstanceState.getInt(POINTS);
 				myTimer.setText(savedInstanceState.getString(TIMERSTRING));
+				hintShown = savedInstanceState.getBoolean(HINTCHK);
 				myBegin = 0;
+			} else if (timeExpired) {
+				myBegin = 0;
+				myTimer.setText("0:00");
+				pointsAwarded = 0;
 			} else {
 				myBegin = savedInstanceState.getLong(TIMER);
 			}
@@ -162,12 +170,11 @@ public class GuessActivity extends Activity {
         	whosDrawingText.setText(whosDrawingText.getText().toString() + " " + player1Name);
 		}
 		
-		if(isDone) {
+		if(isDone || timeExpired) {
 			returnButton.setEnabled(true);
 		}
 			
-		
-		new CountDownTimer(myBegin, 1000) {
+		Clock = new CountDownTimer(myBegin, 1000) {
 		     public void onTick(long msTillDone) {
 		    	 if(!isDone) {
 			    	 currentTime = msTillDone;
@@ -190,21 +197,24 @@ public class GuessActivity extends Activity {
 		     }
 
 		     public void onFinish() {
+		    	 if(!timeExpired) {
 		    	 currentTime = 0;
-		    	 if(!isDone) {
-			         myTimer.setText("0:00");
-			         hintShown = false;
-			         hideKeyboard();
-			         guessBox.clearFocus();
-			         if (!timeExpired) {
-			        	 createDialog("Time!", "You have run out of time!<br /><br />Answer: "+Answer);
-			         }
-			         timeExpired = true;
-			         
+			    	 if(!isDone) {
+				         myTimer.setText("0:00");
+				         hintShown = false;
+				         hideKeyboard();
+				         guessBox.clearFocus();
+				         if (!timeExpired) {
+				        	 createDialog("Time!", "You have run out of time!<br /><br />Answer: "+Answer);
+				         }
+				         timeExpired = true;
+				         returnButton.setEnabled(true);
+				         pointsAwarded = 0;
+			    	 }
 		    	 }
 		     }
 		}.start();
-		  
+		
 		guessBox.setOnEditorActionListener(new OnEditorActionListener() {        
 			@Override
 		    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -226,7 +236,7 @@ public class GuessActivity extends Activity {
 							pointsAwarded = 0;  // 0 points for expired time
 						}
 						isDone = true;
-						createDialog("You Won!", "You've guessed correctly!  Please click done to continue");
+						createDialog("You Won!", "You've guessed correctly!<br />You Win "+pointsAwarded+" Points<br />Please click done to continue");
 						//timer.cancel();
 						returnButton.setEnabled(true);
 		            }
@@ -328,10 +338,13 @@ public class GuessActivity extends Activity {
 		
 		outState.putBoolean(ISDONE, isDone);
 		outState.putBoolean(TIMEEXPRIED, timeExpired);
+		outState.putBoolean(HINTCHK, hintShown);
 		outState.putInt(POINTS, pointsAwarded);
 
 		String Guess = guessBox.getText().toString();
 		outState.putString(GUESS, Guess);
+		
+		Clock.cancel();
     }
     
     /** Handles key presses

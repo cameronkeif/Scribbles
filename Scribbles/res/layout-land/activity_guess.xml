@@ -125,7 +125,7 @@
         android:id="@+id/Hint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/guessText"
+        android:layout_above="@+id/guessBox"
         android:layout_alignParentLeft="true"
         android:layout_alignRight="@+id/guessingView"
         android:text="@string/hint"
