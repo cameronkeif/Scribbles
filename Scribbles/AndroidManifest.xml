@@ -16,7 +16,8 @@
         <activity
             android:name="edu.msu.cse.monopoly.scribbles.WelcomeScreen"
             android:label="@string/app_name" 
-            android:theme="@style/WhiteTextTheme">
+            android:theme="@style/WhiteTextTheme"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,7 +27,8 @@
         <activity
             android:name="edu.msu.cse.monopoly.scribbles.DrawActivity"
             android:label="@string/title_activity_draw" 
-            android:theme="@style/WhiteTextTheme">
+            android:theme="@style/WhiteTextTheme"
+            android:windowSoftInputMode="adjustResize">
         </activity>
         <activity
             android:name="edu.msu.cse.monopoly.scribbles.ColorSelectActivity"
@@ -35,7 +37,8 @@
         <activity
             android:name="edu.msu.cse.monopoly.scribbles.GuessActivity"
             android:label="@string/title_activity_guess" 
-            android:theme="@style/WhiteTextTheme">
+            android:theme="@style/WhiteTextTheme"
+            android:windowSoftInputMode="adjustResize">
         </activity>
         <activity
             android:name="edu.msu.cse.monopoly.scribbles.FinalScoreActivity"
