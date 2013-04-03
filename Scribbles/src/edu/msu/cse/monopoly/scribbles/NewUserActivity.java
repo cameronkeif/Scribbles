@@ -19,4 +19,5 @@ public class NewUserActivity extends Activity {
 		return true;
 	}
 
+	
 }
