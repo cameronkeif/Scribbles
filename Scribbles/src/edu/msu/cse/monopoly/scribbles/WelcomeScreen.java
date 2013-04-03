@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.util.Xml;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class WelcomeScreen extends Activity {
     //private static final String PLAYER1 = "player1";
@@ -26,7 +27,7 @@ public class WelcomeScreen extends Activity {
      * Handle a Begin button press
      * @param view
      */
-    public void onBegin(View view) {
+    public void onBegin(final View view) {
     	/* Old code.
     	EditText usernameEditText = (EditText) findViewById(R.id.usernameEditText);
     	
@@ -88,6 +89,23 @@ public class WelcomeScreen extends Activity {
 
                     } 
                 }
+            
+            final boolean fail1 = fail;
+            view.post(new Runnable() {
+
+                @Override
+                public void run() {
+                    if(fail1) {
+                        Toast.makeText(view.getContext(), R.string.login_fail, Toast.LENGTH_SHORT).show();
+                    }else {
+                        // Success!
+                    	// Temporary toast just to show it's working. This will move to the next activity later.
+                    	Toast.makeText(view.getContext(), R.string.login_success, Toast.LENGTH_SHORT).show();
+                    	}
+                    
+                	}
+            
+            	});
             }
         }).start();
     }
