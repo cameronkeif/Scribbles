@@ -11,7 +11,8 @@ import org.xmlpull.v1.XmlPullParserException;
 
 public class Cloud {
     private static final String MAGIC = "NechAtHa6RuzeR8x";
-    private static final String LOGIN_URL = "http://www.cse.msu.edu/~smaletho/cse476/proj02/login.php";
+    private static final String LOGIN_URL = "https://www.cse.msu.edu/~smaletho/cse476/proj02/login.php";
+    private static final String NEW_USER_URL = "https://www.cse.msu.edu/~smaletho/cse476/proj02/new-user.php";
     
     /**
      * Skip the XML parser to the end tag for whatever 
@@ -45,6 +46,37 @@ public class Cloud {
         // Create a get query
         String query = LOGIN_URL + "?user=" + username +  "&pw=" + password + "&magic=" + MAGIC;
     	
+        try {
+            URL url = new URL(query);
+
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            int responseCode = conn.getResponseCode();
+            if(responseCode != HttpURLConnection.HTTP_OK) {
+                return null;
+            }
+            
+            InputStream stream = conn.getInputStream();
+            return stream;
+
+        } catch (MalformedURLException e) {
+            // Should never happen
+            return null;
+        } catch (IOException ex) {
+            return null;
+        }
+    }
+    
+    public InputStream createNewUser(String username, String password) {
+    	username = username.trim();
+    	password = password.trim();
+    	
+        if(username.length() == 0 || password.length() == 0) { // username/password not entered
+            return null;
+        }
+        
+        // Create a get query
+        String query = NEW_USER_URL + "?user=" + username +  "&pw=" + password + "&magic=" + MAGIC;
+        
         try {
             URL url = new URL(query);
 
