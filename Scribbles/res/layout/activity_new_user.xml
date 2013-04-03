@@ -2,13 +2,73 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NewUserActivity" >
+    tools:context=".NewUserActivity" 
+    android:background="@color/green">
 
-    <TextView
+    <EditText
+        android:id="@+id/passwordEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/hello_world" />
+        android:layout_alignLeft="@+id/usernameEditText"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/usernameEditText"
+        android:ems="10"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:textColor="@color/white" >
+
+        </EditText>
+
+        <TextView
+            android:id="@+id/passwordTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/passwordEditText"
+            android:layout_alignBottom="@+id/passwordEditText"
+            android:layout_alignParentLeft="true"
+            android:text="@string/password"
+            android:textColor="@color/white"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/usernameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="@string/username"
+            android:textColor="@color/white"
+            android:layout_centerVertical="true"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <Button
+            android:id="@+id/buttonSubmit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:text="@string/submit"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:text="@string/newUser"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/white" />
+
+        <EditText
+            android:id="@+id/usernameEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/usernameTextView"
+            android:layout_alignBottom="@+id/usernameTextView"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/passwordTextView"
+            android:ems="10"
+            android:hint="@string/username"
+            android:textColor="@color/white" />
 
 </RelativeLayout>

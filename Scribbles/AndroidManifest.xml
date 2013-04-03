@@ -52,6 +52,8 @@
         </activity>
         <activity
             android:name="edu.msu.cse.monopoly.scribbles.NewUserActivity"
+            android:theme="@style/WhiteTextTheme"
+            android:windowSoftInputMode="adjustResize"
             android:label="@string/title_activity_new_user" >
         </activity>
     </application>

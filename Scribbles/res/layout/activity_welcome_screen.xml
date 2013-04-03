@@ -37,9 +37,9 @@
             android:layout_alignParentRight="true"
             android:layout_below="@+id/usernameEditText"
             android:ems="10"
+            android:textColor="@color/white"
+            android:hint="@string/password"
             android:inputType="textPassword" >
-
-            <requestFocus />
         </EditText>
 
         <TextView
@@ -59,7 +59,10 @@
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/usernameTextView"
             android:ems="10"
-            android:hint="@string/username" />
+            android:textColor="@color/white"
+            android:hint="@string/username" >
+            <requestFocus />
+            </EditText>
 
         <TextView
             android:id="@+id/passwordTextView"
@@ -71,13 +74,14 @@
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/buttonNewUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_toLeftOf="@+id/button_begin"
-            android:text="@string/newUser" 
-            android:textColor="@color/white"/>
+            android:onClick="onNewUser"
+            android:text="@string/newUser"
+            android:textColor="@color/white" />
 
         <TextView
             android:id="@+id/title"
@@ -87,5 +91,14 @@
             android:layout_centerHorizontal="true"
             android:text="@string/login"
             android:textAppearance="@android:style/TextAppearance.Large" />
+
+        <CheckBox
+            android:id="@+id/checkBoxRemember"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/passwordEditText"
+            android:text="@string/rememberMe"
+            android:textColor="@color/white" />
 
 </RelativeLayout>

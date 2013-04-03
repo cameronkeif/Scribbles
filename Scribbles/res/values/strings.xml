@@ -63,5 +63,7 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="newUser">New User</string>
+    <string name="submit">Submit</string>
+    <string name="rememberMe">Remember Me</string>
 
 </resources>
