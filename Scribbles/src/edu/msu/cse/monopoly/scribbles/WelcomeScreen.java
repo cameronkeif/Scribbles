@@ -8,7 +8,6 @@ import android.widget.EditText;
 
 public class WelcomeScreen extends Activity {
     private static final String PLAYER1 = "player1";
-    private static final String PLAYER2 = "player2";
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -21,13 +20,11 @@ public class WelcomeScreen extends Activity {
      * @param view
      */
     public void onBegin(View view) {
-    	EditText player1Name = (EditText) findViewById(R.id.player1TextField);
-    	EditText player2Name = (EditText) findViewById(R.id.player2TextField);
+    	EditText usernameEditText = (EditText) findViewById(R.id.usernameEditText);
     	
     	// Start the drawing activity
 		Intent intent = new Intent(this, DrawActivity.class);
-		intent.putExtra(PLAYER1, (String) player1Name.getText().toString());
-		intent.putExtra(PLAYER2, (String) player2Name.getText().toString());
+		intent.putExtra(PLAYER1, (String) usernameEditText.getText().toString());
 		startActivity(intent);
     }
 

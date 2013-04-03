@@ -53,7 +53,15 @@
     <string name="clear_warning_text">Are you sure you want to completely clear your drawing?</string>
     <string name="drawing_warning_text">You forgot to draw something! Please draw something before proceeding.</string>
     <string name="drawing_warning_title">Please Draw Something</string>
+
     <color name="white">#FFFFFF</color>
     <color name="green">#18453b</color>
+
     <string name="score">Score</string>
+    <string name="title_activity_new_user">New User</string>
+    <string name="login">Log in</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="newUser">New User</string>
+
 </resources>
