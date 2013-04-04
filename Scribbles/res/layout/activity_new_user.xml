@@ -72,4 +72,27 @@
             android:hint="@string/username"
             android:textColor="@color/white" />
 
+        <TextView
+            android:id="@+id/PasswordConfirmTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignRight="@+id/usernameTextView"
+            android:layout_alignTop="@+id/passwordConfirmEditText"
+            android:text="@string/PasswordConfirm"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/white" />
+
+        <EditText
+            android:id="@+id/passwordConfirmEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/passwordEditText"
+            android:layout_toRightOf="@+id/PasswordConfirmTextView"
+            android:ems="10"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:textColor="@color/white" />
+
 </RelativeLayout>

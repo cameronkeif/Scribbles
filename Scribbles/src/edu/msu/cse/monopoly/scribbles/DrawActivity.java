@@ -85,6 +85,9 @@ public class DrawActivity extends Activity {
         player1Name = bundle.getString(PLAYER1);
         player2Name = bundle.getString(PLAYER2);
         
+        player1Name = "";
+        player2Name = "";
+        
         whosDrawing = bundle.getInt(WHOSDRAWING);
         
         if(whosDrawing == 0){ // If this is the first drawing, initialize it to be player 1

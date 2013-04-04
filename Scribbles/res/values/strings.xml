@@ -69,5 +69,6 @@
     <string name="login_success">Log in successful!</string>
     <string name="new_user_fail">User creation failed.</string>
     <string name="new_user_success">User successfully created!</string>
+    <string name="PasswordConfirm">Confirm Password</string>
 
 </resources>

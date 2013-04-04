@@ -9,14 +9,21 @@ import org.xmlpull.v1.XmlPullParserException;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Xml;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
 public class WelcomeScreen extends Activity {
     //private static final String PLAYER1 = "player1";
     private String message = "";
+    private Boolean saveLogin;
+    private SharedPreferences loginPreferences;
+    private SharedPreferences.Editor loginPreferencesEditor;
+    private CheckBox saveUserCheckBox;
+    
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +57,31 @@ public class WelcomeScreen extends Activity {
                 //InputStream stream = cloud.openFromCloud();
                 EditText usernameEditText = (EditText) findViewById(R.id.usernameEditText);
                 EditText passwordEditText = (EditText) findViewById(R.id.passwordEditText);
+  /*              
+                saveUserCheckBox = (CheckBox)findViewById(R.id.checkBoxRemember);
+                loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
+                
+                saveLogin = loginPreferences.getBoolean("saveLogin", false);
+                if (saveLogin == true){
+                	usernameEditText.setText(loginPreferences.getString("username", ""));
+                	passwordEditText.setText(loginPreferences.getString("password", ""));
+                	saveUserCheckBox.setChecked(true);
+                }
+    */            
                 
                 String username = usernameEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
-
+/*
+                if (saveUserCheckBox.isChecked()){
+                	loginPreferencesEditor.putBoolean("savelogin", true);
+                	loginPreferencesEditor.putString("username", username);
+                	loginPreferencesEditor.putString("password", password);
+                	loginPreferencesEditor.commit();
+                } else{
+                	loginPreferencesEditor.clear();
+                	loginPreferencesEditor.commit();
+                }
+ */               
                 InputStream stream = cloud.loginToCloud(username, password);
                 
                 // Test for an error
@@ -112,7 +140,8 @@ public class WelcomeScreen extends Activity {
                     }else {
                         // Success!
                     	// Temporary toast just to show it's working. This will move to the next activity later.
-                    	Toast.makeText(view.getContext(), R.string.login_success, Toast.LENGTH_SHORT).show();
+       //             	Toast.makeText(view.getContext(), R.string.login_success, Toast.LENGTH_SHORT).show();
+                		onLogin();
                     	}
                     
                 	}
@@ -137,6 +166,10 @@ public class WelcomeScreen extends Activity {
      */
     public void onNewUser(View view) {
 		Intent intent = new Intent(this, NewUserActivity.class);
+		startActivity(intent);
+    }
+    public void onLogin(){
+    	Intent intent = new Intent(this, DummyClass.class);
 		startActivity(intent);
     }
 }
