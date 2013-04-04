@@ -65,7 +65,7 @@
     <string name="newUser">New User</string>
     <string name="submit">Submit</string>
     <string name="rememberMe">Remember Me</string>
-    <string name="login_fail">Log in failed. Check your username and password.</string>
+    <string name="login_fail">Log in failed.</string>
     <string name="login_success">Log in successful!</string>
     <string name="new_user_fail">User creation failed.</string>
     <string name="new_user_success">User successfully created!</string>

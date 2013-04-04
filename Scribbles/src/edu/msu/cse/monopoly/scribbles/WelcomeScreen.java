@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 public class WelcomeScreen extends Activity {
     //private static final String PLAYER1 = "player1";
+    private String message = "";
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -66,8 +67,9 @@ public class WelcomeScreen extends Activity {
                         xml.nextTag();      // Advance to first tag
                         xml.require(XmlPullParser.START_TAG, null, "proj02");
                         String status = xml.getAttributeValue(null, "status");
-                        if(status.equals("yes")) {
+                        message = xml.getAttributeValue(null, "msg");
                         
+                        if(status.equals("yes")) {
                             while(xml.nextTag() == XmlPullParser.START_TAG) {
                                 
                                 
@@ -96,7 +98,17 @@ public class WelcomeScreen extends Activity {
                 @Override
                 public void run() {
                     if(fail1) {
-                        Toast.makeText(view.getContext(), R.string.login_fail, Toast.LENGTH_SHORT).show();
+                    	String errorMessage = "";
+                    	
+                    	if (message.equals("user")){
+                    		errorMessage = "Username not found.";
+                    	}else if (message.equals("password error")){
+                    		errorMessage = "Invalid password/username combination.";
+                    	}else if (message.equals("magic")){
+                    		errorMessage = "Invalid magic number.";
+                    	}
+                    	
+                        Toast.makeText(view.getContext(), getText(R.string.login_fail) + " " + errorMessage, Toast.LENGTH_SHORT).show();
                     }else {
                         // Success!
                     	// Temporary toast just to show it's working. This will move to the next activity later.
