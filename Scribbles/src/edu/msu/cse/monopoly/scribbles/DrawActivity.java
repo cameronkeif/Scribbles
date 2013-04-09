@@ -56,8 +56,8 @@ public class DrawActivity extends Activity {
     private int player1Score;
     private int player2Score;
     
-    private String player1Name;
-    private String player2Name;
+    private String player1Name = "";
+    private String player2Name = "";
     
     private int whosDrawing;
     
@@ -85,8 +85,8 @@ public class DrawActivity extends Activity {
         player1Name = bundle.getString(PLAYER1);
         player2Name = bundle.getString(PLAYER2);
         
-        player1Name = "";
-        player2Name = "";
+//        player1Name = "";
+//        player2Name = "";
         
         whosDrawing = bundle.getInt(WHOSDRAWING);
         

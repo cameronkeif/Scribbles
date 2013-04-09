@@ -169,7 +169,7 @@ public class WelcomeScreen extends Activity {
 		startActivity(intent);
     }
     public void onLogin(){
-    	Intent intent = new Intent(this, DummyClass.class);
+    	Intent intent = new Intent(this, DrawActivity.class);
 		startActivity(intent);
     }
 }

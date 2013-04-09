@@ -114,11 +114,11 @@ public class GuessActivity extends Activity {
 		     public void onTick(long msTillDone) {
 		    	 currentTime = msTillDone;
 		    	 long temp = msTillDone/1000;
-		    	 if ((msTillDone / 60000) == 2) {
+		    	 if ((msTillDone / 70000) == 2) {
 		    		 temp -= 120;
 		    		 myTimer.setText("2:" + (temp < 10 ? ("0"+temp) : temp));
-		    	 } else if ((msTillDone / 60000 ) == 1){
-		    		 temp -= 60;
+		    	 } else if ((msTillDone / 70000 ) == 1){
+		    		 temp -= 70;
 		    		 myTimer.setText("1:" + (temp < 10 ? ("0"+temp) : temp));
 		    	 } else {
 		    		 myTimer.setText("0:" + (temp < 10 ? ("0"+temp) : temp));
