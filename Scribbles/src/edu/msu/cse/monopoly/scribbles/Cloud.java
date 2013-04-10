@@ -24,6 +24,7 @@ public class Cloud {
     private static final String LOGIN_URL = "https://www.cse.msu.edu/~smaletho/cse476/proj02/login.php";
     private static final String NEW_USER_URL = "https://www.cse.msu.edu/~smaletho/cse476/proj02/new-user.php";
     private static final String SAVE_URL = "https://www.cse.msu.edu/~smaletho/cse476/proj02/save-pic.php";
+    private static final String LOAD_URL = "https://www.cse.msu.edu/~smaletho/cse476/proj02/load-pic.php";
 	private static final String UTF8 = "UTF-8";
 	
     /**
@@ -245,4 +246,66 @@ public class Cloud {
             return;
         }
     }
+    
+    /**
+     * Open a connection to a drawing in the cloud.
+     * @param user User who is opening this drawing
+     * @param password User's password
+     * @return reference to an input stream or null if this fails
+     */
+    public InputStream openFromCloud(String user, String password) {
+        // Create a get query
+        String query = LOAD_URL + "?user=" + user + "&magic=" + MAGIC + "&pw=" + password;
+        
+        try {
+            URL url = new URL(query);
+
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            int responseCode = conn.getResponseCode();
+            if(responseCode != HttpURLConnection.HTTP_OK) {
+                return null;
+            }
+            
+            InputStream stream = conn.getInputStream();
+            return stream;
+
+        } catch (MalformedURLException e) {
+            // Should never happen
+            return null;
+        } catch (IOException ex) {
+            return null;
+        }
+    }
+    
+    /**
+     * Open a connection to a drawing in the cloud.
+     * @param user The user who is guessing
+     * @param password The user's password
+     * @param drawingID The ID of the user guessing this drawing
+     * @return reference to an input stream or null if this fails
+     */
+    public InputStream guessCloud(String user, String password, String drawingID ) {
+        // Create a get query
+        String query = LOAD_URL + "?user=" + user + "&magic=" + MAGIC + "&pw=" + password + "drawing_id" + drawingID;
+        
+        try {
+            URL url = new URL(query);
+
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            int responseCode = conn.getResponseCode();
+            if(responseCode != HttpURLConnection.HTTP_OK) {
+                return null;
+            }
+            
+            InputStream stream = conn.getInputStream();
+            return stream;
+
+        } catch (MalformedURLException e) {
+            // Should never happen
+            return null;
+        } catch (IOException ex) {
+            return null;
+        }
+    }
 }
+
