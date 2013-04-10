@@ -260,8 +260,9 @@ public class DrawActivity extends Activity {
 			intent.putExtra(PLAYER2SCORE, player2Score);
 			
 			// Put the topic string into the bundle
-			TextView topic = (TextView) findViewById(R.id.topicText);
-			intent.putExtra(TOPIC, topic.getText().toString());
+			TextView topicBox = (TextView) findViewById(R.id.topicText);
+			String topic = topicBox.getText().toString();
+			intent.putExtra(TOPIC, topic);
 			
 			// Put the player's names in the bundle
 			intent.putExtra(PLAYER1, player1Name);
@@ -271,6 +272,11 @@ public class DrawActivity extends Activity {
 			intent.putExtra(WHOSDRAWING, whosDrawing);
 			
 			intent.putExtra(PARAMETERS, drawingView.getParams());
+			
+			// Add the stuff to the cloud.
+			Cloud cloud = new Cloud();
+			String password = "password"; // Temporary until that information is obtained from previous activity
+			cloud.saveToCloud(drawingView, player1Name, password, hint, answer, topic);
 			
 			// Start the guessing activity
 			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
