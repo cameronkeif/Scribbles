@@ -1,19 +1,31 @@
 package edu.msu.cse.monopoly.scribbles;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlSerializer;
+
+import android.util.Log;
+import android.util.Xml;
 
 public class Cloud {
     private static final String MAGIC = "NechAtHa6RuzeR8x";
     private static final String LOGIN_URL = "https://www.cse.msu.edu/~smaletho/cse476/proj02/login.php";
     private static final String NEW_USER_URL = "https://www.cse.msu.edu/~smaletho/cse476/proj02/new-user.php";
-    
+    private static final String SAVE_URL = "https://www.cse.msu.edu/~smaletho/cse476/proj02/save-pic.php";
+	private static final String UTF8 = "UTF-8";
+	
     /**
      * Skip the XML parser to the end tag for whatever 
      * tag we are currently within.
@@ -94,6 +106,143 @@ public class Cloud {
             return null;
         } catch (IOException ex) {
             return null;
+        }
+    }
+    
+    /**
+     * Save a hatting to the cloud.
+     * This should be run in a thread.
+     * @param name name to save under
+     * @param view view we are getting the data from
+     * @param user The user's username
+     * @param password The user's password.
+     * @param hint The drawing hint
+     * @param solution The drawing solution
+     * @param category The drawing category
+     * @return true if successful
+     */
+    public boolean saveToCloud(DrawingView view, String user, String password, String hint, String solution, String category) {
+        // Create an XML packet with the information about the current image
+        XmlSerializer xml = Xml.newSerializer();
+        StringWriter writer = new StringWriter();
+        
+        try {
+            xml.setOutput(writer);
+            
+            xml.startDocument("UTF-8", true);
+            
+            xml.startTag(null, "proj02");
+            xml.attribute(null, "magic", MAGIC);
+            xml.attribute(null, "user", user);
+            xml.attribute(null, "pw", password);
+            
+            // Drawing info
+            xml.startTag(null, "proj02_drawing");
+            xml.attribute(null, "hint", hint);
+            xml.attribute(null, "solution", solution);
+            xml.attribute(null, "category", category);
+            
+            view.saveXml(xml);
+            
+            xml.endTag(null, "proj02");
+            
+            xml.endDocument();
+
+        } catch (IOException e) {
+            // This won't occur when writing to a string
+            return false;
+        }
+        
+        final String xmlStr = writer.toString();
+        
+        /*
+         * Convert the XML into HTTP POST data
+         */
+        String postDataStr;
+        try {
+            postDataStr = "xml=" + URLEncoder.encode(xmlStr, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            return false;
+        }
+        
+        /*
+         * Send the data to the server
+         */
+        byte[] postData = postDataStr.getBytes();
+        
+        InputStream stream = null;
+        try {
+            URL url = new URL(SAVE_URL);
+
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+            conn.setDoOutput(true);
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-Length", Integer.toString(postData.length));
+            conn.setUseCaches(false);
+
+            OutputStream out = conn.getOutputStream();
+            out.write(postData);
+            out.close();
+
+            int responseCode = conn.getResponseCode();
+            if(responseCode != HttpURLConnection.HTTP_OK) {
+                return false;
+            } 
+            
+            stream = conn.getInputStream();
+            logStream(stream);
+            
+            /**
+             * Create an XML parser for the result
+             */
+            try {
+                XmlPullParser xmlR = Xml.newPullParser();
+                xmlR.setInput(stream, UTF8);
+                
+                xmlR.nextTag();      // Advance to first tag
+                xmlR.require(XmlPullParser.START_TAG, null, "hatter");
+                
+                String status = xmlR.getAttributeValue(null, "status");
+                if(status.equals("no")) {
+                    return false;
+                }
+                
+                // We are done
+            } catch(XmlPullParserException ex) {
+                return false;
+            } catch(IOException ex) {
+                return false;
+            }
+            
+        } catch (MalformedURLException e) {
+            return false;
+        } catch (IOException ex) {
+            return false;
+        } finally {
+            if(stream != null) {
+                try {
+                    stream.close();
+                } catch(IOException ex) {
+                    // Fail silently
+                }
+            }
+        }
+        
+        return true;
+    }
+    
+    public static void logStream(InputStream stream) {
+        BufferedReader reader = new BufferedReader(
+                new InputStreamReader(stream));
+    
+        try {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                Log.e("476", line);
+            }
+        } catch (IOException ex) {
+            return;
         }
     }
 }

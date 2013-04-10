@@ -1,7 +1,11 @@
 package edu.msu.cse.monopoly.scribbles;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+
+import org.xmlpull.v1.XmlSerializer;
+
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -661,5 +665,21 @@ public class DrawingView extends View {
     public boolean isEmpty()
     {
     	return params.lines.isEmpty();
+    }
+
+	public void saveXml(XmlSerializer xml) throws IOException {
+		// Write all of the lines into XML
+		for(Line line:params.lines){
+			xml.startTag(null, "hatting");
+			
+			xml.attribute(null, "color", Integer.toString(line.color));
+			xml.attribute(null, "thickness", Integer.toString(line.thickness));
+			xml.attribute(null, "startX", Float.toString(line.startX));
+			xml.attribute(null, "startY", Float.toString(line.startY));
+			xml.attribute(null, "endX", Float.toString(line.endX));
+			xml.attribute(null, "endY", Float.toString(line.endY));
+			
+			xml.endTag(null,  "hatting");
+		}
     }
 }
