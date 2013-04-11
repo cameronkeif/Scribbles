@@ -8,7 +8,6 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.util.Log;
 import android.util.Xml;
 import android.view.View;
 import android.widget.EditText;

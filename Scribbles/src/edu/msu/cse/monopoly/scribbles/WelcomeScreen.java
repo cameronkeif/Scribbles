@@ -72,17 +72,6 @@ public class WelcomeScreen extends Activity {
         username = usernameEditText.getText().toString();
         password = passwordEditText.getText().toString();
 
-        
-        if (saveUserCheckBox.isChecked()){
-        	loginPreferencesEditor.putBoolean("savelogin", true);
-        	loginPreferencesEditor.putString("username", username);
-        	loginPreferencesEditor.putString("password", password);
-        	loginPreferencesEditor.commit();
-        } else{
-        	loginPreferencesEditor.clear();
-        	loginPreferencesEditor.commit();
-        }
- 
 
         
         new Thread(new Runnable() {
@@ -181,6 +170,17 @@ public class WelcomeScreen extends Activity {
 		startActivity(intent);
     }
     public void onLogin(String username, String password){
+        
+        if (saveUserCheckBox.isChecked()){
+        	loginPreferencesEditor.putBoolean("savelogin", true);
+        	loginPreferencesEditor.putString("username", username);
+        	loginPreferencesEditor.putString("password", password);
+        	loginPreferencesEditor.commit();
+        } else{
+        	loginPreferencesEditor.clear();
+        	loginPreferencesEditor.commit();
+        }
+ 
     	Intent intent = new Intent(this, DrawActivity.class);
     	intent.putExtra(USERNAME, username);
     	intent.putExtra(PASSWORD, password);
