@@ -670,7 +670,7 @@ public class DrawingView extends View {
 	public void saveXml(XmlSerializer xml) throws IOException {
 		// Write all of the lines into XML
 		for(Line line:params.lines){
-			xml.startTag(null, "hatting");
+			xml.startTag(null, "line");
 			
 			xml.attribute(null, "color", Integer.toString(line.color));
 			xml.attribute(null, "thickness", Integer.toString(line.thickness));
@@ -679,7 +679,7 @@ public class DrawingView extends View {
 			xml.attribute(null, "endX", Float.toString(line.endX));
 			xml.attribute(null, "endY", Float.toString(line.endY));
 			
-			xml.endTag(null,  "hatting");
+			xml.endTag(null,  "line");
 		}
     }
 }
