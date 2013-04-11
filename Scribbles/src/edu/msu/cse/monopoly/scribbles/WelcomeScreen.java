@@ -23,6 +23,10 @@ public class WelcomeScreen extends Activity {
     private SharedPreferences loginPreferences;
     private SharedPreferences.Editor loginPreferencesEditor;
     private CheckBox saveUserCheckBox;
+    private String username;    
+    private String password;
+    private EditText usernameEditText;
+    private EditText passwordEditText;
     private static final String USERNAME = "username";
     private static final String PASSWORD = "password";
     
@@ -31,6 +35,21 @@ public class WelcomeScreen extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_welcome_screen);
+
+		usernameEditText = (EditText) findViewById(R.id.usernameEditText);
+        passwordEditText = (EditText) findViewById(R.id.passwordEditText);
+        saveUserCheckBox = (CheckBox)findViewById(R.id.checkBoxRemember);
+        loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
+        loginPreferencesEditor = loginPreferences.edit();
+        
+        saveLogin = loginPreferences.getBoolean("saveLogin", false);
+        
+        if (saveLogin == true){
+        	usernameEditText.setText(loginPreferences.getString("username", ""));
+        	passwordEditText.setText(loginPreferences.getString("password", ""));
+        	saveUserCheckBox.setChecked(true);
+        }
+
 	}
 	
     /**
@@ -50,40 +69,30 @@ public class WelcomeScreen extends Activity {
     	/*
          * Create a thread to load the hatting from the cloud
          */
+        username = usernameEditText.getText().toString();
+        password = passwordEditText.getText().toString();
+
+        
+        if (saveUserCheckBox.isChecked()){
+        	loginPreferencesEditor.putBoolean("savelogin", true);
+        	loginPreferencesEditor.putString("username", username);
+        	loginPreferencesEditor.putString("password", password);
+        	loginPreferencesEditor.commit();
+        } else{
+        	loginPreferencesEditor.clear();
+        	loginPreferencesEditor.commit();
+        }
+ 
+
+        
         new Thread(new Runnable() {
 
             @Override
             public void run() {
                 // Create a cloud object and get the XML
                 Cloud cloud = new Cloud();
-                //InputStream stream = cloud.openFromCloud();
-                EditText usernameEditText = (EditText) findViewById(R.id.usernameEditText);
-                EditText passwordEditText = (EditText) findViewById(R.id.passwordEditText);
-  /*              
-                saveUserCheckBox = (CheckBox)findViewById(R.id.checkBoxRemember);
-                loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
+                //InputStream stream = cloud.openFromCloud()                   
                 
-                saveLogin = loginPreferences.getBoolean("saveLogin", false);
-                if (saveLogin == true){
-                	usernameEditText.setText(loginPreferences.getString("username", ""));
-                	passwordEditText.setText(loginPreferences.getString("password", ""));
-                	saveUserCheckBox.setChecked(true);
-                }
-    */            
-                
-                final String username = usernameEditText.getText().toString();
-                final String password = passwordEditText.getText().toString();
-/*
-                if (saveUserCheckBox.isChecked()){
-                	loginPreferencesEditor.putBoolean("savelogin", true);
-                	loginPreferencesEditor.putString("username", username);
-                	loginPreferencesEditor.putString("password", password);
-                	loginPreferencesEditor.commit();
-                } else{
-                	loginPreferencesEditor.clear();
-                	loginPreferencesEditor.commit();
-                }
- */               
                 InputStream stream = cloud.loginToCloud(username, password);
                 
                 // Test for an error

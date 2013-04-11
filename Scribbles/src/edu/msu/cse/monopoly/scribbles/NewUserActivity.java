@@ -8,8 +8,8 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.util.Log;
 import android.util.Xml;
-import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -22,14 +22,19 @@ public class NewUserActivity extends Activity {
 		setContentView(R.layout.activity_new_user);
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_new_user, menu);
-		return true;
-	}
-
 	public void onSubmit(final View view) {
+		
+        EditText usernameEditText = (EditText) findViewById(R.id.usernameEditText);
+        EditText passwordEditText = (EditText) findViewById(R.id.passwordEditText);
+        EditText confirmPasswordEditText = (EditText) findViewById(R.id.passwordConfirmEditText);
+        
+        final String username = usernameEditText.getText().toString();
+        final String password = passwordEditText.getText().toString();
+        final String confirmPassword = confirmPasswordEditText.getText().toString();
+        
+        
+        if (confirmPassword.equals(password)){
+        
 		new Thread(new Runnable() {
 
             @Override
@@ -37,16 +42,12 @@ public class NewUserActivity extends Activity {
                 // Create a cloud object and get the XML
                 Cloud cloud = new Cloud();
                 //InputStream stream = cloud.openFromCloud();
-                EditText usernameEditText = (EditText) findViewById(R.id.usernameEditText);
-                EditText passwordEditText = (EditText) findViewById(R.id.passwordEditText);
-                
-                String username = usernameEditText.getText().toString();
-                String password = passwordEditText.getText().toString();
 
                 InputStream stream = cloud.createNewUser(username, password);
                 
                 // Test for an error
                 boolean fail = stream == null;
+
                 
                 if(!fail) {
                     try {
@@ -79,7 +80,8 @@ public class NewUserActivity extends Activity {
 
                     } 
                 }
-            
+
+                
             final boolean fail1 = fail;
             view.post(new Runnable() {
 
@@ -100,5 +102,13 @@ public class NewUserActivity extends Activity {
             	});
             }
         }).start();
+
+        }
+        else{
+        
+        Toast.makeText(view.getContext(), R.string.confirm_password_fail, Toast.LENGTH_SHORT).show();
+    	passwordEditText.setText("");
+    	confirmPasswordEditText.setText("");
+        }
 	}
 }
