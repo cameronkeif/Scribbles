@@ -157,7 +157,7 @@ public class Cloud {
         final String xmlStr = writer.toString();
         
         /*
-         * Convert the XML into HTTP POST data
+         * Convert the XML into HTTP POST data.
          */
         String postDataStr;
         try {
