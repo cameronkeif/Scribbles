@@ -296,6 +296,9 @@ public class DrawActivity extends Activity {
 				String answer = answerBox.getText().toString();
 				String topic = topicBox.getText().toString();
 				
+				// Remove the "Topic: " part of the string.
+				topic = topic.substring(7);
+				
 				final boolean ok = cloud.saveToCloud(drawingView, player1Name, password, hint, answer, topic);
 
                 if(!ok) {
@@ -309,6 +312,10 @@ public class DrawActivity extends Activity {
                     public void run() {
                         if(!ok) {
                             Toast.makeText(drawingView.getContext(), R.string.saving_fail, Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                        	// Should move to the next activity.
+                        	;
                         }
                     }
                     
