@@ -192,7 +192,6 @@ public class Cloud {
             } 
             
             stream = conn.getInputStream();
-            logStream(stream);
             
             /**
              * Create an XML parser for the result
@@ -202,7 +201,7 @@ public class Cloud {
                 xmlR.setInput(stream, UTF8);
                 
                 xmlR.nextTag();      // Advance to first tag
-                xmlR.require(XmlPullParser.START_TAG, null, "hatter");
+                xmlR.require(XmlPullParser.START_TAG, null, "proj02");
                 
                 String status = xmlR.getAttributeValue(null, "status");
                 if(status.equals("no")) {
