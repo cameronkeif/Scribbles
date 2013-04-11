@@ -23,7 +23,8 @@ public class WelcomeScreen extends Activity {
     private SharedPreferences loginPreferences;
     private SharedPreferences.Editor loginPreferencesEditor;
     private CheckBox saveUserCheckBox;
-    private static final String USERNAME = "USERNAME";
+    private static final String USERNAME = "username";
+    private static final String PASSWORD = "password";
     
     
 	@Override
@@ -71,7 +72,7 @@ public class WelcomeScreen extends Activity {
     */            
                 
                 final String username = usernameEditText.getText().toString();
-                String password = passwordEditText.getText().toString();
+                final String password = passwordEditText.getText().toString();
 /*
                 if (saveUserCheckBox.isChecked()){
                 	loginPreferencesEditor.putBoolean("savelogin", true);
@@ -143,7 +144,7 @@ public class WelcomeScreen extends Activity {
                         // Success!
                     	// Temporary toast just to show it's working. This will move to the next activity later.
        //             	Toast.makeText(view.getContext(), R.string.login_success, Toast.LENGTH_SHORT).show();
-                		onLogin(username);
+                		onLogin(username, password);
                     	}
                     
                 	}
@@ -170,9 +171,10 @@ public class WelcomeScreen extends Activity {
 		Intent intent = new Intent(this, NewUserActivity.class);
 		startActivity(intent);
     }
-    public void onLogin(String username){
+    public void onLogin(String username, String password){
     	Intent intent = new Intent(this, DrawActivity.class);
     	intent.putExtra(USERNAME, username);
+    	intent.putExtra(PASSWORD, password);
 		startActivity(intent);
 		
     }

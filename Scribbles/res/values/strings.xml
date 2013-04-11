@@ -70,5 +70,6 @@
     <string name="new_user_fail">User creation failed.</string>
     <string name="new_user_success">User successfully created!</string>
     <string name="PasswordConfirm">Confirm Password</string>
+    <string name="saving_fail">Failed to save drawing to server.</string>
 
 </resources>

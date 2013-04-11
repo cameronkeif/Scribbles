@@ -142,7 +142,7 @@ public class Cloud {
             xml.attribute(null, "hint", hint);
             xml.attribute(null, "solution", solution);
             xml.attribute(null, "category", category);
-            
+            xml.endTag(null, "proj02_drawing");
             view.saveXml(xml);
             
             xml.endTag(null, "proj02");

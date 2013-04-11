@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 
@@ -34,6 +35,9 @@ public class DrawActivity extends Activity {
     private static final String MOVETOGGLE = "moveToggle";
     private static final String WHOSDRAWING = "whosDrawing";
     private static final String PARAMETERS = "parameters";
+    
+    private static final String USERNAME = "username";
+    private static final String PASSWORD = "password";
     
     
 	/**
@@ -59,6 +63,8 @@ public class DrawActivity extends Activity {
     private String player1Name = "";
     private String player2Name = "";
     
+    private String password = "";
+    
     private int whosDrawing;
     
 	protected void onCreate(Bundle savedInstanceState) {
@@ -82,8 +88,10 @@ public class DrawActivity extends Activity {
         player1Score = bundle.getInt(PLAYER1SCORE);
         player2Score = bundle.getInt(PLAYER2SCORE);
         
-        player1Name = bundle.getString(PLAYER1);
+        player1Name = bundle.getString(USERNAME); // changed for cloud.
         player2Name = bundle.getString(PLAYER2);
+        
+        password = bundle.getString(PASSWORD);
         
 //        player1Name = "";
 //        player2Name = "";
@@ -274,14 +282,46 @@ public class DrawActivity extends Activity {
 			intent.putExtra(PARAMETERS, drawingView.getParams());
 			
 			// Add the stuff to the cloud.
-			Cloud cloud = new Cloud();
-			String password = "password"; // Temporary until that information is obtained from previous activity
-			cloud.saveToCloud(drawingView, player1Name, password, hint, answer, topic);
-			
+			new Thread(new Runnable() {
+
+	            @Override
+	            public void run() {
+				Cloud cloud = new Cloud();
+				
+				EditText hintBox = (EditText) findViewById(R.id.hintBox);
+		    	EditText answerBox = (EditText) findViewById(R.id.answerBox);
+				TextView topicBox = (TextView) findViewById(R.id.topicText);
+				
+				String hint = hintBox.getText().toString();
+				String answer = answerBox.getText().toString();
+				String topic = topicBox.getText().toString();
+				
+				final boolean ok = cloud.saveToCloud(drawingView, player1Name, password, hint, answer, topic);
+
+                if(!ok) {
+                    /*
+                     * If we fail to save, display a toast 
+                     */
+                	
+                	drawingView.post(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        if(!ok) {
+                            Toast.makeText(drawingView.getContext(), R.string.saving_fail, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    
+                    });
+                }
+            }
+    	}).start();
+			/*
 			// Start the guessing activity
 			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
 			finish();
+			*/
     	}
     }
     
