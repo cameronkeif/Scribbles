@@ -23,6 +23,7 @@ public class WelcomeScreen extends Activity {
     private SharedPreferences loginPreferences;
     private SharedPreferences.Editor loginPreferencesEditor;
     private CheckBox saveUserCheckBox;
+    private static final String USERNAME = "USERNAME";
     
     
 	@Override
@@ -69,7 +70,7 @@ public class WelcomeScreen extends Activity {
                 }
     */            
                 
-                String username = usernameEditText.getText().toString();
+                final String username = usernameEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
 /*
                 if (saveUserCheckBox.isChecked()){
@@ -96,8 +97,9 @@ public class WelcomeScreen extends Activity {
                         xml.require(XmlPullParser.START_TAG, null, "proj02");
                         String status = xml.getAttributeValue(null, "status");
                         message = xml.getAttributeValue(null, "msg");
-                        
+
                         if(status.equals("yes")) {
+                        	
                             while(xml.nextTag() == XmlPullParser.START_TAG) {
                                 
                                 
@@ -141,7 +143,7 @@ public class WelcomeScreen extends Activity {
                         // Success!
                     	// Temporary toast just to show it's working. This will move to the next activity later.
        //             	Toast.makeText(view.getContext(), R.string.login_success, Toast.LENGTH_SHORT).show();
-                		onLogin();
+                		onLogin(username);
                     	}
                     
                 	}
@@ -168,8 +170,10 @@ public class WelcomeScreen extends Activity {
 		Intent intent = new Intent(this, NewUserActivity.class);
 		startActivity(intent);
     }
-    public void onLogin(){
+    public void onLogin(String username){
     	Intent intent = new Intent(this, DrawActivity.class);
+    	intent.putExtra(USERNAME, username);
 		startActivity(intent);
+		
     }
 }
