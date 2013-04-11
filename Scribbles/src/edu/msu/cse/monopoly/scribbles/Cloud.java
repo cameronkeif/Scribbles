@@ -25,6 +25,7 @@ public class Cloud {
     private static final String NEW_USER_URL = "https://www.cse.msu.edu/~smaletho/cse476/proj02/new-user.php";
     private static final String SAVE_URL = "https://www.cse.msu.edu/~smaletho/cse476/proj02/save-pic.php";
     private static final String LOAD_URL = "https://www.cse.msu.edu/~smaletho/cse476/proj02/load-pic.php";
+    private static final String GUESS_URL = "https://www.cse.msu.edu/~smaletho/cse476/proj02/guess.php";
 	private static final String UTF8 = "UTF-8";
 	
     /**
@@ -285,7 +286,7 @@ public class Cloud {
      */
     public InputStream guessCloud(String user, String password, String drawingID ) {
         // Create a get query
-        String query = LOAD_URL + "?user=" + user + "&magic=" + MAGIC + "&pw=" + password + "drawing_id" + drawingID;
+        String query = GUESS_URL + "?user=" + user + "&magic=" + MAGIC + "&pw=" + password + "drawing_id" + drawingID;
         
         try {
             URL url = new URL(query);
