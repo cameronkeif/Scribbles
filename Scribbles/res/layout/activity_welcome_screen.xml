@@ -19,41 +19,6 @@
             android:text="@string/howToPlay"
             android:textColor="@color/white" />
 
-        <EditText
-            android:id="@+id/passwordEditText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/usernameEditText"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/usernameEditText"
-            android:ems="10"
-            android:textColor="@color/white"
-            android:hint="@string/password"
-            android:inputType="textPassword" >
-        </EditText>
-
-        <TextView
-            android:id="@+id/usernameTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:text="@string/username"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <EditText
-            android:id="@+id/usernameEditText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/usernameTextView"
-            android:ems="10"
-            android:textColor="@color/white"
-            android:hint="@string/username" >
-            <requestFocus />
-            </EditText>
-
         <TextView
             android:id="@+id/passwordTextView"
             android:layout_width="wrap_content"
@@ -106,9 +71,44 @@
             android:id="@+id/checkBoxRemember"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/passwordEditText"
-            android:layout_toLeftOf="@+id/button_begin"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:text="@string/rememberMe"
+            android:textColor="@color/white" />
+
+        <EditText
+            android:id="@+id/passwordEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/checkBoxRemember"
+            android:layout_alignParentRight="true"
+            android:ems="10"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:textColor="@color/white" >
+
+            <requestFocus />
+        </EditText>
+
+        <TextView
+            android:id="@+id/usernameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/passwordEditText"
+            android:layout_alignParentLeft="true"
+            android:text="@string/username"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <EditText
+            android:id="@+id/usernameEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/usernameTextView"
+            android:layout_alignBottom="@+id/usernameTextView"
+            android:layout_alignLeft="@+id/passwordEditText"
+            android:layout_alignParentRight="true"
+            android:ems="10"
+            android:hint="@string/username"
             android:textColor="@color/white" />
 
 </RelativeLayout>
