@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlSerializer;
 
 import android.content.Context;
@@ -681,5 +683,28 @@ public class DrawingView extends View {
 			
 			xml.endTag(null,  "line");
 		}
+    }
+	
+	public void loadXml(XmlPullParser xml) throws IOException, XmlPullParserException {
+        // Create a new set of parameters
+        final Parameters newParams = new Parameters();
+        
+        // Load into it
+        post(new Runnable() {
+
+            @Override
+            public void run() {
+                params = newParams;
+                
+                // Ensure the options are all set
+                /*setColor(params.color);
+                setImageUri(params.imageUri);
+                setHat(params.hat);
+                setFeather(params.feather);*/
+                
+            }
+            
+        });
+        
     }
 }
