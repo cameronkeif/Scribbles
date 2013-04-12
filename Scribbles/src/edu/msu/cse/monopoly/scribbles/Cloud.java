@@ -22,6 +22,7 @@ import android.util.Xml;
 public class Cloud {
     private static final String MAGIC = "NechAtHa6RuzeR8x";
     private static final String LOGIN_URL = "https://www.cse.msu.edu/~smaletho/cse476/proj02/login.php";
+    private static final String LOGOUT_URL = "https://www.cse.msu.edu/~smaletho/cse476/proj02/logout.php";
     private static final String NEW_USER_URL = "https://www.cse.msu.edu/~smaletho/cse476/proj02/new-user.php";
     private static final String SAVE_URL = "https://www.cse.msu.edu/~smaletho/cse476/proj02/save-pic.php";
     private static final String LOAD_URL = "https://www.cse.msu.edu/~smaletho/cse476/proj02/load-pic.php";
@@ -306,6 +307,38 @@ public class Cloud {
         } catch (IOException ex) {
             return null;
         }
+    }
+    
+    public InputStream logOut(String username, String password){
+    	username = username.trim();
+    	password = password.trim();
+    	//,
+        if(username.length() == 0 || password.length() == 0) { // username/password not entered
+            return null;
+        }
+        
+        // Create a get query
+        String query = LOGOUT_URL + "?user=" + username +  "&pw=" + password + "&magic=" + MAGIC;
+    	
+        try {
+            URL url = new URL(query);
+
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            int responseCode = conn.getResponseCode();
+            if(responseCode != HttpURLConnection.HTTP_OK) {
+                return null;
+            }
+            
+            InputStream stream = conn.getInputStream();
+            return stream;
+
+        } catch (MalformedURLException e) {
+            // Should never happen
+            return null;
+        } catch (IOException ex) {
+            return null;
+        }
+    
     }
 }
 

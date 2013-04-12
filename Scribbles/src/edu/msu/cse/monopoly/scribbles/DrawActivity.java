@@ -1,5 +1,6 @@
 package edu.msu.cse.monopoly.scribbles;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -57,9 +58,8 @@ public class DrawActivity extends Activity {
     private ArrayList<String> possibleTopics = new ArrayList<String>();
     
     private int player1Score;
-    private int player2Score;
     
-    private String player1Name = "";
+    private String username = "";
     private String player2Name = "";
     
     private String password = "";
@@ -86,19 +86,19 @@ public class DrawActivity extends Activity {
         
         player1Score = bundle.getInt(PLAYER1SCORE);
         
-        player1Name = bundle.getString(USERNAME); // changed for cloud.
+        username = bundle.getString(USERNAME); // changed for cloud.
         
         password = bundle.getString(PASSWORD);
         
-        if(player1Name != null)
+        if(username != null)
         {
             TextView player1ScoreText = (TextView) findViewById(R.id.player1ScoreText);
             
-            if (player1Name.equals("")){ // User enters nothing
-            	player1Name = getString(R.string.player1);
+            if (username.equals("")){ // User enters nothing
+            	username = getString(R.string.player1);
             	player1ScoreText.setText(getString(R.string.player1) + ": " + Integer.toString(player1Score));
             }
-            player1ScoreText.setText(Integer.toString(player1Score) + ": " + player1Name);
+            player1ScoreText.setText(Integer.toString(player1Score) + ": " + username);
         }
         
         TextView topicText = (TextView) findViewById(R.id.topicText);
@@ -241,7 +241,7 @@ public class DrawActivity extends Activity {
 			intent.putExtra(TOPIC, topic);
 			
 			// Put the player's names in the bundle
-			intent.putExtra(PLAYER1, player1Name);
+			intent.putExtra(PLAYER1, username);
 			intent.putExtra(PLAYER2, player2Name);
 			
 			// Put the current artist number into the bundle
@@ -267,7 +267,7 @@ public class DrawActivity extends Activity {
 				// Remove the "Topic: " part of the string.
 				topic = topic.substring(7);
 				
-				final boolean ok = cloud.saveToCloud(drawingView, player1Name, password, hint, answer, topic);
+				final boolean ok = cloud.saveToCloud(drawingView, username, password, hint, answer, topic);
 
                 if(!ok) {
                     /*
@@ -362,7 +362,7 @@ public class DrawActivity extends Activity {
 		outState.putString(TOPIC, topic.getText().toString());
 		
 		// Put the player's names in the bundle
-		outState.putString(PLAYER1, player1Name);
+		outState.putString(PLAYER1, username);
 		outState.putString(PLAYER2, player2Name);
 		
 		// Put the current artist number in the bundle
@@ -393,6 +393,19 @@ public class DrawActivity extends Activity {
             builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                 	// User wants to go back to the welcome screen
+                	
+                	 new Thread(new Runnable() {
+
+                         @Override
+                         public void run() {
+                             // Create a cloud object and get the XML
+                             Cloud cloud = new Cloud();
+                             //InputStream stream = cloud.openFromCloud()                   
+                             
+                             cloud.loginToCloud(username, password);
+                         }
+                	 }).start();
+                	
             		Intent intent = new Intent(DrawActivity.this, WelcomeScreen.class);
             		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             		startActivity(intent);
