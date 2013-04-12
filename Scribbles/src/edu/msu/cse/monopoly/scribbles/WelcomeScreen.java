@@ -135,8 +135,6 @@ public class WelcomeScreen extends Activity {
                     		errorMessage = "Invalid password/username combination.";
                     	}else if (message.equals("magic")){
                     		errorMessage = "Invalid magic number.";
-                    	}else{
-                    		errorMessage = "User already exists.";
                     	}
                     	
                         Toast.makeText(view.getContext(), getText(R.string.login_fail) + " " + errorMessage, Toast.LENGTH_SHORT).show();
