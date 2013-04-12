@@ -40,19 +40,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/answerBox"
-        android:layout_below="@+id/whosDrawingText" 
-        android:background="@color/white"/>
-
-    <TextView
-        android:id="@+id/topicText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:textAppearance="?android:attr/textAppearanceMedium" 
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:text="@string/topic" />
+        android:layout_below="@id/topicText"
+        android:background="@color/white" />
 
     <EditText
         android:id="@+id/hintBox"
@@ -97,19 +86,6 @@
         android:text="@string/move" />
 
     <TextView
-        android:id="@+id/whosDrawingText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/topicText"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:gravity="center"
-        android:text="@string/artist"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
         android:id="@+id/answerText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -128,6 +104,17 @@
         android:gravity="left"
         android:singleLine="true"
         android:text="@string/player1"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/topicText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="@string/topic"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>
