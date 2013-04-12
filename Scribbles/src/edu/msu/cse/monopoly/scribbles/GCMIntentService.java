@@ -24,7 +24,7 @@ public class GCMIntentService extends GCMBaseIntentService{
 	
 	@Override
 	protected void onMessage(Context context, Intent message){
-		String msg = message.getStringExtra("new_drawing");
+		String msg = message.getStringExtra("message");
 	}	
 	
 	@Override
