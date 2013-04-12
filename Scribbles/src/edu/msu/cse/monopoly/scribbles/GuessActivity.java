@@ -1,5 +1,11 @@
 package edu.msu.cse.monopoly.scribbles;
 
+import java.io.IOException;
+import java.io.InputStream;
+
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.app.Activity;
@@ -7,10 +13,12 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.Html;
+import android.util.Xml;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class GuessActivity extends Activity {
     private static final String PLAYER1 = "player1";
@@ -22,6 +30,8 @@ public class GuessActivity extends Activity {
     private static final String TIMER = "timer";
     private static final String GUESS = "guess";
     private static final String WHOSDRAWING = "whosDrawing";
+    private static final String USERNAME = "username";
+    private static final String PASSWORD = "password";
     
     /**
      * The drawing view object
@@ -54,8 +64,8 @@ public class GuessActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_guess);
-		
-		Bundle bundle = getIntent().getExtras();
+		/* Code from when guess activity was called from draw activity.
+		/*
 		
 		player1Score = bundle.getInt(PLAYER1SCORE);
         player1Name = bundle.getString(PLAYER1);
@@ -65,17 +75,93 @@ public class GuessActivity extends Activity {
         Answer = bundle.getString(ANSWER);
         Category = bundle.getString(TOPIC);
         whosDrawing = bundle.getInt(WHOSDRAWING);
-        
-        guessingView = (DrawingView) findViewById(R.id.guessingView);
+        */
+		
+		/* Need to fill:
+		 * username/score
+		 * topic
+		 * hint
+		 */
+		
+		Bundle bundle = getIntent().getExtras();
+		
+		final String username = bundle.getString(USERNAME);
+		final String password = bundle.getString(PASSWORD);
+		
+		guessingView = (DrawingView) findViewById(R.id.guessingView);
+	    guessingView.setMoveFlag(true); // Always moving in guessing activity
+		
+		// Pull the stuff from the cloud.
+		new Thread(new Runnable() {
 
-        guessingView.getFromBundle(bundle);
-        guessingView.setMoveFlag(true); // Always moving in guessing activity
+            @Override
+            public void run() {
+			Cloud cloud = new Cloud();
+			
+			final InputStream stream = cloud.openFromCloud(username, password);
+
+			// Test for an error
+            boolean fail = stream == null;
+            if(!fail) {
+                try {
+                    XmlPullParser xml = Xml.newPullParser();
+                    xml.setInput(stream, "UTF-8");       
+                    
+                    xml.nextTag();      // Advance to first tag
+                    xml.require(XmlPullParser.START_TAG, null, "proj02");
+                    String status = xml.getAttributeValue(null, "status");
+                    if(status.equals("yes")) {
+                    	if(xml.nextTag() == XmlPullParser.START_TAG){
+                    		Hint = xml.getAttributeValue(null, "hint");
+                    		Answer = xml.getAttributeValue(null, "solution");
+                    		Category = xml.getAttributeValue(null, "category");
+                    	}
+                        while(xml.nextTag() == XmlPullParser.START_TAG) {
+                            if(xml.getName().equals("")) {                                
+                                // do something with the hatting tag...
+                            	guessingView.loadXml(xml);
+                                break;
+                            }
+                            
+                            Cloud.skipToEndTag(xml);
+                        }
+                    } else {
+                        fail = true;
+                    }
+                    
+                } catch(IOException ex) {
+                    fail = true;
+                } catch(XmlPullParserException ex) {
+                    fail = true;
+                } finally {
+                    try {
+                        stream.close(); 
+                    } catch(IOException ex) {
+                    }
+                }
+            }
+            final boolean fail1 = fail;
+            guessingView.post(new Runnable() {
+
+                @Override
+                public void run() {
+                    if(fail1) {
+                        Toast.makeText(guessingView.getContext(), R.string.loading_fail, Toast.LENGTH_SHORT).show();
+                    }else {
+                        // Success!
+                        // Need to update the UI, load the picture.
+                        }
+                    }  
+            });
+        }  
+    }).start();
         
 		final TextView myTimer = (TextView) findViewById(R.id.theTimer);
 		final TextView hintText = (TextView) findViewById(R.id.Hint);
 		
 		TextView categoryText = (TextView) findViewById(R.id.Category);
 		categoryText.setText(Category);
+
 		long myBegin = 130000;
 		
         if(player1Name != null)
@@ -84,28 +170,11 @@ public class GuessActivity extends Activity {
             
             	player1ScoreText.setText(Integer.toString(player1Score) + ": " + player1Name);
         }
-        
-        if(player2Name != null){
-        	
-            TextView player2ScoreText = (TextView) findViewById(R.id.player2ScoreText);
-
-            player2ScoreText.setText(Integer.toString(player2Score) + ": " + player2Name);
-
-        }
 		
 		if(savedInstanceState != null) { // We're rotating, load the relevent strings
 			myBegin = savedInstanceState.getLong(TIMER);
 			EditText guessBox = (EditText) findViewById(R.id.guessBox);
 			guessBox.setText(savedInstanceState.getString(GUESS));	
-		}
-		
-		// Set the guesser text view
-    	TextView whosDrawingText = (TextView) findViewById(R.id.whosGuessingText);
-		if (whosDrawing == 1){
-        	whosDrawingText.setText(whosDrawingText.getText().toString() + " " + player2Name);
-		}
-		else{
-        	whosDrawingText.setText(whosDrawingText.getText().toString() + " " + player1Name);
 		}
 		
 		new CountDownTimer(myBegin, 1000) {

@@ -52,7 +52,7 @@ public class Cloud {
     public InputStream loginToCloud(String username, String password) {
     	username = username.trim();
     	password = password.trim();
-    	
+    	//,
         if(username.length() == 0 || password.length() == 0) { // username/password not entered
             return null;
         }

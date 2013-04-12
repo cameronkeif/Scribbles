@@ -76,5 +76,6 @@
     <string name="Leaderboard">Leaderboard</string>
     <string name="leaderboardmember">leaderboardmember</string>
     <string name="back">Back</string>
+    <string name="loading_fail">Failed to load drawing</string>
 
 </resources>
