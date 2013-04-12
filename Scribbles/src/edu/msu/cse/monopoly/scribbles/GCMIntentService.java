@@ -8,6 +8,8 @@ import com.google.android.gcm.GCMBaseIntentService;
 public class GCMIntentService extends GCMBaseIntentService{
 	public static final String SENDER_ID = "project-number-here";
 	
+	
+	
 	public GCMIntentService(){
 		super(SENDER_ID);
 	}
