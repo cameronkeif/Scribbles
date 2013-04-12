@@ -1,7 +1,10 @@
 package edu.msu.cse.monopoly.scribbles;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.NotificationCompat;
 
 import com.google.android.gcm.GCMBaseIntentService;
 
@@ -31,7 +34,7 @@ public class GCMIntentService extends GCMBaseIntentService{
 		NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
 		builder.setSmallIcon(R.drawable.ic_launcher);
 		builder.setContentTitle(context.getString(R.string.app_name));
-		builder.setContentText(contect.getString(R.string.notification_request));
+		builder.setContentText(context.getString(R.string.notification_request));
 		builder.setAutoCancel(true);
 		builder.setContentIntent(pendingIntent);
 		
