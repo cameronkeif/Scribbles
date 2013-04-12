@@ -6,8 +6,6 @@ import java.io.InputStream;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
-import edu.msu.keifcame.hattercloud.HatterActivity;
-
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.app.Activity;
