@@ -25,6 +25,19 @@ public class GCMIntentService extends GCMBaseIntentService{
 	@Override
 	protected void onMessage(Context context, Intent message){
 		String msg = message.getStringExtra("message");
+		Intent intent = new Intent(this, Leaderboard.class);
+		PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+		
+		NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+		builder.setSmallIcon(R.drawable.ic_launcher);
+		builder.setContentTitle(context.getString(R.string.app_name));
+		builder.setContentText(contect.getString(R.string.notification_request));
+		builder.setAutoCancel(true);
+		builder.setContentIntent(pendingIntent);
+		
+		NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+		
+		mNotificationManager.notify(0, builder.build());
 	}	
 	
 	@Override
