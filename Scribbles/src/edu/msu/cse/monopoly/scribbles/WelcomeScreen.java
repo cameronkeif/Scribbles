@@ -2,19 +2,28 @@ package edu.msu.cse.monopoly.scribbles;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
+
+import javax.net.ssl.HttpsURLConnection;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.util.Xml;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.google.android.gcm.GCMRegistrar;
 
 public class WelcomeScreen extends Activity {
     //private static final String PLAYER1 = "player1";
@@ -29,8 +38,9 @@ public class WelcomeScreen extends Activity {
     private EditText passwordEditText;
     private static final String USERNAME = "username";
     private static final String PASSWORD = "password";
-    
-    
+    private String drawFlag;
+    private String regId;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -49,7 +59,15 @@ public class WelcomeScreen extends Activity {
         	passwordEditText.setText(loginPreferences.getString("password", ""));
         	saveUserCheckBox.setChecked(true);
         }
-
+        
+        GCMRegistrar.checkDevice(this);
+        GCMRegistrar.checkManifest(this);
+        regId = GCMRegistrar.getRegistrationId(this);
+        if(regId.equals("")){
+        	GCMRegistrar.register(this,GCMIntentService.SENDER_ID);
+        } else {
+        	// do something with regId…
+        }
 	}
 	
     /**
@@ -95,6 +113,7 @@ public class WelcomeScreen extends Activity {
                         xml.nextTag();      // Advance to first tag
                         xml.require(XmlPullParser.START_TAG, null, "proj02");
                         String status = xml.getAttributeValue(null, "status");
+                        drawFlag = xml.getAttributeValue(null, "draw");
                         message = xml.getAttributeValue(null, "msg");
 
                         if(status.equals("yes")) {
@@ -184,12 +203,26 @@ public class WelcomeScreen extends Activity {
         	loginPreferencesEditor.clear();
         	loginPreferencesEditor.commit();
         }
+        
+        String query = "https://www.cse.msu.edu/~smaletho/cse476/proj02/connect.php?gcmid=" + regId + "&user=" + username;
+        
+        try {
+	        URL url = new URL(query);
+	
+	        url.openConnection();
+        
+        } catch (MalformedURLException e) {
+            // Should never happen
+        } catch (IOException ex) {
+        	
+        }
  
         //if username's flag is 0 go to drawing
         
     	Intent intent = new Intent(this, DrawActivity.class);
     	intent.putExtra(USERNAME, username);
     	intent.putExtra(PASSWORD, password);
+    	intent.putExtra("draw", drawFlag);
 		startActivity(intent);
     	//else{
     	//if there is a drawing to guess
