@@ -72,5 +72,9 @@
     <string name="PasswordConfirm">Confirm Password</string>
     <string name="saving_fail">Failed to save drawing to server.</string>
     <string name="confirm_password_fail">Passwords do not match.</string>
+    <string name="title_activity_leaderboard">Leaderboard</string>
+    <string name="Leaderboard">Leaderboard</string>
+    <string name="leaderboardmember">leaderboardmember</string>
+    <string name="back">Back</string>
 
 </resources>

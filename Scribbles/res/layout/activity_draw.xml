@@ -35,19 +35,6 @@
         android:textColor="@color/white"
         android:text="@string/button_done" />
 
-    <TextView
-        android:id="@+id/player1ScoreText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/topicText"
-        android:text="@string/player1"
-        android:gravity="left"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
     <edu.msu.cse.monopoly.scribbles.DrawingView
         android:id="@+id/drawingView"
         android:layout_width="match_parent"
@@ -132,16 +119,15 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/player2ScoreText"
+        android:id="@+id/player1ScoreText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/topicText"
-        android:gravity="right"
         android:ellipsize="end"
+        android:gravity="left"
         android:singleLine="true"
-        android:text="@string/player2"
+        android:text="@string/player1"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>

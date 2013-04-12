@@ -16,7 +16,6 @@ public class GuessActivity extends Activity {
     private static final String PLAYER1 = "player1";
     private static final String PLAYER2 = "player2";
     private static final String PLAYER1SCORE = "player1Score";
-    private static final String PLAYER2SCORE = "player2Score";
     private static final String HINT = "hint";
     private static final String TOPIC = "topic";
     private static final String ANSWER = "answer";
@@ -59,7 +58,6 @@ public class GuessActivity extends Activity {
 		Bundle bundle = getIntent().getExtras();
 		
 		player1Score = bundle.getInt(PLAYER1SCORE);
-        player2Score = bundle.getInt(PLAYER2SCORE);
         player1Name = bundle.getString(PLAYER1);
         player2Name = bundle.getString(PLAYER2);
         whosDrawing = bundle.getInt(WHOSDRAWING);
@@ -190,7 +188,6 @@ public class GuessActivity extends Activity {
 				
 				// Put the player's scores in the bundle
 				intent.putExtra(PLAYER1SCORE, player1Score);
-				intent.putExtra(PLAYER2SCORE, player2Score);
 				
 				// Put the player's names in the bundle
 				intent.putExtra(PLAYER1, player1Name);
@@ -201,7 +198,6 @@ public class GuessActivity extends Activity {
 				
 				// Put the player's scores in the bundle
 				intent.putExtra(PLAYER1SCORE, player1Score);
-				intent.putExtra(PLAYER2SCORE, player2Score);
 				
 				// Put the player's names in the bundle
 				intent.putExtra(PLAYER1, player1Name);
@@ -234,7 +230,6 @@ public class GuessActivity extends Activity {
 		// Put the player's scores in the bundle
 		
 		outState.putInt(PLAYER1SCORE, player1Score);
-		outState.putInt(PLAYER2SCORE, player2Score);
 		
 		// Put the topic string into the bundle
 		outState.putString(TOPIC, Category);

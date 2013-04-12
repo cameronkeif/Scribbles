@@ -28,7 +28,6 @@ public class DrawActivity extends Activity {
     private static final String PLAYER1 = "player1";
     private static final String PLAYER2 = "player2";
     private static final String PLAYER1SCORE = "player1Score";
-    private static final String PLAYER2SCORE = "player2Score";
     private static final String HINT = "hint";
     private static final String TOPIC = "topic";
     private static final String ANSWER = "answer";
@@ -86,7 +85,6 @@ public class DrawActivity extends Activity {
         // bundle.getInt returns 0 by default, so coming from the welcome screen is not a problem
         
         player1Score = bundle.getInt(PLAYER1SCORE);
-        player2Score = bundle.getInt(PLAYER2SCORE);
         
         player1Name = bundle.getString(USERNAME); // changed for cloud.
         player2Name = bundle.getString(PLAYER2);
@@ -265,7 +263,6 @@ public class DrawActivity extends Activity {
 			
 			// Put the player's scores in the bundle
 			intent.putExtra(PLAYER1SCORE, player1Score);
-			intent.putExtra(PLAYER2SCORE, player2Score);
 			
 			// Put the topic string into the bundle
 			TextView topicBox = (TextView) findViewById(R.id.topicText);
@@ -388,7 +385,6 @@ public class DrawActivity extends Activity {
 		
 		// Put the player's scores in the bundle
 		outState.putInt(PLAYER1SCORE, player1Score);
-		outState.putInt(PLAYER2SCORE, player2Score);
 		
 		// Put the topic string into the bundle
 		TextView topic = (TextView) findViewById(R.id.topicText);

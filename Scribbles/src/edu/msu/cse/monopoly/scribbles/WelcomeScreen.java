@@ -169,6 +169,12 @@ public class WelcomeScreen extends Activity {
 		Intent intent = new Intent(this, NewUserActivity.class);
 		startActivity(intent);
     }
+    
+    public void onLeaderboard(View view){
+    	Intent intent = new Intent (this, Leaderboard.class);
+    	startActivity(intent);
+    }
+    
     public void onLogin(String username, String password){
         
         if (saveUserCheckBox.isChecked()){
@@ -181,10 +187,20 @@ public class WelcomeScreen extends Activity {
         	loginPreferencesEditor.commit();
         }
  
+        //if username's flag is 0 go to drawing
+        
     	Intent intent = new Intent(this, DrawActivity.class);
     	intent.putExtra(USERNAME, username);
     	intent.putExtra(PASSWORD, password);
 		startActivity(intent);
+    	//else{
+    	//if there is a drawing to guess
+    	//Intent intent = new Intent(this, GuessActivity.class);
+    	//intent.putExtra(USERNAME, username);
+    	//intent.putExtra(PASSWORD, password);
+		//startActivity(intent);
+		//else
+		//toast window saying there are no drawings available currently
 		
     }
 }
