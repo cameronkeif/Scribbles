@@ -87,18 +87,8 @@ public class DrawActivity extends Activity {
         player1Score = bundle.getInt(PLAYER1SCORE);
         
         player1Name = bundle.getString(USERNAME); // changed for cloud.
-        player2Name = bundle.getString(PLAYER2);
         
         password = bundle.getString(PASSWORD);
-        
-//        player1Name = "";
-//        player2Name = "";
-        
-        whosDrawing = bundle.getInt(WHOSDRAWING);
-        
-        if(whosDrawing == 0){ // If this is the first drawing, initialize it to be player 1
-        	whosDrawing = 1;
-        }
         
         if(player1Name != null)
         {
@@ -109,25 +99,6 @@ public class DrawActivity extends Activity {
             	player1ScoreText.setText(getString(R.string.player1) + ": " + Integer.toString(player1Score));
             }
             player1ScoreText.setText(Integer.toString(player1Score) + ": " + player1Name);
-        }
-        
-        if(player2Name != null){
-        	
-            TextView player2ScoreText = (TextView) findViewById(R.id.player2ScoreText);
-            
-            if (player2Name.equals("")){ // User enters nothing
-            	player2Name = getString(R.string.player2);
-            }
-            player2ScoreText.setText(Integer.toString(player2Score) + ": " + player2Name);
-        }
-        
-        // Set the artist text view
-    	TextView whosDrawingText = (TextView) findViewById(R.id.whosDrawingText);
-        if(whosDrawing == 1){
-        	whosDrawingText.setText(whosDrawingText.getText().toString() + " " + player1Name);
-        }
-        if(whosDrawing == 2){
-        	whosDrawingText.setText(whosDrawingText.getText().toString() + " " + player2Name);
         }
         
         TextView topicText = (TextView) findViewById(R.id.topicText);
