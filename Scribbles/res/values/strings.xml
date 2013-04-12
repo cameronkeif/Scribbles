@@ -77,5 +77,8 @@
     <string name="leaderboardmember">leaderboardmember</string>
     <string name="back">Back</string>
     <string name="loading_fail">Failed to load drawing</string>
+    <string name="title_activity_lobby">LobbyActivity</string>
+    <string name="PlayRound">Play a Round!</string>
+    <string name="playTurn">Take a Turn!</string>
 
 </resources>

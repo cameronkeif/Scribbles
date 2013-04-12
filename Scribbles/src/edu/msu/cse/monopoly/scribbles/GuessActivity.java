@@ -29,7 +29,6 @@ public class GuessActivity extends Activity {
     private static final String ANSWER = "answer";
     private static final String TIMER = "timer";
     private static final String GUESS = "guess";
-    private static final String WHOSDRAWING = "whosDrawing";
     private static final String USERNAME = "username";
     private static final String PASSWORD = "password";
     
@@ -39,7 +38,6 @@ public class GuessActivity extends Activity {
     private DrawingView guessingView = null;
     
     private int player1Score;
-    private int player2Score;
     
     private String player1Name;
     private String player2Name;
@@ -47,9 +45,7 @@ public class GuessActivity extends Activity {
     private String Answer;
     private String Category;
     private long currentTime;
-    
-    private int whosDrawing;
-    
+        
     /**
      * Flag to indicate if the hint has been shown (25 pts)
      */
@@ -243,27 +239,11 @@ public class GuessActivity extends Activity {
 			else if (timeExpired){
 				pointsAwarded = 0;  // 0 points for expired time
 			}
-			
-			if (whosDrawing == 1){
-				player2Score += pointsAwarded;
-			}
-			if (whosDrawing == 2){
-				player1Score += pointsAwarded;
-			}
+			player1Score += pointsAwarded;
 		
 			Intent intent;
-			if (player1Score >= 500 || player2Score >= 500){ // Someone won!!
-				intent = new Intent(this, FinalScoreActivity.class);
-				
-				// Put the player's scores in the bundle
-				intent.putExtra(PLAYER1SCORE, player1Score);
-				
-				// Put the player's names in the bundle
-				intent.putExtra(PLAYER1, player1Name);
-				intent.putExtra(PLAYER2, player2Name);
-				
-			}else{ // Nobody won, start a new round
-				intent = new Intent(this, DrawActivity.class);
+
+			intent = new Intent(this, LobbyActivity.class);
 				
 				// Put the player's scores in the bundle
 				intent.putExtra(PLAYER1SCORE, player1Score);
@@ -273,16 +253,11 @@ public class GuessActivity extends Activity {
 				intent.putExtra(PLAYER2, player2Name);
 				
 				// Switch the drawer
-				if (whosDrawing == 1){
-					intent.putExtra(WHOSDRAWING, 2);
-				}
-				else{
-					intent.putExtra(WHOSDRAWING, 1);
-				}
-			}
-			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			startActivity(intent);
-			finish();
+//NEED TO CHANGE THE FLAG HERE!!!!
+				
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				startActivity(intent);
+				finish();
 		}
     }
 	
@@ -296,8 +271,7 @@ public class GuessActivity extends Activity {
 		// Put the artist's answer in the bundle
 		outState.putString(ANSWER, Answer);
 		
-		// Put the player's scores in the bundle
-		
+		// Put the player's score in the bundle
 		outState.putInt(PLAYER1SCORE, player1Score);
 		
 		// Put the topic string into the bundle
