@@ -20,7 +20,7 @@ import android.util.Log;
 import android.util.Xml;
 
 public class Cloud {
-    private static final String MAGIC = "NechAtHa6RuzeR8x";
+    private static final String MAGIC = "AIzaSyDREyUoYnn46WCVkwMMwwQPzeVnKnr175w";
     private static final String LOGIN_URL = "https://www.cse.msu.edu/~smaletho/cse476/proj02/login.php";
     private static final String LOGOUT_URL = "https://www.cse.msu.edu/~smaletho/cse476/proj02/logout.php";
     private static final String NEW_USER_URL = "https://www.cse.msu.edu/~smaletho/cse476/proj02/new-user.php";

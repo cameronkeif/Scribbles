@@ -82,6 +82,7 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/checkBoxRemember"
             android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/usernameTextView"
             android:ems="10"
             android:hint="@string/password"
             android:inputType="textPassword"
