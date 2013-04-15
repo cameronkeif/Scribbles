@@ -1,6 +1,5 @@
 package edu.msu.cse.monopoly.scribbles;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -223,7 +222,7 @@ public class DrawActivity extends Activity {
     	}else{
 	    	// Start the guessing activity
 	    	// Change DrawActivity.class to the guess activity class when it is created.
-	    	
+	    	/*
 			Intent intent = new Intent(this, GuessActivity.class);
 			
 			String hint = hintBox.getText().toString();
@@ -248,7 +247,8 @@ public class DrawActivity extends Activity {
 			intent.putExtra(WHOSDRAWING, whosDrawing);
 			
 			intent.putExtra(PARAMETERS, drawingView.getParams());
-			
+			*/
+    		
 			// Add the stuff to the cloud.
 			new Thread(new Runnable() {
 
@@ -282,8 +282,7 @@ public class DrawActivity extends Activity {
                             Toast.makeText(drawingView.getContext(), R.string.saving_fail, Toast.LENGTH_SHORT).show();
                         }
                         else{
-                        	// Should move to the next activity.
-                        	;
+                        	finish(); // Exit the activity.
                         }
                     }
                     
@@ -297,6 +296,9 @@ public class DrawActivity extends Activity {
 			startActivity(intent);
 			finish();
 			*/
+			
+			
+			
     	}
     }
     
@@ -402,7 +404,7 @@ public class DrawActivity extends Activity {
                              Cloud cloud = new Cloud();
                              //InputStream stream = cloud.openFromCloud()                   
                              
-                             cloud.loginToCloud(username, password);
+                             cloud.logOut(username, password);
                          }
                 	 }).start();
                 	
