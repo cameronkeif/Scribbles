@@ -139,8 +139,7 @@ public class Leaderboard extends Activity {
 	
 	
     public void onBack(View view){
-    	Intent intent = new Intent (this, WelcomeScreen.class);
-    	startActivity(intent);
+    	finish(); // This destroys the activity, which is what we want.
     }
 
 	
