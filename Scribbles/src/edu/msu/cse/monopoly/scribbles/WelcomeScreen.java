@@ -2,9 +2,10 @@ package edu.msu.cse.monopoly.scribbles;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
 
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -23,14 +24,12 @@ import com.google.android.gcm.GCMRegistrar;
 public class WelcomeScreen extends Activity {
     //private static final String PLAYER1 = "player1";
     private String message = "";
-    private Boolean saveLogin;
-    private SharedPreferences loginPreferences;
-    private SharedPreferences.Editor loginPreferencesEditor;
-    private CheckBox saveUserCheckBox;
-    private String username;    
-    private String password;
-    private EditText usernameEditText;
-    private EditText passwordEditText;
+
+    CheckBox remember;
+    EditText username;    
+    EditText password;
+    
+    
     private static final String USERNAME = "username";
     private static final String PASSWORD = "password";
     private static final String DRAWFLAG = "drawflag";
@@ -42,19 +41,16 @@ public class WelcomeScreen extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_welcome_screen);
 
-		usernameEditText = (EditText) findViewById(R.id.usernameEditText);
-        passwordEditText = (EditText) findViewById(R.id.passwordEditText);
-        saveUserCheckBox = (CheckBox)findViewById(R.id.checkBoxRemember);
-        loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
-        loginPreferencesEditor = loginPreferences.edit();
+		username = (EditText) findViewById(R.id.usernameEditText);
+        password = (EditText) findViewById(R.id.passwordEditText);
+        remember = (CheckBox)findViewById(R.id.checkBoxRemember);
+
+        SharedPreferences settings = getSharedPreferences("STORED_PREFS_FILE", 0);
+       
+    	username.setText(settings.getString("username", ""));
+    	password.setText(settings.getString("password", ""));
+    	remember.setChecked(true);
         
-        saveLogin = loginPreferences.getBoolean("saveLogin", false);
-        
-        if (saveLogin == true){
-        	usernameEditText.setText(loginPreferences.getString("username", ""));
-        	passwordEditText.setText(loginPreferences.getString("password", ""));
-        	saveUserCheckBox.setChecked(true);
-        }
         
         GCMRegistrar.checkDevice(this);
         GCMRegistrar.checkManifest(this);
@@ -71,22 +67,6 @@ public class WelcomeScreen extends Activity {
      * @param view
      */
     public void onBegin(final View view) {
-    	/* Old code.
-    	EditText usernameEditText = (EditText) findViewById(R.id.usernameEditText);
-    	
-    	// Start the drawing activity
-		Intent intent = new Intent(this, DrawActivity.class);
-		intent.putExtra(PLAYER1, (String) usernameEditText.getText().toString());
-		startActivity(intent);
-		*/
-    	
-    	/*
-         * Create a thread to load the hatting from the cloud
-         */
-        username = usernameEditText.getText().toString();
-        password = passwordEditText.getText().toString();
-
-
         
         new Thread(new Runnable() {
 
@@ -96,7 +76,7 @@ public class WelcomeScreen extends Activity {
                 Cloud cloud = new Cloud();
                 //InputStream stream = cloud.openFromCloud()                   
                 
-                InputStream stream = cloud.loginToCloud(username, password);
+                InputStream stream = cloud.loginToCloud(username.getText().toString(), password.getText().toString());
                 
                 // Test for an error
                 boolean fail = stream == null;
@@ -112,8 +92,17 @@ public class WelcomeScreen extends Activity {
                         drawFlag = xml.getAttributeValue(null, "draw");
                         message = xml.getAttributeValue(null, "msg");
 
+                        
                         if(status.equals("yes")) {
-                        	
+                        	if(remember.isChecked()){
+                                SharedPreferences settings = getSharedPreferences("STORED_PREFS_FILE", 0);
+                                SharedPreferences.Editor editor = settings.edit();
+                                editor.putString("username", username.getText().toString());
+                                editor.putString("password", password.getText().toString());
+                                editor.putBoolean("remember", remember.isChecked());    
+                                
+                                editor.commit();
+                        	}
                             while(xml.nextTag() == XmlPullParser.START_TAG) {
                                 
                                 
@@ -155,7 +144,7 @@ public class WelcomeScreen extends Activity {
                         Toast.makeText(view.getContext(), getText(R.string.login_fail) + " " + errorMessage, Toast.LENGTH_SHORT).show();
                     }else {
                         // Success!
-                		onLogin(username, password);
+                		onLogin(username.getText().toString(), password.getText().toString());
                     	}
                     
                 	}
@@ -184,16 +173,6 @@ public class WelcomeScreen extends Activity {
     }
     
     public void onLogin(String username, String password){
-        
-        if (saveUserCheckBox.isChecked()){
-        	loginPreferencesEditor.putBoolean("savelogin", true);
-        	loginPreferencesEditor.putString("username", username);
-        	loginPreferencesEditor.putString("password", password);
-        	loginPreferencesEditor.commit();
-        } else{
-        	loginPreferencesEditor.clear();
-        	loginPreferencesEditor.commit();
-        }
         
  	final String tempUser = username;
         
