@@ -100,6 +100,16 @@ public class GuessActivity extends Activity {
                     		Answer = xml.getAttributeValue(null, "solution");
                     		Category = xml.getAttributeValue(null, "category");
                     		drawingName = xml.getAttributeValue(null, "name");
+                    		
+                    		final TextView categoryText = (TextView) findViewById(R.id.Category);
+                    		
+                    		// Updates the text for the category/topic. The others are handled after loading.
+                    		categoryText.post(new Runnable(){
+                    			@Override
+                    			public void run(){
+                    				categoryText.setText("Topic: " + Category);
+                    			}
+                    		});
                     	}
                     	Cloud.skipToEndTag(xml);
                         while(xml.nextTag() == XmlPullParser.START_TAG) {
@@ -153,8 +163,7 @@ public class GuessActivity extends Activity {
 		final TextView myTimer = (TextView) findViewById(R.id.theTimer);
 		final TextView hintText = (TextView) findViewById(R.id.Hint);
 		
-		TextView categoryText = (TextView) findViewById(R.id.Category);
-		categoryText.setText(Category);
+		
 
 		long myBegin = 130000;
 		
