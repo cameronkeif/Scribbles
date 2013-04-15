@@ -28,6 +28,9 @@ public class GCMIntentService extends GCMBaseIntentService{
 	@Override
 	protected void onMessage(Context context, Intent message){
 		String msg = message.getStringExtra("message");
+		if(!(msg.equals("new_drawing"))) {
+			break;
+		}
 		Intent intent = new Intent(this, Leaderboard.class);
 		PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
 		
