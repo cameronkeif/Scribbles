@@ -90,8 +90,7 @@ public class Leaderboard extends Activity {
 	                    String status = xml.getAttributeValue(null, "status");
 	                    int scoreCount = 0;
 	                    if(status.equals("yes")) {
-	                    	if(xml.nextTag() == XmlPullParser.START_TAG){
-	                    	}
+	                    	
 	                        while(xml.nextTag() == XmlPullParser.START_TAG) {
 	                            if(xml.getName().equals("") || scoreCount >= 10) {                                
 	                                break;
