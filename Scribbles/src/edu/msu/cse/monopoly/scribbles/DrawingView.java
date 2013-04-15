@@ -667,6 +667,11 @@ public class DrawingView extends View {
     	return params.lines.isEmpty();
     }
 
+    /**
+     * Saves all of the lines as xml
+     * @param xml XML serializer
+     * @throws IOException
+     */
 	public void saveXml(XmlSerializer xml) throws IOException {
 		// Write all of the lines into XML
 		for(Line line:params.lines){
@@ -682,29 +687,6 @@ public class DrawingView extends View {
 			xml.endTag(null,  "line");
 		}
     }
-	
-	//public void loadXml(XmlPullParser xml) throws IOException, XmlPullParserException {
-        // Create a new set of parameters
-      //  final Parameters newParams = new Parameters();
-        
-        // Load into it
-        //post(new Runnable() {
-
-          //  @Override
-            //public void run() {
-              //  params = newParams;
-                
-                // Ensure the options are all set
-                /*setColor(params.color);
-                setImageUri(params.imageUri);
-                setHat(params.hat);
-                setFeather(params.feather);*/
-                
-            //}
-            
-       // });
-        
-    //}
 	
 	/**
 	 * Creates a line from xml, adds it to the list of lines.
@@ -727,9 +709,7 @@ public class DrawingView extends View {
 		line.endY = endY;
 		
 		params.lines.add(line);
-		int x;
-		x = 2;
-		x++;
+
 		invalidate();
 	}
 }

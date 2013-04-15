@@ -21,8 +21,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class GuessActivity extends Activity {
-    private static final String PLAYER1 = "player1";
-    private static final String PLAYER2 = "player2";
     private static final String PLAYER1SCORE = "player1Score";
     private static final String HINT = "hint";
     private static final String TOPIC = "topic";
@@ -31,6 +29,8 @@ public class GuessActivity extends Activity {
     private static final String GUESS = "guess";
     private static final String USERNAME = "username";
     private static final String PASSWORD = "password";
+    private static final String DRAWFLAG = "drawflag";
+    
     
     /**
      * The drawing view object
@@ -39,10 +39,11 @@ public class GuessActivity extends Activity {
     
     private int player1Score;
     
-    private String player1Name;
-    private String player2Name;
+    private String user;
+    private String pw;
     private String Hint;
     private String Answer;
+    private String drawingName;
     private String Category;
     private long currentTime;
         
@@ -81,8 +82,12 @@ public class GuessActivity extends Activity {
 		
 		Bundle bundle = getIntent().getExtras();
 		
-		final String username = bundle.getString(USERNAME);
-		final String password = bundle.getString(PASSWORD);
+		user = bundle.getString(USERNAME);
+		pw = bundle.getString(PASSWORD);
+		
+		// final versions to be used in the new thread.
+		final String username = user;
+		final String password = pw;
 		
 		guessingView = (DrawingView) findViewById(R.id.guessingView);
 	    guessingView.setMoveFlag(true); // Always moving in guessing activity
@@ -112,6 +117,7 @@ public class GuessActivity extends Activity {
                     		Hint = xml.getAttributeValue(null, "hint");
                     		Answer = xml.getAttributeValue(null, "solution");
                     		Category = xml.getAttributeValue(null, "category");
+                    		drawingName = xml.getAttributeValue(null, "name");
                     	}
                     	Cloud.skipToEndTag(xml);
                         while(xml.nextTag() == XmlPullParser.START_TAG) {
@@ -171,11 +177,11 @@ public class GuessActivity extends Activity {
 
 		long myBegin = 130000;
 		
-        if(player1Name != null)
+        if(user != null)
         {
             TextView player1ScoreText = (TextView) findViewById(R.id.player1ScoreText);
             
-            	player1ScoreText.setText(Integer.toString(player1Score) + ": " + player1Name);
+            	player1ScoreText.setText(Integer.toString(player1Score) + ": " + user);
         }
 		
 		if(savedInstanceState != null) { // We're rotating, load the relevent strings
@@ -250,18 +256,26 @@ public class GuessActivity extends Activity {
 			else if (timeExpired){
 				pointsAwarded = 0;  // 0 points for expired time
 			}
-			player1Score += pointsAwarded;
+			
+			final int points = pointsAwarded;
 		
+			new Thread(new Runnable(){
+				@Override
+				public void run(){
+					Cloud cloud = new Cloud();
+					
+					cloud.guessCloud(user, pw, drawingName, points);
+				}
+			}).start();
+			
 			Intent intent;
-
 			intent = new Intent(this, LobbyActivity.class);
 				
-				// Put the player's scores in the bundle
-				intent.putExtra(PLAYER1SCORE, player1Score);
+			// Put the player's info in the bundle
+			intent.putExtra(USERNAME, user);
+			intent.putExtra(PASSWORD, pw);
+			intent.putExtra(DRAWFLAG, "1"); // This will of course be 1, since the user has guessed.
 				
-				// Put the player's names in the bundle
-				intent.putExtra(PLAYER1, player1Name);
-				intent.putExtra(PLAYER2, player2Name);
 				
 				// Switch the drawer
 //NEED TO CHANGE THE FLAG HERE!!!!
@@ -289,8 +303,8 @@ public class GuessActivity extends Activity {
 		outState.putString(TOPIC, Category);
 		
 		// Put the player's names in the bundle
-		outState.putString(PLAYER1, player1Name);
-		outState.putString(PLAYER2, player2Name);
+		outState.putString(USERNAME, user);
+		outState.putString(PASSWORD, pw);
 		
 		// Put the Timer in the bundle
 		outState.putLong(TIMER, currentTime);

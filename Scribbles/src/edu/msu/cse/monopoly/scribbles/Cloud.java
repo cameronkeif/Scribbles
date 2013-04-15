@@ -114,7 +114,7 @@ public class Cloud {
     }
     
     /**
-     * Save a hatting to the cloud.
+     * Save a drawing to the cloud.
      * This should be run in a thread.
      * @param name name to save under
      * @param view view we are getting the data from
@@ -284,11 +284,13 @@ public class Cloud {
      * @param user The user who is guessing
      * @param password The user's password
      * @param drawingID The ID of the user guessing this drawing
+     * @param points 
      * @return reference to an input stream or null if this fails
      */
-    public InputStream guessCloud(String user, String password, String drawingID ) {
+    public InputStream guessCloud(String user, String password, String drawingID, int points ) {
         // Create a get query
-        String query = GUESS_URL + "?user=" + user + "&magic=" + MAGIC + "&pw=" + password + "drawing_id" + drawingID;
+        String query = GUESS_URL + "?user=" + user + "&magic=" + MAGIC + "&pw=" + password + "&drawing_id" + drawingID +
+        		"&score=" + Integer.toString(points);
         
         try {
             URL url = new URL(query);
