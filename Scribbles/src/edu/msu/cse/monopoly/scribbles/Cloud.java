@@ -232,7 +232,23 @@ public class Cloud {
                 }
             }
         }
-        
+        new Thread(new Runnable() {
+
+            String url = "https://www.cse.msu.edu/~smaletho/cse476/proj02/notify.php";
+        	
+            @Override
+            public void run() {
+            	        
+		        //String url = "http://your.domain.com/path/to/file.php";
+		        HttpClient client = new DefaultHttpClient();
+		
+		        try {
+		          client.execute(new HttpGet(url));
+		        } catch(IOException e) {
+		          //do something here
+		        }
+            }
+        }).start();
         return true;
     }
     
