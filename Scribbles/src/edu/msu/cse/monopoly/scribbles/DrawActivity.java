@@ -37,6 +37,7 @@ public class DrawActivity extends Activity {
     
     private static final String USERNAME = "username";
     private static final String PASSWORD = "password";
+    private static final String DRAWFLAG = "drawflag";
     
     
 	/**
@@ -287,17 +288,24 @@ public class DrawActivity extends Activity {
                     });
                 }
                 else{
-                	// Need to run notify.php
-                	finish(); // Exit the activity
+                	cloud.gcmNotify();
+                	
+
                 }
             }
     	}).start();
-			/*
-			// Start the guessing activity
+
+        	Intent intent;
+			intent = new Intent(this, Leaderboard.class);
+				
+			// Put the player's info in the bundle
+			intent.putExtra(USERNAME, username);
+			intent.putExtra(PASSWORD, password);
+			intent.putExtra(DRAWFLAG, "0"); // This will of course be 0, since the user has finished drawing.
+				
+				
 			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
-			finish();
-			*/
 			
 			
 			

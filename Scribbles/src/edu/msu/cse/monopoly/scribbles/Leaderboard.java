@@ -10,8 +10,12 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.text.Html;
 import android.util.Xml;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -165,7 +169,47 @@ public class Leaderboard extends Activity {
 	
 	
     public void onBack(View view){
-    	finish(); // This destroys the activity, which is what we want.
+    	/* Create a warning dialog box. User can't go back to draw, but they can exit
+    	 * to the home screen.
+    	 */
+    	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    	
+    	builder.setMessage(Html.fromHtml("<font color='#000000'>"+getString(R.string.dialog_box_warning)+"</font>"));
+    	builder.setTitle(Html.fromHtml("<font color='#000000'>"+getString(R.string.dialog_box_title)+"</font>"));
+
+    	AlertDialog warningDialog = builder.create();
+    	
+        builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+            	// User wants to go back to the welcome screen
+            	
+            	new Thread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        // Create a cloud object and get the XML
+                        Cloud cloud = new Cloud();
+                        //InputStream stream = cloud.openFromCloud()                   
+                        
+                        cloud.logOut(user, password);
+                    }
+           	 }).start();
+            	
+        		Intent intent = new Intent(Leaderboard.this, WelcomeScreen.class);
+        		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        		startActivity(intent);
+            }
+        });
+        builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User wants to stay here, do nothing.
+            }
+        });
+    			
+        if (!((Activity) this).isFinishing()) {
+        	builder.show();
+        }
+        warningDialog.dismiss();
     }
 
     /**
@@ -216,4 +260,60 @@ public class Leaderboard extends Activity {
 			startActivity(intent);
 		}
 	}
+	
+	/** Handles key presses
+     * @param keycode The code of the key
+     * @param event The key event.
+     * 
+     * Used to disable back button
+     */
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {	
+        	/* Create a warning dialog box. User can't go back to draw, but they can exit
+        	 * to the home screen.
+        	 */
+        	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        	
+        	builder.setMessage(Html.fromHtml("<font color='#000000'>"+getString(R.string.dialog_box_warning)+"</font>"));
+        	builder.setTitle(Html.fromHtml("<font color='#000000'>"+getString(R.string.dialog_box_title)+"</font>"));
+
+        	AlertDialog warningDialog = builder.create();
+        	
+            builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                	// User wants to go back to the welcome screen
+                	
+                	new Thread(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            // Create a cloud object and get the XML
+                            Cloud cloud = new Cloud();
+                            //InputStream stream = cloud.openFromCloud()                   
+                            
+                            cloud.logOut(user, password);
+                        }
+               	 }).start();
+                	
+            		Intent intent = new Intent(Leaderboard.this, WelcomeScreen.class);
+            		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            		startActivity(intent);
+                }
+            });
+            builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    // User wants to stay here, do nothing.
+                }
+            });
+        			
+            if (!((Activity) this).isFinishing()) {
+            	builder.show();
+            }
+            warningDialog.dismiss();
+            return true;
+        }
+
+        return super.onKeyDown(keyCode, event);
+    }
 }

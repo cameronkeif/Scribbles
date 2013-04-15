@@ -183,11 +183,6 @@ public class WelcomeScreen extends Activity {
 		startActivity(intent);
     }
     
-    public void onLeaderboard(View view){
-    	Intent intent = new Intent (this, Leaderboard.class);
-    	startActivity(intent);
-    }
-    
     public void onLogin(String username, String password){
         
         if (saveUserCheckBox.isChecked()){

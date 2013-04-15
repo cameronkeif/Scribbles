@@ -58,27 +58,9 @@ public class GuessActivity extends Activity {
     private boolean timeExpired = false;
     
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected synchronized void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_guess);
-		/* Code from when guess activity was called from draw activity.
-		/*
-		
-		player1Score = bundle.getInt(PLAYER1SCORE);
-        player1Name = bundle.getString(PLAYER1);
-        player2Name = bundle.getString(PLAYER2);
-        whosDrawing = bundle.getInt(WHOSDRAWING);
-        Hint = bundle.getString(HINT);
-        Answer = bundle.getString(ANSWER);
-        Category = bundle.getString(TOPIC);
-        whosDrawing = bundle.getInt(WHOSDRAWING);
-        */
-		
-		/* Need to fill:
-		 * username/score
-		 * topic
-		 * hint
-		 */
 		
 		Bundle bundle = getIntent().getExtras();
 		
@@ -135,6 +117,7 @@ public class GuessActivity extends Activity {
                             
                             // Load this line of XML
                             guessingView.loadXml(color, thickness, startX, startY, endX, endY);
+                            guessingView.postInvalidate();
                             
                             Cloud.skipToEndTag(xml);
                         }
@@ -160,15 +143,13 @@ public class GuessActivity extends Activity {
                 public void run() {
                     if(fail1) {
                         Toast.makeText(guessingView.getContext(), R.string.loading_fail, Toast.LENGTH_SHORT).show();
-                    }else {
-                        // Success!
-                        // Need to update the UI, load the picture.
-                        }
+                    }
                     }  
             });
         }  
     }).start();
         
+		
 		final TextView myTimer = (TextView) findViewById(R.id.theTimer);
 		final TextView hintText = (TextView) findViewById(R.id.Hint);
 		
@@ -277,12 +258,9 @@ public class GuessActivity extends Activity {
 			intent.putExtra(DRAWFLAG, "1"); // This will of course be 1, since the user has guessed.
 				
 				
-				// Switch the drawer
-//NEED TO CHANGE THE FLAG HERE!!!!
-				
-				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				startActivity(intent);
-				finish();
+			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(intent);
+			finish();
 		}
     }
 	
@@ -336,6 +314,19 @@ public class GuessActivity extends Activity {
             builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                 	// User wants to go back to the welcome screen
+                	
+                	new Thread(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            // Create a cloud object and get the XML
+                            Cloud cloud = new Cloud();
+                            //InputStream stream = cloud.openFromCloud()                   
+                            
+                            cloud.logOut(user, pw);
+                        }
+               	 }).start();
+                	
             		Intent intent = new Intent(GuessActivity.this, WelcomeScreen.class);
             		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             		startActivity(intent);

@@ -709,7 +709,5 @@ public class DrawingView extends View {
 		line.endY = endY;
 		
 		params.lines.add(line);
-
-		invalidate();
 	}
 }
