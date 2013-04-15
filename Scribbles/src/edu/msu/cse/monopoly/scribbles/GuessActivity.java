@@ -13,6 +13,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.Html;
+import android.util.Log;
 import android.util.Xml;
 import android.view.KeyEvent;
 import android.view.View;
@@ -113,7 +114,7 @@ public class GuessActivity extends Activity {
                     	}
                     	Cloud.skipToEndTag(xml);
                         while(xml.nextTag() == XmlPullParser.START_TAG) {
-                            if(xml.getName().equals("")) {                                
+                            if(xml.getName().equals("") || xml.getName().equals("proj02")) {                                
                                 break;
                             }
                             
@@ -139,6 +140,7 @@ public class GuessActivity extends Activity {
                     fail = true;
                 } catch(XmlPullParserException ex) {
                     fail = true;
+                    Log.e("xml error", ex.getMessage());
                 } finally {
                     try {
                         stream.close(); 
