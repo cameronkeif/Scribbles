@@ -1,0 +1,61 @@
+
+Project 2 Submission
+
+Group Name:   Barrel of Monkeys
+
+When you have completed the project, complete the following form and include it with your project. Include this file as a text file in the folder with your project when you turn it in. 
+
+For the Checkpoint, Describe a sequence of operations to create a new account and log onto the server:
+
+A functionality checklist will not be provided for the project. Treat this as you would a request from a client and identify what the client requires. 
+
+Member 1: Thomas Smale
+
+Responsiblity: Server Side
+
+
+
+Member 2: Richard Hofmeister
+
+Responsiblity: Sequencing
+
+
+
+Member 3: Cameron Keif
+
+Responsiblity: client side
+
+User account the server-side communications is running under: smaletho
+
+Paths to all server-side scripts: 
+https://www.cse.msu.edu/~smaletho/proj02/login.php
+https://www.cse.msu.edu/~smaletho/proj02/logout.php
+https://www.cse.msu.edu/~smaletho/proj02/new-user.php
+https://www.cse.msu.edu/~smaletho/proj02/save-pic.php
+https://www.cse.msu.edu/~smaletho/proj02/guess.php
+https://www.cse.msu.edu/~smaletho/proj02/connect.php
+https://www.cse.msu.edu/~smaletho/proj02/getUser.php
+https://www.cse.msu.edu/~smaletho/proj02/load-pic.php
+https://www.cse.msu.edu/~smaletho/proj02/notify.php
+https://www.cse.msu.edu/~smaletho/proj02/scoreboard.php
+
+Where in the code the passive connection timeout is set (provide a script name and line number):
+The user remains logged in until they press the back button to leave the application and the logout script is called.
+
+Calls in the code to the server (provide a class name and function, or URL used for debugging):
+
+Cloud.java:
+	openFromCloud
+	saveToCloud
+	guessCloud
+	logout
+	scoreboardcloud
+	gcmNotify
+
+GCMIntentService
+	onMessage
+
+WelcomeScreen.java:
+	onCreate
+	onBegin
+	onNewUser
