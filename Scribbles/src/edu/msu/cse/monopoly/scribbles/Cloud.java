@@ -27,6 +27,7 @@ public class Cloud {
     private static final String SAVE_URL = "https://www.cse.msu.edu/~smaletho/cse476/proj02/save-pic.php";
     private static final String LOAD_URL = "https://www.cse.msu.edu/~smaletho/cse476/proj02/load-pic.php";
     private static final String GUESS_URL = "https://www.cse.msu.edu/~smaletho/cse476/proj02/guess.php";
+    private static final String SCOREBOARD_URL = "https://www.cse.msu.edu/~smaletho/cse476/proj02/scoreboard.php";
 	private static final String UTF8 = "UTF-8";
 	
     /**
@@ -339,6 +340,31 @@ public class Cloud {
             return null;
         }
     
+    }
+    
+    public InputStream scoreboardCloud(){
+    	// Create a get query
+        String query = LOGOUT_URL + "?magic=" + MAGIC;
+    	
+        try {
+            URL url = new URL(query);
+
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            int responseCode = conn.getResponseCode();
+            if(responseCode != HttpURLConnection.HTTP_OK) {
+                return null;
+            }
+            
+            InputStream stream = conn.getInputStream();
+            return stream;
+
+        } catch (MalformedURLException e) {
+            // Should never happen
+            return null;
+        } catch (IOException ex) {
+            return null;
+        }
+    	
     }
 }
 

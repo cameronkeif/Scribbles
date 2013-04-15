@@ -80,6 +80,8 @@
     <string name="title_activity_lobby">LobbyActivity</string>
     <string name="PlayRound">Play a Round!</string>
     <string name="playTurn">Take a Turn!</string>
+    <string name="leaderboard_fail">Unable to load leaderboard.</string>
     <string name="notification_request">Notification Request</string>
+    <string name="empty"></string>
 
 </resources>

@@ -30,7 +30,7 @@
                 android:id="@+id/number1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/Leaderboard"
+                android:text="@string/empty"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/white" />
 
@@ -38,7 +38,7 @@
                 android:id="@+id/number2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/Leaderboard"
+                android:text="@string/empty"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/white" />
 
@@ -46,7 +46,7 @@
                 android:id="@+id/number3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/Leaderboard"
+                android:text="@string/empty"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/white" />
 
@@ -54,7 +54,7 @@
                 android:id="@+id/number4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/Leaderboard"
+                android:text="@string/empty"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/white" />
 
@@ -62,7 +62,7 @@
                 android:id="@+id/number5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/Leaderboard"
+                android:text="@string/empty"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/white" />
 
@@ -70,7 +70,7 @@
                 android:id="@+id/number6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/Leaderboard"
+                android:text="@string/empty"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/white" />
 
@@ -78,7 +78,7 @@
                 android:id="@+id/number7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/Leaderboard"
+                android:text="@string/empty"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/white" />
 
@@ -86,7 +86,7 @@
                 android:id="@+id/number8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/Leaderboard"
+                android:text="@string/empty"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/white" />
 
@@ -94,7 +94,7 @@
                 android:id="@+id/number9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/Leaderboard"
+                android:text="@string/empty"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/white" />
 
@@ -102,7 +102,7 @@
                 android:id="@+id/number10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/Leaderboard"
+                android:text="@string/empty"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/white" />
 
@@ -118,7 +118,7 @@
                 android:id="@+id/score1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/score"
+                android:text="@string/empty"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/white" />
 
@@ -126,7 +126,7 @@
                 android:id="@+id/score2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/score"
+                android:text="@string/empty"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/white" />
 
@@ -134,7 +134,7 @@
                 android:id="@+id/score3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/score"
+                android:text="@string/empty"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/white" />
 
@@ -142,7 +142,7 @@
                 android:id="@+id/score4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/score"
+                android:text="@string/empty"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/white" />
 
@@ -150,7 +150,7 @@
                 android:id="@+id/score5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/score"
+                android:text="@string/empty"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/white" />
 
@@ -158,7 +158,7 @@
                 android:id="@+id/score6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/score"
+                android:text="@string/empty"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/white" />
 
@@ -166,7 +166,7 @@
                 android:id="@+id/score7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/score"
+                android:text="@string/empty"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/white" />
 
@@ -174,7 +174,7 @@
                 android:id="@+id/score8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/score"
+                android:text="@string/empty"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/white" />
 
@@ -182,7 +182,7 @@
                 android:id="@+id/score9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/score"
+                android:text="@string/empty"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/white" />
 
@@ -190,7 +190,7 @@
                 android:id="@+id/score10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/score"
+                android:text="@string/empty"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/white" />
 
