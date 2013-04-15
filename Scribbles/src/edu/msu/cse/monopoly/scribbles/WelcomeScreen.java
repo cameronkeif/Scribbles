@@ -62,7 +62,7 @@ public class WelcomeScreen extends Activity {
         if(regId.equals("")){
         	GCMRegistrar.register(this,GCMIntentService.SENDER_ID);
         } else {
-        	// do something with regId…
+        	// do something with regIdï¿½
         }
 	}
 	
@@ -195,18 +195,25 @@ public class WelcomeScreen extends Activity {
         	loginPreferencesEditor.commit();
         }
         
-        String query = "https://www.cse.msu.edu/~smaletho/cse476/proj02/connect.php?gcmid=" + regId + "&user=" + username;
+ 	final String tempUser = username;
         
-        try {
-	        URL url = new URL(query);
-	
-	        url.openConnection();
-        
-        } catch (MalformedURLException e) {
-            // Should never happen
-        } catch (IOException ex) {
+        new Thread(new Runnable() {
+
+            String url = "https://www.cse.msu.edu/~smaletho/cse476/proj02/connect.php?gcmid=" + regId + "&user=" + tempUser;
         	
-        }
+            @Override
+            public void run() {
+            	        
+		        //String url = "http://your.domain.com/path/to/file.php";
+		        HttpClient client = new DefaultHttpClient();
+		
+		        try {
+		          client.execute(new HttpGet(url));
+		        } catch(IOException e) {
+		          //do something here
+		        }
+            }
+        }).start();
         
     	Intent intent = new Intent(this, Leaderboard.class);
     	intent.putExtra(USERNAME, username);
