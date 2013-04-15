@@ -10,16 +10,30 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.util.Xml;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class Leaderboard extends Activity {
-
+    private static final String USERNAME = "username";
+    private static final String PASSWORD = "password";
+    private static final String DRAWFLAG = "drawflag";
+	
+	
 	private TextView first, second, third, fourth, fifth, 
 	sixth, seventh, eighth, ninth, tenth;
 
+	// Username
+	private String user = "";
+	
+	// Password
+	private String password = "";
+	
+	// Flag for the user's turn
+	private String drawFlag = "";
+	
 	private TextView firstScore, secondScore, thirdScore, fourthScore, fifthScore, 
 	sixthScore, seventhScore, eighthScore, ninthScore, tenthScore;
 
@@ -57,6 +71,18 @@ public class Leaderboard extends Activity {
 		eighthScore =(TextView) findViewById(R.id.score8);
 		ninthScore =(TextView) findViewById(R.id.score9);
 		tenthScore= (TextView) findViewById(R.id.score10);
+		
+		Bundle bundle = getIntent().getExtras();
+		
+		user = bundle.getString(USERNAME);
+		password = bundle.getString(PASSWORD);
+		drawFlag = bundle.getString(DRAWFLAG);
+		
+		// Sets the username above the Play button.
+		if (user != null){
+			TextView userText = (TextView) findViewById(R.id.textViewUser);
+			userText.setText(getString(R.string.user) + user);
+		}
 		
 		tvList = new ArrayList <TextView>(Arrays.asList(first, second, third, fourth, fifth,
 				sixth, seventh, eighth, ninth, tenth));
@@ -98,7 +124,7 @@ public class Leaderboard extends Activity {
 	                            String user = xml.getAttributeValue(null, "user");
 	                            String score = xml.getAttributeValue(null, "score");
 	                            
-	                            updateText(tvList.get(scoreCount), scoreList.get(scoreCount), user, score);
+	                            updateText(tvList.get(scoreCount), scoreList.get(scoreCount), user, score, scoreCount);
 	                            
                             	scoreCount++;
 	                            Cloud.skipToEndTag(xml);
@@ -149,12 +175,12 @@ public class Leaderboard extends Activity {
      * @param user The username
      * @param score Their score
      */
-	public void updateText(final TextView userText, final TextView scoreText, final String user, final String score)
+	public void updateText(final TextView userText, final TextView scoreText, final String user, final String score, final int scoreCount)
 	{
 		userText.post(new Runnable(){
 			 @Override
 			 public void run(){
-				 userText.setText(user);
+				 userText.setText(Integer.toString(scoreCount + 1) + ". " + user + ": ");
 			 }
 		});
 		
@@ -166,4 +192,28 @@ public class Leaderboard extends Activity {
 		});
 	}
 	
+	/**
+	 * Handle play button press
+	 * @param view The button
+	 */
+	public void onPlay(View view){
+		if(drawFlag.equals("1")){ // It's their turn to draw
+			Intent intent = new Intent(this, DrawActivity.class);
+			
+			intent.putExtra(USERNAME, user);
+			intent.putExtra(DRAWFLAG, drawFlag);
+			intent.putExtra(PASSWORD, password);
+			
+			startActivity(intent);
+		}
+		else{ // It's their turn to guess.
+			Intent intent = new Intent(this, GuessActivity.class);
+			
+			intent.putExtra(USERNAME, user);
+			intent.putExtra(DRAWFLAG, drawFlag);
+			intent.putExtra(PASSWORD, password);
+			
+			startActivity(intent);
+		}
+	}
 }

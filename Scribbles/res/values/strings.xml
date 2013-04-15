@@ -84,5 +84,8 @@
     <string name="leaderboard_fail">Unable to load leaderboard.</string>
     <string name="notification_request">Notification Request</string>
     <string name="empty"></string>
+    <string name="play_turn">Play Turn</string>
+    <string name="loggedIn">Logged in as:</string>
+    <string name="user">"User: "</string>
 
 </resources>

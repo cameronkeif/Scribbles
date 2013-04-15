@@ -2,13 +2,8 @@ package edu.msu.cse.monopoly.scribbles;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLEncoder;
-
-import javax.net.ssl.HttpsURLConnection;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -38,6 +33,7 @@ public class WelcomeScreen extends Activity {
     private EditText passwordEditText;
     private static final String USERNAME = "username";
     private static final String PASSWORD = "password";
+    private static final String DRAWFLAG = "drawflag";
     private String drawFlag;
     private String regId;
 
@@ -216,22 +212,12 @@ public class WelcomeScreen extends Activity {
         } catch (IOException ex) {
         	
         }
- 
-        //if username's flag is 0 go to drawing
         
-    	Intent intent = new Intent(this, DrawActivity.class);
+    	Intent intent = new Intent(this, Leaderboard.class);
     	intent.putExtra(USERNAME, username);
     	intent.putExtra(PASSWORD, password);
-    	intent.putExtra("draw", drawFlag);
+    	intent.putExtra(DRAWFLAG, drawFlag);
 		startActivity(intent);
-    	//else{
-    	//if there is a drawing to guess
-    	//Intent intent = new Intent(this, GuessActivity.class);
-    	//intent.putExtra(USERNAME, username);
-    	//intent.putExtra(PASSWORD, password);
-		//startActivity(intent);
-		//else
-		//toast window saying there are no drawings available currently
 		
     }
 }

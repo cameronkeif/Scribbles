@@ -287,7 +287,7 @@ public class DrawActivity extends Activity {
                     });
                 }
                 else{
-                	//Toast.makeText(drawingView.getContext(), R.string.saving_success, Toast.LENGTH_SHORT).show();
+                	// Need to run notify.php
                 	finish(); // Exit the activity
                 }
             }
