@@ -107,17 +107,28 @@ public class GuessActivity extends Activity {
                     xml.require(XmlPullParser.START_TAG, null, "proj02");
                     String status = xml.getAttributeValue(null, "status");
                     if(status.equals("yes")) {
+                    	xml.nextTag();
                     	if(xml.nextTag() == XmlPullParser.START_TAG){
                     		Hint = xml.getAttributeValue(null, "hint");
                     		Answer = xml.getAttributeValue(null, "solution");
                     		Category = xml.getAttributeValue(null, "category");
                     	}
+                    	Cloud.skipToEndTag(xml);
                         while(xml.nextTag() == XmlPullParser.START_TAG) {
                             if(xml.getName().equals("")) {                                
-                                // do something with the hatting tag...
-                            	guessingView.loadXml(xml);
                                 break;
                             }
+                            
+                            // Initialize the parameters for this line.
+                            int color = Integer.parseInt(xml.getAttributeValue(null, "color")); 
+                            int thickness = Integer.parseInt(xml.getAttributeValue(null, "thickness"));
+                            float startX = Float.parseFloat(xml.getAttributeValue(null, "startX"));
+                            float startY = Float.parseFloat(xml.getAttributeValue(null, "startY"));
+                            float endX = Float.parseFloat(xml.getAttributeValue(null, "endX"));
+                            float endY = Float.parseFloat(xml.getAttributeValue(null, "endY"));
+                            
+                            // Load this line of XML
+                            guessingView.loadXml(color, thickness, startX, startY, endX, endY);
                             
                             Cloud.skipToEndTag(xml);
                         }

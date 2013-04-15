@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlSerializer;
 
 import android.content.Context;
@@ -685,16 +683,16 @@ public class DrawingView extends View {
 		}
     }
 	
-	public void loadXml(XmlPullParser xml) throws IOException, XmlPullParserException {
+	//public void loadXml(XmlPullParser xml) throws IOException, XmlPullParserException {
         // Create a new set of parameters
-        final Parameters newParams = new Parameters();
+      //  final Parameters newParams = new Parameters();
         
         // Load into it
-        post(new Runnable() {
+        //post(new Runnable() {
 
-            @Override
-            public void run() {
-                params = newParams;
+          //  @Override
+            //public void run() {
+              //  params = newParams;
                 
                 // Ensure the options are all set
                 /*setColor(params.color);
@@ -702,9 +700,36 @@ public class DrawingView extends View {
                 setHat(params.hat);
                 setFeather(params.feather);*/
                 
-            }
+            //}
             
-        });
+       // });
         
-    }
+    //}
+	
+	/**
+	 * Creates a line from xml, adds it to the list of lines.
+	 * @param color
+	 * @param thickness
+	 * @param startX
+	 * @param startY
+	 * @param endX
+	 * @param endY
+	 */
+	public void loadXml(int color, int thickness, float startX, float startY, float endX, float endY)
+	{
+		Line line = new Line(startX, startY);
+		
+		line.setColor(color);
+		line.setThickness(thickness);
+		
+		// These should be setters... Do this later!
+		line.endX = endX;
+		line.endY = endY;
+		
+		params.lines.add(line);
+		int x;
+		x = 2;
+		x++;
+		invalidate();
+	}
 }
