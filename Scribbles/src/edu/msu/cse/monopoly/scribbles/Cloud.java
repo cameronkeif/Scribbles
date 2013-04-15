@@ -344,7 +344,7 @@ public class Cloud {
     
     public InputStream scoreboardCloud(){
     	// Create a get query
-        String query = LOGOUT_URL + "?magic=" + MAGIC;
+        String query = SCOREBOARD_URL + "?magic=" + MAGIC;
     	
         try {
             URL url = new URL(query);

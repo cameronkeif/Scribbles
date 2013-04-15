@@ -33,7 +33,7 @@ public class DrawActivity extends Activity {
     private static final String ANSWER = "answer";
     private static final String MOVETOGGLE = "moveToggle";
     private static final String WHOSDRAWING = "whosDrawing";
-    private static final String PARAMETERS = "parameters";
+    //private static final String PARAMETERS = "parameters";
     
     private static final String USERNAME = "username";
     private static final String PASSWORD = "password";
@@ -281,12 +281,14 @@ public class DrawActivity extends Activity {
                         if(!ok) {
                             Toast.makeText(drawingView.getContext(), R.string.saving_fail, Toast.LENGTH_SHORT).show();
                         }
-                        else{
-                        	finish(); // Exit the activity.
-                        }
+                        	
                     }
                     
                     });
+                }
+                else{
+                	//Toast.makeText(drawingView.getContext(), R.string.saving_success, Toast.LENGTH_SHORT).show();
+                	finish(); // Exit the activity
                 }
             }
     	}).start();

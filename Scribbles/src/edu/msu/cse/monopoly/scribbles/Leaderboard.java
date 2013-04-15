@@ -24,12 +24,10 @@ public class Leaderboard extends Activity {
 	sixthScore, seventhScore, eighthScore, ninthScore, tenthScore;
 
 	// List containing all of the TextViews.
-	private ArrayList <TextView> tvList = new ArrayList <TextView>(Arrays.asList(first, second, third, fourth, fifth,
-			sixth, seventh, eighth, ninth, tenth));
+	private ArrayList <TextView> tvList = null;
 	
 	// List containing all of the scores.
-	private ArrayList <TextView> scoreList = new ArrayList <TextView>(Arrays.asList(firstScore, secondScore, thirdScore, 
-			fourthScore, fifthScore, sixthScore, seventhScore, eighthScore, ninthScore, tenthScore));
+	private ArrayList <TextView> scoreList = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +58,12 @@ public class Leaderboard extends Activity {
 		ninthScore =(TextView) findViewById(R.id.score9);
 		tenthScore= (TextView) findViewById(R.id.score10);
 		
+		tvList = new ArrayList <TextView>(Arrays.asList(first, second, third, fourth, fifth,
+				sixth, seventh, eighth, ninth, tenth));
+		
+		scoreList = new ArrayList <TextView>(Arrays.asList(firstScore, secondScore, thirdScore, 
+				fourthScore, fifthScore, sixthScore, seventhScore, eighthScore, ninthScore, tenthScore));
+		
 		scoreUpdate();
 		
 	}
@@ -89,16 +93,13 @@ public class Leaderboard extends Activity {
 	                    	if(xml.nextTag() == XmlPullParser.START_TAG){
 	                    	}
 	                        while(xml.nextTag() == XmlPullParser.START_TAG) {
-	                        	String s = xml.getName();
 	                            if(xml.getName().equals("") || scoreCount >= 10) {                                
 	                                break;
 	                            }
 	                            String user = xml.getAttributeValue(null, "user");
 	                            String score = xml.getAttributeValue(null, "score");
 	                            
-	                            // Set the text for the next line of the leaderboard
-	                            tvList.get(scoreCount).setText(user);
-	                            scoreList.get(scoreCount).setText(score);
+	                            updateText(tvList.get(scoreCount), scoreList.get(scoreCount), user, score);
 	                            
                             	scoreCount++;
 	                            Cloud.skipToEndTag(xml);
@@ -142,6 +143,28 @@ public class Leaderboard extends Activity {
     	finish(); // This destroys the activity, which is what we want.
     }
 
-	
+    /**
+     * Updates an entry in the scoreboard
+     * @param userText The username textview
+     * @param scoreText The score textview
+     * @param user The username
+     * @param score Their score
+     */
+	public void updateText(final TextView userText, final TextView scoreText, final String user, final String score)
+	{
+		userText.post(new Runnable(){
+			 @Override
+			 public void run(){
+				 userText.setText(user);
+			 }
+		});
+		
+		scoreText.post(new Runnable(){
+			 @Override
+			 public void run(){
+				 scoreText.setText(score);
+			 }
+		});
+	}
 	
 }
