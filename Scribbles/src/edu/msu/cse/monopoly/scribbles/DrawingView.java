@@ -322,7 +322,7 @@ public class DrawingView extends View {
      * @param canvas canvas to draw on.
      */
     @Override
-    protected void onDraw(Canvas canvas) {
+    protected synchronized void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         
         canvas.save();
@@ -697,7 +697,7 @@ public class DrawingView extends View {
 	 * @param endX
 	 * @param endY
 	 */
-	public void loadXml(int color, int thickness, float startX, float startY, float endX, float endY)
+	public synchronized void loadXml(int color, int thickness, float startX, float startY, float endX, float endY)
 	{
 		Line line = new Line(startX, startY);
 		
