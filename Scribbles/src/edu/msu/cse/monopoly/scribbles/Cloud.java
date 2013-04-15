@@ -289,7 +289,7 @@ public class Cloud {
      */
     public InputStream guessCloud(String user, String password, String drawingID, int points ) {
         // Create a get query
-        String query = GUESS_URL + "?user=" + user + "&magic=" + MAGIC + "&pw=" + password + "&drawing_id" + drawingID +
+        String query = GUESS_URL + "?user=" + user + "&magic=" + MAGIC + "&pw=" + password + "&name=" + drawingID +
         		"&score=" + Integer.toString(points);
         
         try {

@@ -269,7 +269,7 @@ public class GuessActivity extends Activity {
 			}).start();
 			
 			Intent intent;
-			intent = new Intent(this, LobbyActivity.class);
+			intent = new Intent(this, Leaderboard.class);
 				
 			// Put the player's info in the bundle
 			intent.putExtra(USERNAME, user);
